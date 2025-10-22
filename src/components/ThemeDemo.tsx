@@ -122,7 +122,7 @@ export function ThemeDemo() {
                   padding: '12px',
                   borderRadius: '8px',
                   backgroundColor: getThemeColor(colors.background.default),
-                  border: `1px solid ${getThemeColor(colors.border.light)}`,
+                  border: `1px solid ${getThemeColor(colors.border.default)}`,
                 }}
               >
                 <span style={{ color: getThemeColor(colors.text.primary) }}>
@@ -169,25 +169,25 @@ export function ThemeDemo() {
                   fontWeight: '600',
                   backgroundColor: getThemeColor(
                     badge.type === 'success'
-                      ? colors.badge.success.background
+                      ? colors.semantic.positive
                       : badge.type === 'warning'
-                      ? colors.badge.warning.background
+                      ? colors.semantic.warning
                       : badge.type === 'danger'
-                      ? colors.badge.danger.background
+                      ? colors.semantic.negative
                       : badge.type === 'info'
-                      ? colors.badge.info.background
-                      : colors.badge.primary.background
-                  ),
+                      ? colors.semantic.info
+                      : colors.brand.primary
+                  ) + '20',
                   color: getThemeColor(
                     badge.type === 'success'
-                      ? colors.badge.success.text
+                      ? colors.semantic.positive
                       : badge.type === 'warning'
-                      ? colors.badge.warning.text
+                      ? colors.semantic.warning
                       : badge.type === 'danger'
-                      ? colors.badge.danger.text
+                      ? colors.semantic.negative
                       : badge.type === 'info'
-                      ? colors.badge.info.text
-                      : colors.badge.primary.text
+                      ? colors.semantic.info
+                      : colors.brand.primary
                   ),
                 }}
               >

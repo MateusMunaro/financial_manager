@@ -59,7 +59,7 @@ export default function LiquidGlassDemo() {
               borderRadius: '16px',
               padding: '1.5rem',
               backdropFilter: 'blur(12px)',
-              boxShadow: getThemeColor(colors.shadow.glass),
+              boxShadow: getThemeColor(colors.shadow.md),
             }}
           >
             <h3
@@ -93,7 +93,7 @@ export default function LiquidGlassDemo() {
               borderRadius: '16px',
               padding: '1.5rem',
               backdropFilter: 'blur(12px)',
-              boxShadow: getThemeColor(colors.shadow.glass),
+              boxShadow: getThemeColor(colors.shadow.md),
             }}
           >
             <h3
@@ -127,28 +127,28 @@ export default function LiquidGlassDemo() {
               borderRadius: '16px',
               padding: '1.5rem',
               backdropFilter: 'blur(12px)',
-              boxShadow: getThemeColor(colors.shadow.glass),
+              boxShadow: getThemeColor(colors.shadow.md),
             }}
           >
             <h3
               style={{
-                color: getThemeColor(colors.brand.purple),
+                color: getThemeColor(colors.brand.secondary),
                 marginBottom: '0.5rem',
                 fontSize: '1.25rem',
                 fontWeight: '600',
               }}
             >
-              Purple Color
+              Secondary Color
             </h3>
             <p style={{ color: getThemeColor(colors.text.secondary) }}>
-              Apple Purple - Elegância e criatividade
+              Oceanic Depth - Elegância e criatividade
             </p>
             <div
               style={{
                 marginTop: '1rem',
                 height: '60px',
                 borderRadius: '12px',
-                background: getThemeColor(colors.brand.purple),
+                background: getThemeColor(colors.brand.secondary),
               }}
             />
           </div>
@@ -178,14 +178,13 @@ export default function LiquidGlassDemo() {
             { name: 'Negative', color: colors.semantic.negative, label: 'Erro' },
             { name: 'Warning', color: colors.semantic.warning, label: 'Aviso' },
             { name: 'Info', color: colors.semantic.info, label: 'Info' },
-            { name: 'Teal', color: colors.semantic.teal, label: 'Teal' },
-            { name: 'Pink', color: colors.semantic.pink, label: 'Pink' },
+            { name: 'Neutral', color: colors.semantic.neutral, label: 'Neutral' },
           ].map((item) => (
             <div
               key={item.name}
               style={{
-                background: getThemeColor(colors.card.glass),
-                border: `1px solid ${getThemeColor(colors.border.light)}`,
+                background: getThemeColor(colors.background.glass),
+                border: `1px solid ${getThemeColor(colors.border.default)}`,
                 borderRadius: '12px',
                 padding: '1rem',
                 backdropFilter: 'blur(8px)',
@@ -303,50 +302,6 @@ export default function LiquidGlassDemo() {
           </button>
         </div>
 
-        {/* Badges Demo */}
-        <h2
-          style={{
-            color: getThemeColor(colors.text.primary),
-            fontSize: '1.75rem',
-            fontWeight: '600',
-            marginBottom: '1.5rem',
-          }}
-        >
-          Badges Glass
-        </h2>
-        <div
-          style={{
-            display: 'flex',
-            flexWrap: 'wrap',
-            gap: '0.75rem',
-            marginBottom: '3rem',
-          }}
-        >
-          {[
-            { name: 'Primary', bg: colors.badge.primary.background, text: colors.badge.primary.text },
-            { name: 'Success', bg: colors.badge.success.background, text: colors.badge.success.text },
-            { name: 'Danger', bg: colors.badge.danger.background, text: colors.badge.danger.text },
-            { name: 'Warning', bg: colors.badge.warning.background, text: colors.badge.warning.text },
-            { name: 'Info', bg: colors.badge.info.background, text: colors.badge.info.text },
-            { name: 'Purple', bg: colors.badge.purple.background, text: colors.badge.purple.text },
-          ].map((badge) => (
-            <span
-              key={badge.name}
-              style={{
-                background: getThemeColor(badge.bg),
-                color: getThemeColor(badge.text),
-                padding: '0.5rem 1rem',
-                borderRadius: '20px',
-                fontSize: '0.875rem',
-                fontWeight: '600',
-                backdropFilter: 'blur(8px)',
-              }}
-            >
-              {badge.name}
-            </span>
-          ))}
-        </div>
-
         {/* Gradients Demo */}
         <h2
           style={{
@@ -367,10 +322,7 @@ export default function LiquidGlassDemo() {
         >
           {[
             { name: 'Primary', gradient: colors.gradient.primary },
-            { name: 'Success', gradient: colors.gradient.success },
-            { name: 'Danger', gradient: colors.gradient.danger },
-            { name: 'Sunset', gradient: colors.gradient.sunset },
-            { name: 'Ocean', gradient: colors.gradient.ocean },
+            { name: 'Glass', gradient: colors.gradient.glass },
           ].map((item) => (
             <div
               key={item.name}
