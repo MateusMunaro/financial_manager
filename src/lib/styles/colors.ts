@@ -1,13 +1,13 @@
 /**
- * Sistema de Cores - Liquid Glass Design
- * Inspirado no design moderno da Apple com efeitos de vidro líquido
- * 
+ * Sistema de Cores - Oceanic Depth Design
+ * Inspirado em uma paleta monocromática de azuis profundos e claros.
+ *
  * Este arquivo define cores para cada componente da aplicação,
- * organizadas por contexto (light/dark) seguindo a estética Liquid Glass:
- * - Superfícies translúcidas e vidradas
- * - Cores vibrantes mas suaves
+ * organizadas por contexto (light/dark) seguindo a estética Oceanic Depth:
+ * - Superfícies com gradientes de azul
+ * - Estilo corporativo, elegante e focado
  * - Sistema de profundidade com transparências
- * - Efeitos de difusão de luz
+ * - Foco em alto contraste e legibilidade
  */
 
 export type ThemeMode = 'light' | 'dark';
@@ -20,131 +20,117 @@ export interface ColorDefinition {
   dark: string;
 }
 
+// Paleta de cores base extraída da imagem
+const oceanicDepthPalette = {
+  darkest: '#021024',
+  dark: '#052659',
+  mid: '#5483B3',
+  light: '#7DA0CA',
+  lightest: '#C1E8FF',
+};
+
+
 /**
- * Cores do Sistema - Liquid Glass Base
+ * Cores do Sistema - Oceanic Depth Base
  */
 export const colors = {
-  // ===== BRAND COLORS - Liquid Glass =====
+  // ===== BRAND COLORS - Oceanic Depth =====
   brand: {
     primary: {
-      light: '#007AFF', // Apple Blue
-      dark: '#0A84FF',  // Brighter Apple Blue
+      light: oceanicDepthPalette.mid, // #5483B3
+      dark: oceanicDepthPalette.light, // #7DA0CA
     },
     secondary: {
-      light: '#8E8E93', // Apple Gray
-      dark: '#98989D',
+      light: oceanicDepthPalette.dark, // #052659
+      dark: oceanicDepthPalette.mid, // #5483B3
     },
     accent: {
-      light: '#FF375F', // Apple Pink/Red
-      dark: '#FF453A',
-    },
-    purple: {
-      light: '#AF52DE', // Apple Purple
-      dark: '#BF5AF2',
-    },
-    teal: {
-      light: '#5AC8FA', // Apple Teal
-      dark: '#64D2FF',
+      light: oceanicDepthPalette.light, // #7DA0CA
+      dark: oceanicDepthPalette.lightest, // #C1E8FF
     },
   },
 
   // ===== BACKGROUNDS - Frosted Glass Effect =====
   background: {
     default: {
-      light: '#F2F2F7', // Apple System Gray 6
-      dark: '#000000',  // Pure black for OLED
+      light: '#F0F8FF', // AliceBlue, um branco azulado muito claro
+      dark: oceanicDepthPalette.darkest,   // #021024
     },
     paper: {
-      light: 'rgba(255, 255, 255, 0.8)', // Translucent white
-      dark: 'rgba(28, 28, 30, 0.85)',    // Translucent dark
+      light: 'rgba(255, 255, 255, 0.85)',
+      dark: 'rgba(5, 38, 89, 0.85)', // #052659 with alpha
     },
     elevated: {
-      light: 'rgba(255, 255, 255, 0.95)', // More opaque
-      dark: 'rgba(44, 44, 46, 0.92)',     // More opaque dark
+      light: 'rgba(255, 255, 255, 0.95)',
+      dark: 'rgba(5, 38, 89, 0.92)', // #052659 with alpha
     },
     overlay: {
-      light: 'rgba(0, 0, 0, 0.4)',
-      dark: 'rgba(0, 0, 0, 0.75)',
+      light: 'rgba(2, 16, 36, 0.4)',  // #021024 with alpha
+      dark: 'rgba(2, 16, 36, 0.75)',
     },
     blur: {
-      light: 'rgba(255, 255, 255, 0.7)',  // For backdrop-blur
-      dark: 'rgba(18, 18, 18, 0.75)',
+      light: 'rgba(240, 248, 255, 0.7)',
+      dark: 'rgba(5, 38, 89, 0.75)',   // #052659 with alpha
     },
     glass: {
-      light: 'rgba(255, 255, 255, 0.6)',  // Glass effect
-      dark: 'rgba(30, 30, 30, 0.7)',
+      light: 'rgba(255, 255, 255, 0.75)', // Mais transparência e branco puro
+      dark: 'rgba(5, 38, 89, 0.85)', // Mais opaco para melhor leitura no dark
     },
   },
 
   // ===== TEXT - Enhanced Contrast =====
   text: {
     primary: {
-      light: '#1C1C1E', // Apple Label
-      dark: '#FFFFFF',  // Pure white for dark mode
+      light: oceanicDepthPalette.darkest, // #021024
+      dark: oceanicDepthPalette.lightest, // #C1E8FF
     },
     secondary: {
-      light: '#3A3A3C', // Apple Secondary Label
-      dark: '#EBEBF5',  // 60% opacity white equivalent
+      light: oceanicDepthPalette.dark, // #052659
+      dark: oceanicDepthPalette.light, // #7DA0CA
     },
     tertiary: {
-      light: '#48484A', // Apple Tertiary Label
-      dark: '#EBEBF5',  // 30% opacity white equivalent
+      light: oceanicDepthPalette.mid, // #5483B3
+      dark: 'rgba(125, 160, 202, 0.7)', // #7DA0CA with alpha
     },
     disabled: {
-      light: '#C7C7CC', // Apple Quaternary Label
-      dark: '#48484A',
+      light: 'rgba(84, 131, 179, 0.5)',
+      dark: 'rgba(125, 160, 202, 0.4)',
     },
     inverse: {
       light: '#FFFFFF',
-      dark: '#1C1C1E',
+      dark: oceanicDepthPalette.darkest,
     },
     hint: {
-      light: '#8E8E93',
-      dark: '#8E8E93',
+      light: oceanicDepthPalette.mid,
+      dark: oceanicDepthPalette.dark,
     },
     onGlass: {
-      light: 'rgba(0, 0, 0, 0.85)',
-      dark: 'rgba(255, 255, 255, 0.95)',
+      light: 'rgba(2, 16, 36, 0.9)',
+      dark: 'rgba(193, 232, 255, 0.95)',
     },
   },
 
-  // ===== SEMANTIC COLORS (FINANÇAS) - Liquid Vibrant =====
+  // ===== SEMANTIC COLORS - Mantendo a clareza funcional =====
   semantic: {
     positive: {
-      light: '#34C759', // Apple Green
-      dark: '#30D158',
+      light: '#28a745', // Verde
+      dark: '#28a745',
     },
     negative: {
-      light: '#FF3B30', // Apple Red
-      dark: '#FF453A',
+      light: '#dc3545', // Vermelho
+      dark: '#dc3545',
     },
     neutral: {
-      light: '#FF9500', // Apple Orange
-      dark: '#FF9F0A',
+      light: oceanicDepthPalette.mid,
+      dark: oceanicDepthPalette.light,
     },
     info: {
-      light: '#007AFF', // Apple Blue
-      dark: '#0A84FF',
+      light: '#17a2b8', // Ciano/Azul claro
+      dark: '#17a2b8',
     },
     warning: {
-      light: '#FFCC00', // Apple Yellow
-      dark: '#FFD60A',
-    },
-    purple: {
-      light: '#AF52DE',
-      dark: '#BF5AF2',
-    },
-    pink: {
-      light: '#FF2D55',
-      dark: '#FF375F',
-    },
-    teal: {
-      light: '#5AC8FA',
-      dark: '#64D2FF',
-    },
-    indigo: {
-      light: '#5856D6',
-      dark: '#5E5CE6',
+      light: '#ffc107', // Amarelo
+      dark: '#ffc107',
     },
   },
 
@@ -152,99 +138,73 @@ export const colors = {
   button: {
     primary: {
       background: {
-        light: '#007AFF',
-        dark: '#0A84FF',
+        light: oceanicDepthPalette.mid,
+        dark: oceanicDepthPalette.light,
       },
       text: {
         light: '#FFFFFF',
-        dark: '#FFFFFF',
+        dark: oceanicDepthPalette.darkest,
       },
       hover: {
-        light: '#0051D5',
-        dark: '#409CFF',
+        light: oceanicDepthPalette.dark,
+        dark: oceanicDepthPalette.lightest,
       },
       active: {
-        light: '#003D99',
-        dark: '#0071E3',
+        light: oceanicDepthPalette.darkest,
+        dark: 'rgba(193, 232, 255, 0.9)',
       },
       disabled: {
-        light: 'rgba(0, 122, 255, 0.3)',
-        dark: 'rgba(10, 132, 255, 0.3)',
-      },
-      glass: {
-        light: 'rgba(0, 122, 255, 0.15)',
-        dark: 'rgba(10, 132, 255, 0.2)',
+        light: 'rgba(84, 131, 179, 0.3)',
+        dark: 'rgba(125, 160, 202, 0.3)',
       },
     },
     secondary: {
       background: {
-        light: 'rgba(142, 142, 147, 0.12)',
-        dark: 'rgba(142, 142, 147, 0.24)',
+        light: 'rgba(84, 131, 179, 0.12)',
+        dark: 'rgba(125, 160, 202, 0.24)',
       },
       text: {
-        light: '#007AFF',
-        dark: '#0A84FF',
+        light: oceanicDepthPalette.dark,
+        dark: oceanicDepthPalette.light,
       },
       hover: {
-        light: 'rgba(142, 142, 147, 0.18)',
-        dark: 'rgba(142, 142, 147, 0.32)',
-      },
-      active: {
-        light: 'rgba(142, 142, 147, 0.24)',
-        dark: 'rgba(142, 142, 147, 0.4)',
+        light: 'rgba(84, 131, 179, 0.18)',
+        dark: 'rgba(125, 160, 202, 0.32)',
       },
     },
     outline: {
-      border: {
-        light: 'rgba(0, 122, 255, 0.5)',
-        dark: 'rgba(10, 132, 255, 0.6)',
-      },
-      text: {
-        light: '#007AFF',
-        dark: '#0A84FF',
-      },
-      hover: {
-        light: 'rgba(0, 122, 255, 0.08)',
-        dark: 'rgba(10, 132, 255, 0.12)',
-      },
-    },
-    ghost: {
-      text: {
-        light: '#007AFF',
-        dark: '#0A84FF',
-      },
-      hover: {
-        light: 'rgba(0, 122, 255, 0.08)',
-        dark: 'rgba(10, 132, 255, 0.12)',
-      },
-    },
+        border: {
+            light: oceanicDepthPalette.mid,
+            dark: oceanicDepthPalette.light,
+        },
+        text: {
+            light: oceanicDepthPalette.mid,
+            dark: oceanicDepthPalette.light,
+        },
+        hover: {
+            light: 'rgba(84, 131, 179, 0.08)',
+            dark: 'rgba(125, 160, 202, 0.12)',
+        },
+    }
   },
 
   // ===== INPUTS - Glass Style =====
   input: {
     background: {
       light: 'rgba(255, 255, 255, 0.8)',
-      dark: 'rgba(44, 44, 46, 0.75)',
+      dark: 'rgba(5, 38, 89, 0.75)',
     },
     border: {
-      light: 'rgba(0, 0, 0, 0.1)',
-      dark: 'rgba(255, 255, 255, 0.15)',
+      light: 'rgba(84, 131, 179, 0.4)',
+      dark: 'rgba(125, 160, 202, 0.4)',
     },
     borderFocus: {
-      light: '#007AFF',
-      dark: '#0A84FF',
+      light: oceanicDepthPalette.mid,
+      dark: oceanicDepthPalette.light,
     },
     placeholder: {
-      light: 'rgba(60, 60, 67, 0.6)',
-      dark: 'rgba(235, 235, 245, 0.6)',
-    },
-    disabled: {
-      light: 'rgba(120, 120, 128, 0.16)',
-      dark: 'rgba(120, 120, 128, 0.32)',
-    },
-    error: {
-      light: '#FF3B30',
-      dark: '#FF453A',
+      light: 'rgba(84, 131, 179, 0.7)',
+      dark: 'rgba(125, 160, 202, 0.6)',
     },
   },
 
@@ -252,295 +212,63 @@ export const colors = {
   card: {
     background: {
       light: 'rgba(255, 255, 255, 0.85)',
-      dark: 'rgba(28, 28, 30, 0.88)',
+      dark: 'rgba(5, 38, 89, 0.88)', // #052659 with alpha
     },
     border: {
-      light: 'rgba(0, 0, 0, 0.08)',
-      dark: 'rgba(255, 255, 255, 0.12)',
+      light: 'rgba(193, 232, 255, 0.8)',
+      dark: 'rgba(84, 131, 179, 0.2)',
     },
     shadow: {
-      light: 'rgba(0, 0, 0, 0.06)',
+      light: 'rgba(2, 16, 36, 0.08)',
       dark: 'rgba(0, 0, 0, 0.4)',
-    },
-    hover: {
-      light: 'rgba(255, 255, 255, 0.95)',
-      dark: 'rgba(44, 44, 46, 0.92)',
-    },
-    glass: {
-      light: 'rgba(255, 255, 255, 0.65)',
-      dark: 'rgba(30, 30, 30, 0.75)',
-    },
-  },
-
-  // ===== NAVIGATION - Translucent =====
-  navigation: {
-    background: {
-      light: 'rgba(255, 255, 255, 0.8)',
-      dark: 'rgba(28, 28, 30, 0.85)',
-    },
-    item: {
-      light: '#1C1C1E',
-      dark: '#FFFFFF',
-    },
-    itemActive: {
-      light: '#007AFF',
-      dark: '#0A84FF',
-    },
-    itemHover: {
-      light: 'rgba(0, 122, 255, 0.08)',
-      dark: 'rgba(10, 132, 255, 0.12)',
-    },
-    border: {
-      light: 'rgba(0, 0, 0, 0.08)',
-      dark: 'rgba(255, 255, 255, 0.12)',
-    },
-  },
-
-  // ===== MODALS - Ultra Glass =====
-  modal: {
-    background: {
-      light: 'rgba(255, 255, 255, 0.95)',
-      dark: 'rgba(28, 28, 30, 0.95)',
-    },
-    overlay: {
-      light: 'rgba(0, 0, 0, 0.4)',
-      dark: 'rgba(0, 0, 0, 0.75)',
-    },
-    border: {
-      light: 'rgba(0, 0, 0, 0.1)',
-      dark: 'rgba(255, 255, 255, 0.15)',
-    },
-  },
-
-  // ===== TABLES - Refined =====
-  table: {
-    header: {
-      light: 'rgba(242, 242, 247, 0.9)',
-      dark: 'rgba(44, 44, 46, 0.9)',
-    },
-    row: {
-      light: 'rgba(255, 255, 255, 0.8)',
-      dark: 'rgba(28, 28, 30, 0.8)',
-    },
-    rowHover: {
-      light: 'rgba(0, 122, 255, 0.05)',
-      dark: 'rgba(10, 132, 255, 0.08)',
-    },
-    rowAlternate: {
-      light: 'rgba(242, 242, 247, 0.6)',
-      dark: 'rgba(44, 44, 46, 0.6)',
-    },
-    border: {
-      light: 'rgba(0, 0, 0, 0.08)',
-      dark: 'rgba(255, 255, 255, 0.12)',
-    },
-  },
-
-  // ===== CHARTS - Vibrant Apple Colors =====
-  chart: {
-    primary: {
-      light: '#007AFF',
-      dark: '#0A84FF',
-    },
-    secondary: {
-      light: '#5856D6',
-      dark: '#5E5CE6',
-    },
-    success: {
-      light: '#34C759',
-      dark: '#30D158',
-    },
-    danger: {
-      light: '#FF3B30',
-      dark: '#FF453A',
-    },
-    warning: {
-      light: '#FFCC00',
-      dark: '#FFD60A',
-    },
-    info: {
-      light: '#5AC8FA',
-      dark: '#64D2FF',
-    },
-    purple: {
-      light: '#AF52DE',
-      dark: '#BF5AF2',
-    },
-    pink: {
-      light: '#FF2D55',
-      dark: '#FF375F',
-    },
-    orange: {
-      light: '#FF9500',
-      dark: '#FF9F0A',
-    },
-    grid: {
-      light: 'rgba(0, 0, 0, 0.08)',
-      dark: 'rgba(255, 255, 255, 0.12)',
-    },
-  },
-
-  // ===== BADGES - Glass Pills =====
-  badge: {
-    primary: {
-      background: {
-        light: 'rgba(0, 122, 255, 0.15)',
-        dark: 'rgba(10, 132, 255, 0.25)',
-      },
-      text: {
-        light: '#007AFF',
-        dark: '#0A84FF',
-      },
-    },
-    success: {
-      background: {
-        light: 'rgba(52, 199, 89, 0.15)',
-        dark: 'rgba(48, 209, 88, 0.25)',
-      },
-      text: {
-        light: '#248A3D',
-        dark: '#30D158',
-      },
-    },
-    danger: {
-      background: {
-        light: 'rgba(255, 59, 48, 0.15)',
-        dark: 'rgba(255, 69, 58, 0.25)',
-      },
-      text: {
-        light: '#C7281E',
-        dark: '#FF453A',
-      },
-    },
-    warning: {
-      background: {
-        light: 'rgba(255, 204, 0, 0.15)',
-        dark: 'rgba(255, 214, 10, 0.25)',
-      },
-      text: {
-        light: '#B18B00',
-        dark: '#FFD60A',
-      },
-    },
-    info: {
-      background: {
-        light: 'rgba(90, 200, 250, 0.15)',
-        dark: 'rgba(100, 210, 255, 0.25)',
-      },
-      text: {
-        light: '#0D7EC1',
-        dark: '#64D2FF',
-      },
-    },
-    purple: {
-      background: {
-        light: 'rgba(175, 82, 222, 0.15)',
-        dark: 'rgba(191, 90, 242, 0.25)',
-      },
-      text: {
-        light: '#8944AB',
-        dark: '#BF5AF2',
-      },
     },
   },
 
   // ===== BORDERS & DIVIDERS - Subtle Glass =====
   border: {
     default: {
-      light: 'rgba(0, 0, 0, 0.08)',
-      dark: 'rgba(255, 255, 255, 0.12)',
-    },
-    light: {
-      light: 'rgba(0, 0, 0, 0.04)',
-      dark: 'rgba(255, 255, 255, 0.06)',
+      light: 'rgba(84, 131, 179, 0.2)',
+      dark: 'rgba(125, 160, 202, 0.25)',
     },
     strong: {
-      light: 'rgba(0, 0, 0, 0.15)',
-      dark: 'rgba(255, 255, 255, 0.2)',
-    },
-    glass: {
-      light: 'rgba(255, 255, 255, 0.5)',
-      dark: 'rgba(255, 255, 255, 0.1)',
+      light: 'rgba(84, 131, 179, 0.4)',
+      dark: 'rgba(125, 160, 202, 0.4)',
     },
   },
 
   // ===== SHADOWS - Liquid Depth =====
   shadow: {
     sm: {
-      light: '0 1px 3px rgba(0, 0, 0, 0.04), 0 1px 2px rgba(0, 0, 0, 0.02)',
-      dark: '0 1px 3px rgba(0, 0, 0, 0.3), 0 1px 2px rgba(0, 0, 0, 0.2)',
+      light: '0 1px 3px rgba(2, 16, 36, 0.08)',
+      dark: '0 1px 3px rgba(0, 0, 0, 0.3)',
     },
     md: {
-      light: '0 4px 12px rgba(0, 0, 0, 0.08), 0 2px 6px rgba(0, 0, 0, 0.04)',
-      dark: '0 4px 12px rgba(0, 0, 0, 0.5), 0 2px 6px rgba(0, 0, 0, 0.3)',
+      light: '0 4px 12px rgba(2, 16, 36, 0.1)',
+      dark: '0 4px 12px rgba(0, 0, 0, 0.5)',
     },
     lg: {
-      light: '0 12px 24px rgba(0, 0, 0, 0.1), 0 6px 12px rgba(0, 0, 0, 0.05)',
-      dark: '0 12px 24px rgba(0, 0, 0, 0.6), 0 6px 12px rgba(0, 0, 0, 0.4)',
-    },
-    xl: {
-      light: '0 24px 48px rgba(0, 0, 0, 0.12), 0 12px 24px rgba(0, 0, 0, 0.08)',
-      dark: '0 24px 48px rgba(0, 0, 0, 0.7), 0 12px 24px rgba(0, 0, 0, 0.5)',
-    },
-    glass: {
-      light: '0 8px 32px rgba(0, 0, 0, 0.08)',
-      dark: '0 8px 32px rgba(0, 0, 0, 0.6)',
+      light: '0 12px 24px rgba(2, 16, 36, 0.12)',
+      dark: '0 12px 24px rgba(0, 0, 0, 0.6)',
     },
     glow: {
-      light: '0 0 20px rgba(0, 122, 255, 0.15)',
-      dark: '0 0 20px rgba(10, 132, 255, 0.25)',
+      light: `0 0 20px rgba(125, 160, 202, 0.3)`,
+      dark: `0 0 20px rgba(193, 232, 255, 0.2)`,
     },
   },
-
-  // ===== STATUS - Apple System Colors =====
-  status: {
-    online: {
-      light: '#34C759',
-      dark: '#30D158',
-    },
-    offline: {
-      light: '#8E8E93',
-      dark: '#98989D',
-    },
-    away: {
-      light: '#FFCC00',
-      dark: '#FFD60A',
-    },
-    busy: {
-      light: '#FF3B30',
-      dark: '#FF453A',
-    },
-  },
-
-  // ===== GRADIENTS - Liquid Glass Effects =====
+  
+  // ===== GRADIENTS - Oceanic Depth Effects =====
   gradient: {
     glass: {
-      light: 'linear-gradient(135deg, rgba(255, 255, 255, 0.9) 0%, rgba(255, 255, 255, 0.6) 100%)',
-      dark: 'linear-gradient(135deg, rgba(44, 44, 46, 0.9) 0%, rgba(28, 28, 30, 0.6) 100%)',
+      light: 'linear-gradient(135deg, rgba(255, 255, 255, 0.9) 0%, rgba(193, 232, 255, 0.6) 100%)',
+      dark: `linear-gradient(135deg, ${oceanicDepthPalette.dark} 0%, ${oceanicDepthPalette.darkest} 100%)`,
     },
     primary: {
-      light: 'linear-gradient(135deg, #007AFF 0%, #5856D6 100%)',
-      dark: 'linear-gradient(135deg, #0A84FF 0%, #5E5CE6 100%)',
-    },
-    success: {
-      light: 'linear-gradient(135deg, #34C759 0%, #5AC8FA 100%)',
-      dark: 'linear-gradient(135deg, #30D158 0%, #64D2FF 100%)',
-    },
-    danger: {
-      light: 'linear-gradient(135deg, #FF3B30 0%, #FF2D55 100%)',
-      dark: 'linear-gradient(135deg, #FF453A 0%, #FF375F 100%)',
-    },
-    sunset: {
-      light: 'linear-gradient(135deg, #FF9500 0%, #FF2D55 50%, #AF52DE 100%)',
-      dark: 'linear-gradient(135deg, #FF9F0A 0%, #FF375F 50%, #BF5AF2 100%)',
-    },
-    ocean: {
-      light: 'linear-gradient(135deg, #007AFF 0%, #5AC8FA 100%)',
-      dark: 'linear-gradient(135deg, #0A84FF 0%, #64D2FF 100%)',
+      light: `linear-gradient(135deg, ${oceanicDepthPalette.light} 0%, ${oceanicDepthPalette.dark} 100%)`,
+      dark: `linear-gradient(135deg, ${oceanicDepthPalette.mid} 0%, ${oceanicDepthPalette.light} 100%)`,
     },
   },
 
-  // ===== BACKDROP BLUR - For Glass Effect =====
+  // ===== BLUR - Para o Efeito Glass =====
   blur: {
     none: 'blur(0px)',
     sm: 'blur(4px)',
@@ -550,9 +278,9 @@ export const colors = {
   },
 } as const;
 
+
 /**
  * Helper function para obter cor baseada no tema
- * Uso: getColor(colors.brand.primary, theme)
  */
 export function getColor(colorDef: ColorDefinition, theme: ThemeMode): string {
   return colorDef[theme];
@@ -617,3 +345,4 @@ export const darkColors: ThemeColors = {
   border: colors.border.default.dark,
   disabled: colors.text.disabled.dark,
 };
+

@@ -31,7 +31,8 @@ const menuItems: MenuItem[] = [
 export function Sidebar() {
   const { getThemeColor, theme } = useTheme();
   const pathname = usePathname();
-  const [isOpen, setIsOpen] = useState(false);
+  const [isOpen, setIsOpen] = useState(false); // Mobile menu state
+  const [isExpanded, setIsExpanded] = useState(true); // Desktop collapse state
 
   const isActive = (href: string) => pathname === href;
 
@@ -64,35 +65,73 @@ export function Sidebar() {
       {/* Sidebar */}
       <aside
         className={`
-          fixed lg:sticky top-0 left-0 h-screen z-40
-          w-64 flex flex-col
-          transition-transform duration-300 ease-in-out
+          fixed top-0 left-0 h-screen z-40
+          flex flex-col
+          transition-all duration-300 ease-in-out
           ${isOpen ? 'translate-x-0' : '-translate-x-full lg:translate-x-0'}
+          ${isExpanded ? 'w-64' : 'w-20'}
+          lg:m-4 lg:h-[calc(100vh-2rem)] lg:rounded-3xl
         `}
         style={{
-          backgroundColor: getThemeColor(colors.background.paper),
-          borderRight: `1px solid ${getThemeColor(colors.border.default)}`,
+          backgroundColor: getThemeColor(colors.background.glass),
+          backdropFilter: 'blur(20px)',
+          WebkitBackdropFilter: 'blur(20px)',
+          border: `1px solid ${getThemeColor(colors.border.default)}`,
+          boxShadow: getThemeColor(colors.shadow.lg),
         }}
       >
         {/* Logo/Header */}
         <div
-          className="p-6 border-b"
+          className="p-6 border-b relative"
           style={{
             borderColor: getThemeColor(colors.border.default),
           }}
         >
-          <h1
-            className="text-2xl font-bold"
-            style={{ color: getThemeColor(colors.brand.primary) }}
+          {isExpanded ? (
+            <>
+              <h1
+                className="text-2xl font-bold transition-opacity duration-300"
+                style={{ color: getThemeColor(colors.brand.primary) }}
+              >
+                FinanceApp
+              </h1>
+              <p
+                className="text-sm mt-1 transition-opacity duration-300"
+                style={{ color: getThemeColor(colors.text.secondary) }}
+              >
+                Controle Financeiro
+              </p>
+            </>
+          ) : (
+            <div
+              className="w-8 h-8 rounded-full flex items-center justify-center font-bold mx-auto transition-all duration-300"
+              style={{
+                backgroundColor: getThemeColor(colors.brand.primary),
+                color: '#FFFFFF',
+              }}
+            >
+              F
+            </div>
+          )}
+          
+          {/* Toggle button for desktop */}
+          <button
+            onClick={() => setIsExpanded(!isExpanded)}
+            className="hidden lg:flex absolute -right-3 top-1/2 -translate-y-1/2 w-6 h-6 rounded-full items-center justify-center shadow-lg hover:scale-110 transition-transform"
+            style={{
+              backgroundColor: getThemeColor(colors.brand.primary),
+              color: '#FFFFFF',
+            }}
           >
-            FinanceApp
-          </h1>
-          <p
-            className="text-sm mt-1"
-            style={{ color: getThemeColor(colors.text.secondary) }}
-          >
-            Controle Financeiro
-          </p>
+            <svg
+              className={`w-3 h-3 transition-transform duration-300 ${isExpanded ? '' : 'rotate-180'}`}
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+            </svg>
+          </button>
         </div>
 
         {/* Navigation */}
@@ -106,7 +145,12 @@ export function Sidebar() {
                 key={item.href}
                 href={item.href}
                 onClick={() => setIsOpen(false)}
-                className="flex items-center gap-3 px-4 py-3 rounded-lg transition-all duration-200 hover:scale-105"
+                className={`
+                  flex items-center gap-3 px-4 py-3 rounded-lg 
+                  transition-all duration-200 hover:scale-105
+                  ${!isExpanded ? 'justify-center' : ''}
+                  group relative
+                `}
                 style={{
                   backgroundColor: active
                     ? getThemeColor(colors.brand.primary)
@@ -115,9 +159,24 @@ export function Sidebar() {
                     ? '#FFFFFF'
                     : getThemeColor(colors.text.primary),
                 }}
+                title={!isExpanded ? item.name : ''}
               >
-                <Icon className="h-5 w-5" />
-                <span className="font-medium">{item.name}</span>
+                <Icon className="h-5 w-5 flex-shrink-0" />
+                {isExpanded && <span className="font-medium">{item.name}</span>}
+                
+                {/* Tooltip for collapsed state */}
+                {!isExpanded && (
+                  <div
+                    className="absolute left-full ml-2 px-3 py-2 rounded-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 whitespace-nowrap z-50 shadow-lg"
+                    style={{
+                      backgroundColor: getThemeColor(colors.background.elevated),
+                      color: getThemeColor(colors.text.primary),
+                      border: `1px solid ${getThemeColor(colors.border.default)}`,
+                    }}
+                  >
+                    {item.name}
+                  </div>
+                )}
               </Link>
             );
           })}
@@ -130,47 +189,73 @@ export function Sidebar() {
             borderColor: getThemeColor(colors.border.default),
           }}
         >
-          <div
-            className="flex items-center gap-3 px-4 py-3 rounded-lg mb-2"
-            style={{
-              backgroundColor: getThemeColor(colors.background.elevated),
-            }}
-          >
-            <div
-              className="w-10 h-10 rounded-full flex items-center justify-center font-semibold"
-              style={{
-                backgroundColor: getThemeColor(colors.brand.primary),
-                color: '#FFFFFF',
-              }}
-            >
-              U
-            </div>
-            <div className="flex-1">
-              <p
-                className="text-sm font-medium"
-                style={{ color: getThemeColor(colors.text.primary) }}
+          {isExpanded ? (
+            <>
+              <div
+                className="flex items-center gap-3 px-4 py-3 rounded-lg mb-2"
+                style={{
+                  backgroundColor: getThemeColor(colors.background.elevated),
+                }}
               >
-                Usuário
-              </p>
-              <p
-                className="text-xs"
-                style={{ color: getThemeColor(colors.text.secondary) }}
-              >
-                usuario@email.com
-              </p>
-            </div>
-          </div>
+                <div
+                  className="w-10 h-10 rounded-full flex items-center justify-center font-semibold flex-shrink-0"
+                  style={{
+                    backgroundColor: getThemeColor(colors.brand.primary),
+                    color: '#FFFFFF',
+                  }}
+                >
+                  U
+                </div>
+                <div className="flex-1 min-w-0">
+                  <p
+                    className="text-sm font-medium truncate"
+                    style={{ color: getThemeColor(colors.text.primary) }}
+                  >
+                    Usuário
+                  </p>
+                  <p
+                    className="text-xs truncate"
+                    style={{ color: getThemeColor(colors.text.secondary) }}
+                  >
+                    usuario@email.com
+                  </p>
+                </div>
+              </div>
 
-          <button
-            className="flex items-center gap-3 px-4 py-3 rounded-lg w-full transition-all duration-200 hover:scale-105"
-            style={{
-              backgroundColor: getThemeColor(colors.semantic.negative),
-              color: '#FFFFFF',
-            }}
-          >
-            <ArrowRightOnRectangleIcon className="h-5 w-5" />
-            <span className="font-medium">Sair</span>
-          </button>
+              <button
+                className="flex items-center gap-3 px-4 py-3 rounded-lg w-full transition-all duration-200 hover:scale-105"
+                style={{
+                  backgroundColor: getThemeColor(colors.semantic.negative),
+                  color: '#FFFFFF',
+                }}
+              >
+                <ArrowRightOnRectangleIcon className="h-5 w-5" />
+                <span className="font-medium">Sair</span>
+              </button>
+            </>
+          ) : (
+            <div className="space-y-2">
+              <div
+                className="w-10 h-10 rounded-full flex items-center justify-center font-semibold mx-auto"
+                style={{
+                  backgroundColor: getThemeColor(colors.brand.primary),
+                  color: '#FFFFFF',
+                }}
+              >
+                U
+              </div>
+              <button
+                className="flex items-center justify-center p-3 rounded-lg w-full transition-all duration-200 hover:scale-105"
+                style={{
+                  backgroundColor: getThemeColor(colors.semantic.negative),
+                  color: '#FFFFFF',
+                }}
+                title="Sair"
+              >
+                <ArrowRightOnRectangleIcon className="h-5 w-5" />
+              </button>
+            </div>
+          )}
         </div>
       </aside>
     </>

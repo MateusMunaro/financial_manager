@@ -10,15 +10,16 @@ import type { Expense } from '../page';
 interface ExpenseFormProps {
   onSubmit: (expense: Omit<Expense, 'id'>) => void;
   onCancel: () => void;
+  defaultDate?: string;
 }
 
-export function ExpenseForm({ onSubmit, onCancel }: ExpenseFormProps) {
+export function ExpenseForm({ onSubmit, onCancel, defaultDate }: ExpenseFormProps) {
   const { getThemeColor } = useTheme();
   const [formData, setFormData] = useState({
     name: '',
     value: '',
     category: '',
-    date: new Date().toISOString().split('T')[0],
+    date: defaultDate || new Date().toISOString().split('T')[0],
     description: '',
   });
 

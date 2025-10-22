@@ -9,16 +9,25 @@ function AuthLayoutContent({ children }: { children: React.ReactNode }) {
   const { getThemeColor } = useTheme();
 
   return (
-    <div className="flex h-screen overflow-hidden">
+    <div className="relative min-h-screen">
       <Sidebar />
       <main
-        className="flex-1 overflow-y-auto"
+        className="min-h-screen transition-all duration-300"
         style={{
           backgroundColor: getThemeColor(colors.background.default),
+          paddingLeft: '0', // Mobile: sem padding
         }}
       >
-        <div className="container mx-auto p-6 lg:p-8">
-          {children}
+        {/* Desktop: espaço reservado para sidebar colapsada (80px + 32px de margem) */}
+        <div 
+          className="lg:pl-28"
+          style={{
+            minHeight: '100vh',
+          }}
+        >
+          <div className="container mx-auto p-6 lg:p-8">
+            {children}
+          </div>
         </div>
       </main>
     </div>

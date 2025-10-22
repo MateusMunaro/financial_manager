@@ -3,12 +3,13 @@
 import { useTheme } from '@/context/ThemeContext';
 import { colors } from '@/lib/styles/colors';
 import { Card } from '@/components/Card';
+import { ActivityChartCard } from '@/components/ActivityChartCard';
 import {
-  BanknotesIcon,
   ChartPieIcon,
-  CalendarIcon,
 } from '@heroicons/react/24/outline';
 import type { Expense } from '../page';
+import { startOfWeek, endOfWeek, eachDayOfInterval, format, isSameDay, parseISO } from 'date-fns';
+import { ptBR } from 'date-fns/locale';
 
 interface ExpenseStatsProps {
   expenses: Expense[];
@@ -43,76 +44,56 @@ export function ExpenseStats({ expenses }: ExpenseStatsProps) {
     }).format(value);
   };
 
+  // Prepare data for weekly chart
+  const today = new Date();
+  const weekStart = startOfWeek(today, { locale: ptBR });
+  const weekEnd = endOfWeek(today, { locale: ptBR });
+  const weekDays = eachDayOfInterval({ start: weekStart, end: weekEnd });
+
+  const weeklyData = weekDays.map(day => {
+    const dayExpenses = expenses.filter(exp => 
+      isSameDay(parseISO(exp.date), day)
+    );
+    const dayTotal = dayExpenses.reduce((sum, exp) => sum + exp.value, 0);
+    
+    return {
+      day: format(day, 'EEE', { locale: ptBR }),
+      value: dayTotal,
+    };
+  });
+
+  // Calculate trend (comparing this month vs last month)
+  const lastMonth = currentMonth === 0 ? 11 : currentMonth - 1;
+  const lastMonthYear = currentMonth === 0 ? currentYear - 1 : currentYear;
+  
+  const lastMonthExpenses = expenses.filter((exp) => {
+    const expDate = new Date(exp.date);
+    return expDate.getMonth() === lastMonth && expDate.getFullYear() === lastMonthYear;
+  });
+
+  const lastMonthTotal = lastMonthExpenses.reduce((sum, exp) => sum + exp.value, 0);
+  const trendPercentage = lastMonthTotal > 0 
+    ? ((monthlyTotal - lastMonthTotal) / lastMonthTotal * 100).toFixed(1)
+    : '0';
+  const isPositiveTrend = monthlyTotal < lastMonthTotal; // Positive = less expenses
+
   return (
-    <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-      <Card elevated>
-        <div className="flex items-start justify-between">
-          <div>
-            <p
-              className="text-sm font-medium mb-1"
-              style={{ color: getThemeColor(colors.text.secondary) }}
-            >
-              Total de Gastos
-            </p>
-            <p
-              className="text-3xl font-bold"
-              style={{ color: getThemeColor(colors.text.primary) }}
-            >
-              {formatCurrency(totalExpenses)}
-            </p>
-            <p
-              className="text-sm mt-1"
-              style={{ color: getThemeColor(colors.text.secondary) }}
-            >
-              {expenses.length} transações
-            </p>
-          </div>
-          <div
-            className="p-3 rounded-lg"
-            style={{ backgroundColor: getThemeColor(colors.semantic.negative) + '20' }}
-          >
-            <BanknotesIcon
-              className="h-8 w-8"
-              style={{ color: getThemeColor(colors.semantic.negative) }}
-            />
-          </div>
-        </div>
-      </Card>
+    <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+      {/* Activity Chart Card - Replaces 2 cards */}
+      <div className="lg:col-span-2">
+        <ActivityChartCard
+          title="Gastos da Semana"
+          subtitle={`Total de ${expenses.length} transações este mês`}
+          totalValue={formatCurrency(monthlyTotal)}
+          data={weeklyData}
+          trend={{
+            value: `${trendPercentage}%`,
+            isPositive: isPositiveTrend,
+          }}
+        />
+      </div>
 
-      <Card elevated>
-        <div className="flex items-start justify-between">
-          <div>
-            <p
-              className="text-sm font-medium mb-1"
-              style={{ color: getThemeColor(colors.text.secondary) }}
-            >
-              Gastos deste Mês
-            </p>
-            <p
-              className="text-3xl font-bold"
-              style={{ color: getThemeColor(colors.text.primary) }}
-            >
-              {formatCurrency(monthlyTotal)}
-            </p>
-            <p
-              className="text-sm mt-1"
-              style={{ color: getThemeColor(colors.text.secondary) }}
-            >
-              {monthlyExpenses.length} transações
-            </p>
-          </div>
-          <div
-            className="p-3 rounded-lg"
-            style={{ backgroundColor: getThemeColor(colors.brand.primary) + '20' }}
-          >
-            <CalendarIcon
-              className="h-8 w-8"
-              style={{ color: getThemeColor(colors.brand.primary) }}
-            />
-          </div>
-        </div>
-      </Card>
-
+      {/* Top Category Card */}
       <Card elevated>
         <div className="flex items-start justify-between">
           <div>
