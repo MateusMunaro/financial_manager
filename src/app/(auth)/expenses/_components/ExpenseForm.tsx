@@ -5,7 +5,7 @@ import { colors } from '@/lib/styles/colors';
 import { Input } from '@/components/Input';
 import { Button } from '@/components/Button';
 import { useState } from 'react';
-import type { Expense } from '../page';
+import type { Expense } from './types';
 
 interface ExpenseFormProps {
   onSubmit: (expense: Omit<Expense, 'id'>) => void;

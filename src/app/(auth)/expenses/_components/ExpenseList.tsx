@@ -5,7 +5,7 @@ import { colors } from '@/lib/styles/colors';
 import { Card } from '@/components/Card';
 import { Button } from '@/components/Button';
 import { TrashIcon } from '@heroicons/react/24/outline';
-import type { Expense } from '../page';
+import type { Expense } from './types';
 
 interface ExpenseListProps {
   expenses: Expense[];

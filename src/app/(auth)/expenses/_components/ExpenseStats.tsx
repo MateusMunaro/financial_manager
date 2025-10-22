@@ -7,7 +7,7 @@ import { ActivityChartCard } from '@/components/ActivityChartCard';
 import {
   ChartPieIcon,
 } from '@heroicons/react/24/outline';
-import type { Expense } from '../page';
+import type { Expense } from './types';
 import { startOfWeek, endOfWeek, eachDayOfInterval, format, isSameDay, parseISO } from 'date-fns';
 import { ptBR } from 'date-fns/locale';
 

@@ -2,199 +2,164 @@
 
 import { useTheme } from '@/context/ThemeContext';
 import { colors } from '@/lib/styles/colors';
-import { Button } from '@/components/Button';
-import { Modal } from '@/components/Modal';
-import { GlassCalendar } from '@/components/GlassCalendar';
-import { useState } from 'react';
-import { ExpenseForm } from './_components/ExpenseForm';
-import { ExpenseList } from './_components/ExpenseList';
-import { ExpenseStats } from './_components/ExpenseStats';
-import { PlusIcon } from '@heroicons/react/24/outline';
-import { format, isSameDay, parseISO } from 'date-fns';
-
-export interface Expense {
-  id: string;
-  name: string;
-  value: number;
-  category: string;
-  date: string;
-  description?: string;
-}
+import { Card } from '@/components/Card';
+import Link from 'next/link';
+import {
+  ChartBarIcon,
+  CreditCardIcon,
+  ArrowPathIcon,
+  PlusCircleIcon,
+} from '@heroicons/react/24/outline';
 
 export default function ExpensesPage() {
   const { getThemeColor } = useTheme();
-  const [showForm, setShowForm] = useState(false);
-  const [selectedDate, setSelectedDate] = useState<Date>(new Date());
-  const [expenses, setExpenses] = useState<Expense[]>([
+
+  const sections = [
     {
-      id: '1',
-      name: 'Supermercado',
-      value: 450.00,
-      category: 'Alimentação',
-      date: '2025-10-20',
-      description: 'Compras do mês',
+      title: 'Visão Geral',
+      description: 'Dashboard com estatísticas e insights dos seus gastos',
+      href: '/expenses/overview',
+      icon: ChartBarIcon,
+      color: colors.brand.primary,
     },
     {
-      id: '2',
-      name: 'Netflix',
-      value: 39.90,
-      category: 'Entretenimento',
-      date: '2025-10-19',
+      title: 'Transações',
+      description: 'Registre e visualize todos os seus gastos',
+      href: '/expenses/transactions',
+      icon: PlusCircleIcon,
+      color: colors.brand.accent,
     },
     {
-      id: '3',
-      name: 'Combustível',
-      value: 250.00,
-      category: 'Transporte',
-      date: '2025-10-18',
+      title: 'Métodos de Pagamento',
+      description: 'Gerencie cartões, PIX e outros métodos',
+      href: '/expenses/payment-methods',
+      icon: CreditCardIcon,
+      color: colors.semantic.positive,
     },
     {
-      id: '4',
-      name: 'Restaurante',
-      value: 120.00,
-      category: 'Alimentação',
-      date: '2025-10-17',
+      title: 'Gastos Recorrentes',
+      description: 'Configure boletos, assinaturas e despesas fixas',
+      href: '/expenses/recurring',
+      icon: ArrowPathIcon,
+      color: colors.semantic.negative,
     },
-  ]);
-
-  const handleAddExpense = (expense: Omit<Expense, 'id'>) => {
-    const newExpense: Expense = {
-      ...expense,
-      id: Date.now().toString(),
-    };
-    setExpenses([newExpense, ...expenses]);
-    setShowForm(false);
-  };
-
-  const handleDeleteExpense = (id: string) => {
-    setExpenses(expenses.filter(exp => exp.id !== id));
-  };
-
-  const handleDateSelect = (date: Date) => {
-    setSelectedDate(date);
-  };
-
-  const handleAddExpenseFromCalendar = (date: Date) => {
-    setSelectedDate(date);
-    setShowForm(true);
-  };
-
-  // Filter expenses by selected date
-  const filteredExpenses = expenses.filter(expense => 
-    isSameDay(parseISO(expense.date), selectedDate)
-  );
-
-  // Total for selected date
-  const totalForSelectedDate = filteredExpenses.reduce((acc, exp) => acc + exp.value, 0);
+  ];
 
   return (
     <div className="space-y-6">
       {/* Header */}
-      <div className="flex items-center justify-between">
-        <div>
-          <h1
-            className="text-3xl font-bold mb-2"
-            style={{ color: getThemeColor(colors.text.primary) }}
-          >
-            Gastos
-          </h1>
-          <p
-            className="text-lg"
-            style={{ color: getThemeColor(colors.text.secondary) }}
-          >
-            Gerencie suas despesas
-          </p>
-        </div>
-        <Button
-          variant="primary"
-          onClick={() => setShowForm(!showForm)}
-          className="flex items-center gap-2"
+      <div>
+        <h1
+          className="text-3xl font-bold mb-2"
+          style={{ color: getThemeColor(colors.text.primary) }}
         >
-          <PlusIcon className="h-5 w-5" />
-          Adicionar Gasto
-        </Button>
+          Gestão de Gastos
+        </h1>
+        <p
+          className="text-lg"
+          style={{ color: getThemeColor(colors.text.secondary) }}
+        >
+          Organize e controle todas as suas despesas
+        </p>
       </div>
 
-      {/* Stats */}
-      <ExpenseStats expenses={expenses} />
+      {/* Navigation Grid */}
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+        {sections.map((section) => {
+          const Icon = section.icon;
+          return (
+            <Link key={section.href} href={section.href}>
+              <Card 
+                elevated 
+                className="h-full transition-all duration-300 hover:scale-[1.02] cursor-pointer group"
+              >
+                <div className="flex items-start gap-4">
+                  <div
+                    className="p-4 rounded-xl transition-all duration-300 group-hover:scale-110"
+                    style={{ 
+                      backgroundColor: getThemeColor(section.color) + '20',
+                    }}
+                  >
+                    <Icon
+                      className="h-8 w-8"
+                      style={{ color: getThemeColor(section.color) }}
+                    />
+                  </div>
+                  
+                  <div className="flex-1">
+                    <h3
+                      className="text-xl font-bold mb-2"
+                      style={{ color: getThemeColor(colors.text.primary) }}
+                    >
+                      {section.title}
+                    </h3>
+                    <p
+                      className="text-sm"
+                      style={{ color: getThemeColor(colors.text.secondary) }}
+                    >
+                      {section.description}
+                    </p>
+                  </div>
 
-      {/* Modal Form */}
-      <Modal
-        isOpen={showForm}
-        onClose={() => setShowForm(false)}
-        title="Adicionar Novo Gasto"
-        size="lg"
-      >
-        <ExpenseForm
-          onSubmit={handleAddExpense}
-          onCancel={() => setShowForm(false)}
-          defaultDate={format(selectedDate, 'yyyy-MM-dd')}
-        />
-      </Modal>
+                  <div
+                    className="text-2xl transition-transform duration-300 group-hover:translate-x-1"
+                    style={{ color: getThemeColor(colors.text.tertiary) }}
+                  >
+                    →
+                  </div>
+                </div>
+              </Card>
+            </Link>
+          );
+        })}
+      </div>
 
-      {/* Two Column Layout: Calendar + Expense List */}
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-        {/* Calendar Section */}
-        <div className="order-2 lg:order-1">
-          <GlassCalendar
-            selectedDate={selectedDate}
-            onDateSelect={handleDateSelect}
-            onAddExpense={handleAddExpenseFromCalendar}
-          />
-          
-          {/* Info card for selected date */}
-          <div
-            className="mt-4 p-4 rounded-2xl"
-            style={{
-              backgroundColor: getThemeColor(colors.background.paper),
-              border: `1px solid ${getThemeColor(colors.border.default)}`,
-            }}
+      {/* Quick Stats */}
+      <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
+        <Card elevated>
+          <p
+            className="text-sm font-medium mb-1"
+            style={{ color: getThemeColor(colors.text.secondary) }}
           >
-            <p
-              className="text-sm font-medium mb-2"
-              style={{ color: getThemeColor(colors.text.secondary) }}
-            >
-              Total do dia selecionado
-            </p>
-            <p
-              className="text-2xl font-bold"
-              style={{ color: getThemeColor(colors.brand.primary) }}
-            >
-              R$ {totalForSelectedDate.toFixed(2)}
-            </p>
-            <p
-              className="text-xs mt-1"
-              style={{ color: getThemeColor(colors.text.tertiary) }}
-            >
-              {filteredExpenses.length} {filteredExpenses.length === 1 ? 'gasto' : 'gastos'} neste dia
-            </p>
-          </div>
-        </div>
+            Total do Mês
+          </p>
+          <p
+            className="text-3xl font-bold"
+            style={{ color: getThemeColor(colors.semantic.negative) }}
+          >
+            R$ 1.859,90
+          </p>
+        </Card>
 
-        {/* List Section */}
-        <div className="order-1 lg:order-2">
-          <div className="mb-4">
-            <h2
-              className="text-xl font-bold"
-              style={{ color: getThemeColor(colors.text.primary) }}
-            >
-              Gastos de {format(selectedDate, "dd/MM/yyyy")}
-            </h2>
-            <p
-              className="text-sm mt-1"
-              style={{ color: getThemeColor(colors.text.secondary) }}
-            >
-              {filteredExpenses.length === 0 
-                ? 'Nenhum gasto neste dia' 
-                : `Mostrando ${filteredExpenses.length} ${filteredExpenses.length === 1 ? 'gasto' : 'gastos'}`
-              }
-            </p>
-          </div>
-          <ExpenseList
-            expenses={filteredExpenses}
-            onDelete={handleDeleteExpense}
-          />
-        </div>
+        <Card elevated>
+          <p
+            className="text-sm font-medium mb-1"
+            style={{ color: getThemeColor(colors.text.secondary) }}
+          >
+            Gastos Recorrentes
+          </p>
+          <p
+            className="text-3xl font-bold"
+            style={{ color: getThemeColor(colors.text.primary) }}
+          >
+            5 ativos
+          </p>
+        </Card>
+
+        <Card elevated>
+          <p
+            className="text-sm font-medium mb-1"
+            style={{ color: getThemeColor(colors.text.secondary) }}
+          >
+            Métodos Cadastrados
+          </p>
+          <p
+            className="text-3xl font-bold"
+            style={{ color: getThemeColor(colors.text.primary) }}
+          >
+            3
+          </p>
+        </Card>
       </div>
     </div>
   );
