@@ -1,10 +1,13 @@
 /**
- * Sistema de Cores por Contexto
+ * Sistema de Cores - Liquid Glass Design
+ * Inspirado no design moderno da Apple com efeitos de vidro líquido
  * 
  * Este arquivo define cores para cada componente da aplicação,
- * organizadas por contexto (light/dark).
- * 
- * O themeContext carrega as cores apropriadas baseado no tema ativo.
+ * organizadas por contexto (light/dark) seguindo a estética Liquid Glass:
+ * - Superfícies translúcidas e vidradas
+ * - Cores vibrantes mas suaves
+ * - Sistema de profundidade com transparências
+ * - Efeitos de difusão de luz
  */
 
 export type ThemeMode = 'light' | 'dark';
@@ -18,98 +21,138 @@ export interface ColorDefinition {
 }
 
 /**
- * Cores do Sistema - Base
+ * Cores do Sistema - Liquid Glass Base
  */
 export const colors = {
-  // ===== BRAND COLORS =====
+  // ===== BRAND COLORS - Liquid Glass =====
   brand: {
     primary: {
-      light: '#007BFF',
-      dark: '#0A84FF',
+      light: '#007AFF', // Apple Blue
+      dark: '#0A84FF',  // Brighter Apple Blue
     },
     secondary: {
-      light: '#6C757D',
-      dark: '#8A939B',
+      light: '#8E8E93', // Apple Gray
+      dark: '#98989D',
     },
     accent: {
-      light: '#FF6B6B',
-      dark: '#FF8787',
+      light: '#FF375F', // Apple Pink/Red
+      dark: '#FF453A',
+    },
+    purple: {
+      light: '#AF52DE', // Apple Purple
+      dark: '#BF5AF2',
+    },
+    teal: {
+      light: '#5AC8FA', // Apple Teal
+      dark: '#64D2FF',
     },
   },
 
-  // ===== BACKGROUNDS =====
+  // ===== BACKGROUNDS - Frosted Glass Effect =====
   background: {
     default: {
-      light: '#F8F9FA',
-      dark: '#121212',
+      light: '#F2F2F7', // Apple System Gray 6
+      dark: '#000000',  // Pure black for OLED
     },
     paper: {
-      light: '#FFFFFF',
-      dark: '#1E1E1E',
+      light: 'rgba(255, 255, 255, 0.8)', // Translucent white
+      dark: 'rgba(28, 28, 30, 0.85)',    // Translucent dark
     },
     elevated: {
-      light: '#FFFFFF',
-      dark: '#2C2C2C',
+      light: 'rgba(255, 255, 255, 0.95)', // More opaque
+      dark: 'rgba(44, 44, 46, 0.92)',     // More opaque dark
     },
     overlay: {
-      light: 'rgba(0, 0, 0, 0.5)',
-      dark: 'rgba(0, 0, 0, 0.7)',
+      light: 'rgba(0, 0, 0, 0.4)',
+      dark: 'rgba(0, 0, 0, 0.75)',
+    },
+    blur: {
+      light: 'rgba(255, 255, 255, 0.7)',  // For backdrop-blur
+      dark: 'rgba(18, 18, 18, 0.75)',
+    },
+    glass: {
+      light: 'rgba(255, 255, 255, 0.6)',  // Glass effect
+      dark: 'rgba(30, 30, 30, 0.7)',
     },
   },
 
-  // ===== TEXT =====
+  // ===== TEXT - Enhanced Contrast =====
   text: {
     primary: {
-      light: '#212529',
-      dark: '#E9ECEF',
+      light: '#1C1C1E', // Apple Label
+      dark: '#FFFFFF',  // Pure white for dark mode
     },
     secondary: {
-      light: '#6C757D',
-      dark: '#ADB5BD',
+      light: '#3A3A3C', // Apple Secondary Label
+      dark: '#EBEBF5',  // 60% opacity white equivalent
+    },
+    tertiary: {
+      light: '#48484A', // Apple Tertiary Label
+      dark: '#EBEBF5',  // 30% opacity white equivalent
     },
     disabled: {
-      light: '#CED4DA',
-      dark: '#495057',
+      light: '#C7C7CC', // Apple Quaternary Label
+      dark: '#48484A',
     },
     inverse: {
       light: '#FFFFFF',
-      dark: '#FFFFFF',
+      dark: '#1C1C1E',
     },
     hint: {
-      light: '#868E96',
-      dark: '#868E96',
+      light: '#8E8E93',
+      dark: '#8E8E93',
+    },
+    onGlass: {
+      light: 'rgba(0, 0, 0, 0.85)',
+      dark: 'rgba(255, 255, 255, 0.95)',
     },
   },
 
-  // ===== SEMANTIC COLORS (FINANÇAS) =====
+  // ===== SEMANTIC COLORS (FINANÇAS) - Liquid Vibrant =====
   semantic: {
     positive: {
-      light: '#28A745',
-      dark: '#34D058',
+      light: '#34C759', // Apple Green
+      dark: '#30D158',
     },
     negative: {
-      light: '#DC3545',
-      dark: '#F85149',
+      light: '#FF3B30', // Apple Red
+      dark: '#FF453A',
     },
     neutral: {
-      light: '#FFC107',
-      dark: '#FFD54F',
+      light: '#FF9500', // Apple Orange
+      dark: '#FF9F0A',
     },
     info: {
-      light: '#17A2B8',
-      dark: '#58A6FF',
+      light: '#007AFF', // Apple Blue
+      dark: '#0A84FF',
     },
     warning: {
-      light: '#FD7E14',
-      dark: '#FF9F40',
+      light: '#FFCC00', // Apple Yellow
+      dark: '#FFD60A',
+    },
+    purple: {
+      light: '#AF52DE',
+      dark: '#BF5AF2',
+    },
+    pink: {
+      light: '#FF2D55',
+      dark: '#FF375F',
+    },
+    teal: {
+      light: '#5AC8FA',
+      dark: '#64D2FF',
+    },
+    indigo: {
+      light: '#5856D6',
+      dark: '#5E5CE6',
     },
   },
 
-  // ===== BUTTONS =====
+  // ===== BUTTONS - Glass Morphism =====
   button: {
     primary: {
       background: {
-        light: '#007BFF',
+        light: '#007AFF',
         dark: '#0A84FF',
       },
       text: {
@@ -117,314 +160,393 @@ export const colors = {
         dark: '#FFFFFF',
       },
       hover: {
-        light: '#0056B3',
-        dark: '#0B6FD5',
+        light: '#0051D5',
+        dark: '#409CFF',
       },
       active: {
-        light: '#004085',
-        dark: '#095CB8',
+        light: '#003D99',
+        dark: '#0071E3',
       },
       disabled: {
-        light: '#CED4DA',
-        dark: '#343A40',
+        light: 'rgba(0, 122, 255, 0.3)',
+        dark: 'rgba(10, 132, 255, 0.3)',
+      },
+      glass: {
+        light: 'rgba(0, 122, 255, 0.15)',
+        dark: 'rgba(10, 132, 255, 0.2)',
       },
     },
     secondary: {
       background: {
-        light: '#6C757D',
-        dark: '#8A939B',
+        light: 'rgba(142, 142, 147, 0.12)',
+        dark: 'rgba(142, 142, 147, 0.24)',
       },
       text: {
-        light: '#FFFFFF',
-        dark: '#FFFFFF',
+        light: '#007AFF',
+        dark: '#0A84FF',
       },
       hover: {
-        light: '#5A6268',
-        dark: '#6C747A',
+        light: 'rgba(142, 142, 147, 0.18)',
+        dark: 'rgba(142, 142, 147, 0.32)',
       },
       active: {
-        light: '#545B62',
-        dark: '#5A6268',
+        light: 'rgba(142, 142, 147, 0.24)',
+        dark: 'rgba(142, 142, 147, 0.4)',
       },
     },
     outline: {
       border: {
-        light: '#007BFF',
-        dark: '#0A84FF',
+        light: 'rgba(0, 122, 255, 0.5)',
+        dark: 'rgba(10, 132, 255, 0.6)',
       },
       text: {
-        light: '#007BFF',
+        light: '#007AFF',
         dark: '#0A84FF',
       },
       hover: {
-        light: '#0056B3',
-        dark: '#0B6FD5',
+        light: 'rgba(0, 122, 255, 0.08)',
+        dark: 'rgba(10, 132, 255, 0.12)',
       },
     },
     ghost: {
       text: {
-        light: '#007BFF',
+        light: '#007AFF',
         dark: '#0A84FF',
       },
       hover: {
-        light: 'rgba(0, 123, 255, 0.1)',
-        dark: 'rgba(10, 132, 255, 0.1)',
+        light: 'rgba(0, 122, 255, 0.08)',
+        dark: 'rgba(10, 132, 255, 0.12)',
       },
     },
   },
 
-  // ===== INPUTS =====
+  // ===== INPUTS - Glass Style =====
   input: {
     background: {
-      light: '#FFFFFF',
-      dark: '#1E1E1E',
+      light: 'rgba(255, 255, 255, 0.8)',
+      dark: 'rgba(44, 44, 46, 0.75)',
     },
     border: {
-      light: '#DEE2E6',
-      dark: '#343A40',
+      light: 'rgba(0, 0, 0, 0.1)',
+      dark: 'rgba(255, 255, 255, 0.15)',
     },
     borderFocus: {
-      light: '#007BFF',
+      light: '#007AFF',
       dark: '#0A84FF',
     },
     placeholder: {
-      light: '#868E96',
-      dark: '#6C757D',
+      light: 'rgba(60, 60, 67, 0.6)',
+      dark: 'rgba(235, 235, 245, 0.6)',
     },
     disabled: {
-      light: '#E9ECEF',
-      dark: '#2C2C2C',
+      light: 'rgba(120, 120, 128, 0.16)',
+      dark: 'rgba(120, 120, 128, 0.32)',
     },
     error: {
-      light: '#DC3545',
-      dark: '#F85149',
+      light: '#FF3B30',
+      dark: '#FF453A',
     },
   },
 
-  // ===== CARDS =====
+  // ===== CARDS - Frosted Glass =====
   card: {
     background: {
-      light: '#FFFFFF',
-      dark: '#1E1E1E',
+      light: 'rgba(255, 255, 255, 0.85)',
+      dark: 'rgba(28, 28, 30, 0.88)',
     },
     border: {
-      light: '#DEE2E6',
-      dark: '#343A40',
+      light: 'rgba(0, 0, 0, 0.08)',
+      dark: 'rgba(255, 255, 255, 0.12)',
     },
     shadow: {
-      light: 'rgba(0, 0, 0, 0.1)',
-      dark: 'rgba(0, 0, 0, 0.3)',
+      light: 'rgba(0, 0, 0, 0.06)',
+      dark: 'rgba(0, 0, 0, 0.4)',
     },
     hover: {
-      light: '#F8F9FA',
-      dark: '#2C2C2C',
+      light: 'rgba(255, 255, 255, 0.95)',
+      dark: 'rgba(44, 44, 46, 0.92)',
+    },
+    glass: {
+      light: 'rgba(255, 255, 255, 0.65)',
+      dark: 'rgba(30, 30, 30, 0.75)',
     },
   },
 
-  // ===== NAVIGATION =====
+  // ===== NAVIGATION - Translucent =====
   navigation: {
     background: {
-      light: '#FFFFFF',
-      dark: '#1E1E1E',
+      light: 'rgba(255, 255, 255, 0.8)',
+      dark: 'rgba(28, 28, 30, 0.85)',
     },
     item: {
-      light: '#212529',
-      dark: '#E9ECEF',
+      light: '#1C1C1E',
+      dark: '#FFFFFF',
     },
     itemActive: {
-      light: '#007BFF',
+      light: '#007AFF',
       dark: '#0A84FF',
     },
     itemHover: {
-      light: '#F8F9FA',
-      dark: '#2C2C2C',
+      light: 'rgba(0, 122, 255, 0.08)',
+      dark: 'rgba(10, 132, 255, 0.12)',
     },
     border: {
-      light: '#DEE2E6',
-      dark: '#343A40',
+      light: 'rgba(0, 0, 0, 0.08)',
+      dark: 'rgba(255, 255, 255, 0.12)',
     },
   },
 
-  // ===== MODALS =====
+  // ===== MODALS - Ultra Glass =====
   modal: {
     background: {
-      light: '#FFFFFF',
-      dark: '#1E1E1E',
+      light: 'rgba(255, 255, 255, 0.95)',
+      dark: 'rgba(28, 28, 30, 0.95)',
     },
     overlay: {
-      light: 'rgba(0, 0, 0, 0.5)',
-      dark: 'rgba(0, 0, 0, 0.7)',
+      light: 'rgba(0, 0, 0, 0.4)',
+      dark: 'rgba(0, 0, 0, 0.75)',
     },
     border: {
-      light: '#DEE2E6',
-      dark: '#343A40',
+      light: 'rgba(0, 0, 0, 0.1)',
+      dark: 'rgba(255, 255, 255, 0.15)',
     },
   },
 
-  // ===== TABLES =====
+  // ===== TABLES - Refined =====
   table: {
     header: {
-      light: '#F8F9FA',
-      dark: '#2C2C2C',
+      light: 'rgba(242, 242, 247, 0.9)',
+      dark: 'rgba(44, 44, 46, 0.9)',
     },
     row: {
-      light: '#FFFFFF',
-      dark: '#1E1E1E',
+      light: 'rgba(255, 255, 255, 0.8)',
+      dark: 'rgba(28, 28, 30, 0.8)',
     },
     rowHover: {
-      light: '#F8F9FA',
-      dark: '#2C2C2C',
+      light: 'rgba(0, 122, 255, 0.05)',
+      dark: 'rgba(10, 132, 255, 0.08)',
     },
     rowAlternate: {
-      light: '#F8F9FA',
-      dark: '#252525',
+      light: 'rgba(242, 242, 247, 0.6)',
+      dark: 'rgba(44, 44, 46, 0.6)',
     },
     border: {
-      light: '#DEE2E6',
-      dark: '#343A40',
+      light: 'rgba(0, 0, 0, 0.08)',
+      dark: 'rgba(255, 255, 255, 0.12)',
     },
   },
 
-  // ===== CHARTS =====
+  // ===== CHARTS - Vibrant Apple Colors =====
   chart: {
     primary: {
-      light: '#007BFF',
+      light: '#007AFF',
       dark: '#0A84FF',
     },
     secondary: {
-      light: '#6C757D',
-      dark: '#8A939B',
+      light: '#5856D6',
+      dark: '#5E5CE6',
     },
     success: {
-      light: '#28A745',
-      dark: '#34D058',
+      light: '#34C759',
+      dark: '#30D158',
     },
     danger: {
-      light: '#DC3545',
-      dark: '#F85149',
+      light: '#FF3B30',
+      dark: '#FF453A',
     },
     warning: {
-      light: '#FFC107',
-      dark: '#FFD54F',
+      light: '#FFCC00',
+      dark: '#FFD60A',
     },
     info: {
-      light: '#17A2B8',
-      dark: '#58A6FF',
+      light: '#5AC8FA',
+      dark: '#64D2FF',
+    },
+    purple: {
+      light: '#AF52DE',
+      dark: '#BF5AF2',
+    },
+    pink: {
+      light: '#FF2D55',
+      dark: '#FF375F',
+    },
+    orange: {
+      light: '#FF9500',
+      dark: '#FF9F0A',
     },
     grid: {
-      light: '#DEE2E6',
-      dark: '#343A40',
+      light: 'rgba(0, 0, 0, 0.08)',
+      dark: 'rgba(255, 255, 255, 0.12)',
     },
   },
 
-  // ===== BADGES =====
+  // ===== BADGES - Glass Pills =====
   badge: {
     primary: {
       background: {
-        light: '#007BFF',
-        dark: '#0A84FF',
+        light: 'rgba(0, 122, 255, 0.15)',
+        dark: 'rgba(10, 132, 255, 0.25)',
       },
       text: {
-        light: '#FFFFFF',
-        dark: '#FFFFFF',
+        light: '#007AFF',
+        dark: '#0A84FF',
       },
     },
     success: {
       background: {
-        light: '#28A745',
-        dark: '#34D058',
+        light: 'rgba(52, 199, 89, 0.15)',
+        dark: 'rgba(48, 209, 88, 0.25)',
       },
       text: {
-        light: '#FFFFFF',
-        dark: '#000000',
+        light: '#248A3D',
+        dark: '#30D158',
       },
     },
     danger: {
       background: {
-        light: '#DC3545',
-        dark: '#F85149',
+        light: 'rgba(255, 59, 48, 0.15)',
+        dark: 'rgba(255, 69, 58, 0.25)',
       },
       text: {
-        light: '#FFFFFF',
-        dark: '#FFFFFF',
+        light: '#C7281E',
+        dark: '#FF453A',
       },
     },
     warning: {
       background: {
-        light: '#FFC107',
-        dark: '#FFD54F',
+        light: 'rgba(255, 204, 0, 0.15)',
+        dark: 'rgba(255, 214, 10, 0.25)',
       },
       text: {
-        light: '#000000',
-        dark: '#000000',
+        light: '#B18B00',
+        dark: '#FFD60A',
       },
     },
     info: {
       background: {
-        light: '#17A2B8',
-        dark: '#58A6FF',
+        light: 'rgba(90, 200, 250, 0.15)',
+        dark: 'rgba(100, 210, 255, 0.25)',
       },
       text: {
-        light: '#FFFFFF',
-        dark: '#000000',
+        light: '#0D7EC1',
+        dark: '#64D2FF',
+      },
+    },
+    purple: {
+      background: {
+        light: 'rgba(175, 82, 222, 0.15)',
+        dark: 'rgba(191, 90, 242, 0.25)',
+      },
+      text: {
+        light: '#8944AB',
+        dark: '#BF5AF2',
       },
     },
   },
 
-  // ===== BORDERS & DIVIDERS =====
+  // ===== BORDERS & DIVIDERS - Subtle Glass =====
   border: {
     default: {
-      light: '#DEE2E6',
-      dark: '#343A40',
+      light: 'rgba(0, 0, 0, 0.08)',
+      dark: 'rgba(255, 255, 255, 0.12)',
     },
     light: {
-      light: '#E9ECEF',
-      dark: '#2C2C2C',
+      light: 'rgba(0, 0, 0, 0.04)',
+      dark: 'rgba(255, 255, 255, 0.06)',
     },
     strong: {
-      light: '#ADB5BD',
-      dark: '#495057',
+      light: 'rgba(0, 0, 0, 0.15)',
+      dark: 'rgba(255, 255, 255, 0.2)',
+    },
+    glass: {
+      light: 'rgba(255, 255, 255, 0.5)',
+      dark: 'rgba(255, 255, 255, 0.1)',
     },
   },
 
-  // ===== SHADOWS =====
+  // ===== SHADOWS - Liquid Depth =====
   shadow: {
     sm: {
-      light: '0 1px 2px rgba(0, 0, 0, 0.05)',
-      dark: '0 1px 2px rgba(0, 0, 0, 0.3)',
+      light: '0 1px 3px rgba(0, 0, 0, 0.04), 0 1px 2px rgba(0, 0, 0, 0.02)',
+      dark: '0 1px 3px rgba(0, 0, 0, 0.3), 0 1px 2px rgba(0, 0, 0, 0.2)',
     },
     md: {
-      light: '0 4px 6px rgba(0, 0, 0, 0.1)',
-      dark: '0 4px 6px rgba(0, 0, 0, 0.4)',
+      light: '0 4px 12px rgba(0, 0, 0, 0.08), 0 2px 6px rgba(0, 0, 0, 0.04)',
+      dark: '0 4px 12px rgba(0, 0, 0, 0.5), 0 2px 6px rgba(0, 0, 0, 0.3)',
     },
     lg: {
-      light: '0 10px 15px rgba(0, 0, 0, 0.1)',
-      dark: '0 10px 15px rgba(0, 0, 0, 0.5)',
+      light: '0 12px 24px rgba(0, 0, 0, 0.1), 0 6px 12px rgba(0, 0, 0, 0.05)',
+      dark: '0 12px 24px rgba(0, 0, 0, 0.6), 0 6px 12px rgba(0, 0, 0, 0.4)',
     },
     xl: {
-      light: '0 20px 25px rgba(0, 0, 0, 0.15)',
-      dark: '0 20px 25px rgba(0, 0, 0, 0.6)',
+      light: '0 24px 48px rgba(0, 0, 0, 0.12), 0 12px 24px rgba(0, 0, 0, 0.08)',
+      dark: '0 24px 48px rgba(0, 0, 0, 0.7), 0 12px 24px rgba(0, 0, 0, 0.5)',
+    },
+    glass: {
+      light: '0 8px 32px rgba(0, 0, 0, 0.08)',
+      dark: '0 8px 32px rgba(0, 0, 0, 0.6)',
+    },
+    glow: {
+      light: '0 0 20px rgba(0, 122, 255, 0.15)',
+      dark: '0 0 20px rgba(10, 132, 255, 0.25)',
     },
   },
 
-  // ===== STATUS =====
+  // ===== STATUS - Apple System Colors =====
   status: {
     online: {
-      light: '#28A745',
-      dark: '#34D058',
+      light: '#34C759',
+      dark: '#30D158',
     },
     offline: {
-      light: '#6C757D',
-      dark: '#8A939B',
+      light: '#8E8E93',
+      dark: '#98989D',
     },
     away: {
-      light: '#FFC107',
-      dark: '#FFD54F',
+      light: '#FFCC00',
+      dark: '#FFD60A',
     },
     busy: {
-      light: '#DC3545',
-      dark: '#F85149',
+      light: '#FF3B30',
+      dark: '#FF453A',
     },
+  },
+
+  // ===== GRADIENTS - Liquid Glass Effects =====
+  gradient: {
+    glass: {
+      light: 'linear-gradient(135deg, rgba(255, 255, 255, 0.9) 0%, rgba(255, 255, 255, 0.6) 100%)',
+      dark: 'linear-gradient(135deg, rgba(44, 44, 46, 0.9) 0%, rgba(28, 28, 30, 0.6) 100%)',
+    },
+    primary: {
+      light: 'linear-gradient(135deg, #007AFF 0%, #5856D6 100%)',
+      dark: 'linear-gradient(135deg, #0A84FF 0%, #5E5CE6 100%)',
+    },
+    success: {
+      light: 'linear-gradient(135deg, #34C759 0%, #5AC8FA 100%)',
+      dark: 'linear-gradient(135deg, #30D158 0%, #64D2FF 100%)',
+    },
+    danger: {
+      light: 'linear-gradient(135deg, #FF3B30 0%, #FF2D55 100%)',
+      dark: 'linear-gradient(135deg, #FF453A 0%, #FF375F 100%)',
+    },
+    sunset: {
+      light: 'linear-gradient(135deg, #FF9500 0%, #FF2D55 50%, #AF52DE 100%)',
+      dark: 'linear-gradient(135deg, #FF9F0A 0%, #FF375F 50%, #BF5AF2 100%)',
+    },
+    ocean: {
+      light: 'linear-gradient(135deg, #007AFF 0%, #5AC8FA 100%)',
+      dark: 'linear-gradient(135deg, #0A84FF 0%, #64D2FF 100%)',
+    },
+  },
+
+  // ===== BACKDROP BLUR - For Glass Effect =====
+  blur: {
+    none: 'blur(0px)',
+    sm: 'blur(4px)',
+    md: 'blur(12px)',
+    lg: 'blur(24px)',
+    xl: 'blur(40px)',
   },
 } as const;
 
