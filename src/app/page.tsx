@@ -1,5 +1,5 @@
-import { ThemeDemo } from '@/components/ThemeDemo'
+import { redirect } from 'next/navigation'
 
 export default function Home() {
-  return <ThemeDemo />
+  redirect('/login')
 }
