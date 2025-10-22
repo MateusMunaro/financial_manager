@@ -42,10 +42,7 @@ function StatCard({ title, value, change, icon: Icon, isPositive = true }: StatC
           className="p-3 rounded-lg"
           style={{ backgroundColor: getThemeColor(colors.brand.primary) + '20' }}
         >
-          <Icon
-            className="h-4 w-4"
-            style={{ color: getThemeColor(colors.brand.primary) }}
-          />
+          <Icon className="h-4 w-4" />
         </div>
       </div>
     </Card>
