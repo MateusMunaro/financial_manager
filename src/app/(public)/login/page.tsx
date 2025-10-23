@@ -4,23 +4,83 @@ import { useTheme } from '@/context/ThemeContext';
 import { colors } from '@/lib/styles/colors';
 import { Input } from '@/components/Input';
 import { Button } from '@/components/Button';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
+import { useAuthContext } from '@/context/AuthContext';
 
 export default function LoginPage() {
     const { getThemeColor } = useTheme();
     const router = useRouter();
+    const { login, isAuthenticated, loading, error } = useAuthContext();
     const [formData, setFormData] = useState({
         email: '',
         password: '',
     });
+    const [isSubmitting, setIsSubmitting] = useState(false);
+    const [loginError, setLoginError] = useState<string | null>(null);
 
-    const handleSubmit = (e: React.FormEvent) => {
+    // Redirecionar se já estiver autenticado
+    useEffect(() => {
+        console.log('🔄 Login Page - useEffect executado', { isAuthenticated, loading });
+        if (isAuthenticated && !loading) {
+            console.log('✅ Usuário autenticado, redirecionando para dashboard...');
+            router.push('/dashboard');
+        }
+    }, [isAuthenticated, loading, router]);
+
+    const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
-        // Por enquanto, redireciona direto para o dashboard sem validação
-        router.push('/dashboard');
+        setLoginError(null);
+        
+        console.log('📝 Formulário submetido', { email: formData.email });
+        
+        if (!formData.email || !formData.password) {
+            setLoginError('Por favor, preencha todos os campos');
+            return;
+        }
+
+        setIsSubmitting(true);
+        
+        try {
+            console.log('🔐 Chamando função login...');
+            const success = await login({
+                email: formData.email,
+                password: formData.password,
+            });
+
+            console.log('🎯 Resultado do login:', success);
+
+            if (success) {
+                console.log('✅ Login bem-sucedido! Redirecionando...');
+                router.push('/dashboard');
+            } else {
+                console.log('❌ Login falhou');
+                setLoginError(error || 'Erro ao fazer login. Verifique suas credenciais.');
+            }
+        } catch (err) {
+            console.error('❌ Exceção ao fazer login:', err);
+            setLoginError('Erro ao fazer login. Tente novamente.');
+        } finally {
+            setIsSubmitting(false);
+        }
     };
+
+    if (loading) {
+        return (
+            <div className="min-h-screen flex items-center justify-center">
+                <div className="text-center">
+                    <div
+                        className="animate-spin rounded-full h-12 w-12 border-b-2 mx-auto mb-4"
+                        style={{ borderColor: getThemeColor(colors.brand.primary) }}
+                    />
+                    <p style={{ color: getThemeColor(colors.text.secondary) }}>
+                        Carregando...
+                    </p>
+                </div>
+            </div>
+        );
+    }
 
     return (
         <div className="min-h-screen flex items-center justify-center p-4">
@@ -47,6 +107,23 @@ export default function LoginPage() {
                 </div>
 
                 <form onSubmit={handleSubmit} className="mt-8 space-y-6">
+                    {loginError && (
+                        <div
+                            className="p-4 rounded-lg"
+                            style={{
+                                backgroundColor: getThemeColor(colors.semantic.negative) + '20',
+                                border: `1px solid ${getThemeColor(colors.semantic.negative)}`,
+                            }}
+                        >
+                            <p
+                                className="text-sm"
+                                style={{ color: getThemeColor(colors.semantic.negative) }}
+                            >
+                                {loginError}
+                            </p>
+                        </div>
+                    )}
+
                     <div className="space-y-4">
                         <Input
                             label="Email"
@@ -54,7 +131,9 @@ export default function LoginPage() {
                             value={formData.email}
                             onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                             placeholder="seu@email.com"
+                            required
                             fullWidth
+                            disabled={isSubmitting}
                         />
 
                         <Input
@@ -63,7 +142,9 @@ export default function LoginPage() {
                             value={formData.password}
                             onChange={(e) => setFormData({ ...formData, password: e.target.value })}
                             placeholder="Sua senha"
+                            required
                             fullWidth
+                            disabled={isSubmitting}
                         />
                     </div>
 
@@ -100,8 +181,9 @@ export default function LoginPage() {
                         type="submit"
                         variant="primary"
                         className="w-full"
+                        disabled={isSubmitting}
                     >
-                        Entrar
+                        {isSubmitting ? 'Entrando...' : 'Entrar'}
                     </Button>
 
                     <div className="text-center">

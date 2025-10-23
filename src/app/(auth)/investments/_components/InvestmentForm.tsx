@@ -5,10 +5,10 @@ import { colors } from '@/lib/styles/colors';
 import { Input } from '@/components/Input';
 import { Button } from '@/components/Button';
 import { useState } from 'react';
-import type { Investment } from '../page';
+import type { CreateInvestmentInput, InvestmentType } from '@/lib/schemas/investment.schema';
 
 interface InvestmentFormProps {
-  onSubmit: (investment: Omit<Investment, 'id'>) => void;
+  onSubmit: (investment: CreateInvestmentInput) => void;
   onCancel: () => void;
 }
 
@@ -16,14 +16,16 @@ export function InvestmentForm({ onSubmit, onCancel }: InvestmentFormProps) {
   const { getThemeColor } = useTheme();
   const [formData, setFormData] = useState({
     name: '',
-    type: '',
+    type: '' as InvestmentType | '',
     value: '',
     currentValue: '',
     purchaseDate: new Date().toISOString().split('T')[0],
     quantity: '',
+    ticker: '',
+    description: '',
   });
 
-  const types = [
+  const types: InvestmentType[] = [
     'Ações',
     'FII',
     'ETF',
@@ -43,11 +45,13 @@ export function InvestmentForm({ onSubmit, onCancel }: InvestmentFormProps) {
 
     onSubmit({
       name: formData.name,
-      type: formData.type,
+      type: formData.type as InvestmentType,
       value: parseFloat(formData.value),
       currentValue: parseFloat(formData.currentValue),
       purchaseDate: formData.purchaseDate,
       quantity: formData.quantity ? parseFloat(formData.quantity) : undefined,
+      ticker: formData.ticker || undefined,
+      description: formData.description || undefined,
     });
 
     setFormData({
@@ -57,6 +61,8 @@ export function InvestmentForm({ onSubmit, onCancel }: InvestmentFormProps) {
       currentValue: '',
       purchaseDate: new Date().toISOString().split('T')[0],
       quantity: '',
+      ticker: '',
+      description: '',
     });
   };
 
