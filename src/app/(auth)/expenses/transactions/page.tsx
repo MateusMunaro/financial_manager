@@ -11,59 +11,26 @@ import { ExpenseList } from '../_components/ExpenseList';
 import { PlusIcon, ArrowLeftIcon } from '@heroicons/react/24/outline';
 import { format, isSameDay, parseISO } from 'date-fns';
 import Link from 'next/link';
-import type { Expense } from '../_components/types';
+import { useExpenses } from '@/hooks/api/useExpenses';
+import type { CreateExpenseInput } from '@/lib/schemas/expense.schema';
 
 export default function TransactionsPage() {
   const { getThemeColor } = useTheme();
   const [showForm, setShowForm] = useState(false);
   const [selectedDate, setSelectedDate] = useState<Date>(new Date());
-  const [expenses, setExpenses] = useState<Expense[]>([
-    {
-      id: '1',
-      name: 'Supermercado',
-      value: 450.00,
-      category: 'Alimentação',
-      date: '2025-10-20',
-      description: 'Compras do mês',
-      paymentMethod: 'credit-card',
-    },
-    {
-      id: '2',
-      name: 'Netflix',
-      value: 39.90,
-      category: 'Entretenimento',
-      date: '2025-10-19',
-      paymentMethod: 'credit-card',
-    },
-    {
-      id: '3',
-      name: 'Combustível',
-      value: 250.00,
-      category: 'Transporte',
-      date: '2025-10-18',
-      paymentMethod: 'debit-card',
-    },
-    {
-      id: '4',
-      name: 'Restaurante',
-      value: 120.00,
-      category: 'Alimentação',
-      date: '2025-10-17',
-      paymentMethod: 'pix',
-    },
-  ]);
+  
+  // Fetch expenses from API
+  const { expenses, loading, createExpense, deleteExpense } = useExpenses();
 
-  const handleAddExpense = (expense: Omit<Expense, 'id'>) => {
-    const newExpense: Expense = {
-      ...expense,
-      id: Date.now().toString(),
-    };
-    setExpenses([newExpense, ...expenses]);
-    setShowForm(false);
+  const handleAddExpense = async (expenseData: CreateExpenseInput) => {
+    const success = await createExpense(expenseData);
+    if (success) {
+      setShowForm(false);
+    }
   };
 
-  const handleDeleteExpense = (id: string) => {
-    setExpenses(expenses.filter(exp => exp.id !== id));
+  const handleDeleteExpense = async (id: string) => {
+    await deleteExpense(id);
   };
 
   const handleDateSelect = (date: Date) => {
@@ -82,6 +49,21 @@ export default function TransactionsPage() {
 
   // Total for selected date
   const totalForSelectedDate = filteredExpenses.reduce((acc, exp) => acc + exp.value, 0);
+
+  if (loading) {
+    return (
+      <div className="flex items-center justify-center min-h-screen">
+        <div className="text-center">
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 mx-auto mb-4"
+            style={{ borderColor: getThemeColor(colors.brand.primary) }}
+          />
+          <p style={{ color: getThemeColor(colors.text.secondary) }}>
+            Carregando transações...
+          </p>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="space-y-6">

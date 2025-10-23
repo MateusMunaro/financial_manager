@@ -9,70 +9,46 @@ import { InvestmentForm } from './_components/InvestmentForm';
 import { InvestmentList } from './_components/InvestmentList';
 import { InvestmentStats } from './_components/InvestmentStats';
 import { PlusIcon } from '@heroicons/react/24/outline';
-
-export interface Investment {
-  id: string;
-  name: string;
-  type: string;
-  value: number;
-  purchaseDate: string;
-  currentValue: number;
-  quantity?: number;
-}
+import { useInvestments } from '@/hooks/api/useInvestments';
+import type { CreateInvestmentInput } from '@/lib/schemas/investment.schema';
 
 export default function InvestmentsPage() {
   const { getThemeColor } = useTheme();
   const [showForm, setShowForm] = useState(false);
-  const [investments, setInvestments] = useState<Investment[]>([
-    {
-      id: '1',
-      name: 'Tesouro Selic 2029',
-      type: 'Renda Fixa',
-      value: 10000,
-      currentValue: 10850,
-      purchaseDate: '2024-01-15',
-    },
-    {
-      id: '2',
-      name: 'ITUB4',
-      type: 'Ações',
-      value: 5000,
-      currentValue: 6200,
-      purchaseDate: '2024-03-10',
-      quantity: 200,
-    },
-    {
-      id: '3',
-      name: 'HASH11',
-      type: 'FII',
-      value: 8000,
-      currentValue: 8640,
-      purchaseDate: '2024-05-20',
-      quantity: 80,
-    },
-    {
-      id: '4',
-      name: 'BOVA11',
-      type: 'ETF',
-      value: 15000,
-      currentValue: 17250,
-      purchaseDate: '2024-02-01',
-      quantity: 150,
-    },
-  ]);
+  
+  // Fetch investments from API
+  const { 
+    investments, 
+    loading, 
+    createInvestment, 
+    deleteInvestment 
+  } = useInvestments();
 
-  const handleAddInvestment = (investment: Omit<Investment, 'id'>) => {
-    const newInvestment: Investment = {
-      ...investment,
-      id: Date.now().toString(),
-    };
-    setInvestments([newInvestment, ...investments]);
-    setShowForm(false);
+  const handleAddInvestment = async (investmentData: CreateInvestmentInput) => {
+    const success = await createInvestment(investmentData);
+    if (success) {
+      setShowForm(false);
+    }
   };
 
-  const handleDeleteInvestment = (id: string) => {
-    setInvestments(investments.filter(inv => inv.id !== id));
+  const handleDeleteInvestment = async (id: string) => {
+    await deleteInvestment(id);
   };
+
+  if (loading) {
+    return (
+      <div className="flex items-center justify-center min-h-screen">
+        <div className="text-center">
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 mx-auto mb-4"
+            style={{ borderColor: getThemeColor(colors.brand.primary) }}
+          />
+          <p style={{ color: getThemeColor(colors.text.secondary) }}>
+            Carregando investimentos...
+          </p>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="space-y-6">

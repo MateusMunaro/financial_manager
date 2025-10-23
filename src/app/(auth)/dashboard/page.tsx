@@ -9,6 +9,7 @@ import {
   ArrowTrendingDownIcon,
   WalletIcon,
 } from '@heroicons/react/24/outline';
+import { useDashboard, useRecentTransactions, useCategorySpending } from '@/hooks/api/useDashboard';
 
 interface StatCardProps {
   title: string;
@@ -51,6 +52,37 @@ function StatCard({ title, value, change, icon: Icon, isPositive = true }: StatC
 
 export default function DashboardPage() {
   const { getThemeColor } = useTheme();
+  const { data: dashboardData, loading: dashboardLoading } = useDashboard('month');
+  const { transactions, loading: transactionsLoading } = useRecentTransactions(4);
+  const { spending, loading: spendingLoading } = useCategorySpending('month');
+
+  const formatCurrency = (value: number) => {
+    return new Intl.NumberFormat('pt-BR', {
+      style: 'currency',
+      currency: 'BRL',
+    }).format(value);
+  };
+
+  const formatPercentage = (value: number) => {
+    const sign = value >= 0 ? '+' : '';
+    return `${sign}${value.toFixed(1)}%`;
+  };
+
+  // Loading state
+  if (dashboardLoading || transactionsLoading || spendingLoading) {
+    return (
+      <div className="flex items-center justify-center min-h-screen">
+        <div className="text-center">
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 mx-auto mb-4"
+            style={{ borderColor: getThemeColor(colors.brand.primary) }}
+          />
+          <p style={{ color: getThemeColor(colors.text.secondary) }}>
+            Carregando dados...
+          </p>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="space-y-6">
@@ -74,31 +106,31 @@ export default function DashboardPage() {
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
         <StatCard
           title="Saldo Total"
-          value="R$ 12.450,00"
-          change="+15,3%"
+          value={formatCurrency(dashboardData?.summary.totalBalance || 0)}
+          change={formatPercentage(dashboardData?.summary.changePercentage.balance || 0)}
           icon={WalletIcon}
-          isPositive={true}
+          isPositive={(dashboardData?.summary.changePercentage.balance || 0) >= 0}
         />
         <StatCard
           title="Receitas"
-          value="R$ 8.500,00"
-          change="+8,2%"
+          value={formatCurrency(dashboardData?.summary.totalIncome || 0)}
+          change={formatPercentage(dashboardData?.summary.changePercentage.income || 0)}
           icon={ArrowTrendingUpIcon}
-          isPositive={true}
+          isPositive={(dashboardData?.summary.changePercentage.income || 0) >= 0}
         />
         <StatCard
           title="Despesas"
-          value="R$ 3.250,00"
-          change="-5,4%"
+          value={formatCurrency(dashboardData?.summary.totalExpenses || 0)}
+          change={formatPercentage(dashboardData?.summary.changePercentage.expenses || 0)}
           icon={ArrowTrendingDownIcon}
-          isPositive={true}
+          isPositive={(dashboardData?.summary.changePercentage.expenses || 0) <= 0}
         />
         <StatCard
           title="Investimentos"
-          value="R$ 45.200,00"
-          change="+12,7%"
+          value={formatCurrency(dashboardData?.summary.totalInvestments || 0)}
+          change={formatPercentage(dashboardData?.summary.changePercentage.investments || 0)}
           icon={BanknotesIcon}
-          isPositive={true}
+          isPositive={(dashboardData?.summary.changePercentage.investments || 0) >= 0}
         />
       </div>
 
@@ -110,44 +142,49 @@ export default function DashboardPage() {
             className="text-xl font-bold mb-4"
             style={{ color: getThemeColor(colors.text.primary) }}
           >
-            Gastos Recentes
+            Transações Recentes
           </h2>
           <div className="space-y-3">
-            {[
-              { name: 'Supermercado', value: 'R$ 450,00', date: '20/10/2025', category: 'Alimentação' },
-              { name: 'Netflix', value: 'R$ 39,90', date: '19/10/2025', category: 'Entretenimento' },
-              { name: 'Combustível', value: 'R$ 250,00', date: '18/10/2025', category: 'Transporte' },
-              { name: 'Restaurante', value: 'R$ 120,00', date: '17/10/2025', category: 'Alimentação' },
-            ].map((expense, index) => (
-              <div
-                key={index}
-                className="flex items-center justify-between p-3 rounded-lg"
-                style={{
-                  backgroundColor: getThemeColor(colors.background.elevated),
-                }}
-              >
-                <div className="flex-1">
+            {transactions.length === 0 ? (
+              <p style={{ color: getThemeColor(colors.text.secondary) }}>
+                Nenhuma transação recente
+              </p>
+            ) : (
+              transactions.map((transaction, index) => (
+                <div
+                  key={transaction.id || index}
+                  className="flex items-center justify-between p-3 rounded-lg"
+                  style={{
+                    backgroundColor: getThemeColor(colors.background.elevated),
+                  }}
+                >
+                  <div className="flex-1">
+                    <p
+                      className="font-medium"
+                      style={{ color: getThemeColor(colors.text.primary) }}
+                    >
+                      {transaction.name}
+                    </p>
+                    <p
+                      className="text-sm"
+                      style={{ color: getThemeColor(colors.text.secondary) }}
+                    >
+                      {transaction.category} • {new Date(transaction.date).toLocaleDateString('pt-BR')}
+                    </p>
+                  </div>
                   <p
-                    className="font-medium"
-                    style={{ color: getThemeColor(colors.text.primary) }}
+                    className="font-bold"
+                    style={{ 
+                      color: transaction.type === 'income' 
+                        ? getThemeColor(colors.semantic.positive) 
+                        : getThemeColor(colors.semantic.negative) 
+                    }}
                   >
-                    {expense.name}
-                  </p>
-                  <p
-                    className="text-sm"
-                    style={{ color: getThemeColor(colors.text.secondary) }}
-                  >
-                    {expense.category} • {expense.date}
+                    {transaction.type === 'income' ? '+' : '-'}{formatCurrency(Math.abs(transaction.value))}
                   </p>
                 </div>
-                <p
-                  className="font-bold"
-                  style={{ color: getThemeColor(colors.semantic.negative) }}
-                >
-                  {expense.value}
-                </p>
-              </div>
-            ))}
+              ))
+            )}
           </div>
         </Card>
 
@@ -157,47 +194,49 @@ export default function DashboardPage() {
             className="text-xl font-bold mb-4"
             style={{ color: getThemeColor(colors.text.primary) }}
           >
-            Resumo Mensal
+            Gastos por Categoria
           </h2>
           <div className="space-y-4">
-            {[
-              { category: 'Alimentação', value: 1250, max: 2000, color: colors.brand.primary },
-              { category: 'Transporte', value: 800, max: 1000, color: colors.brand.secondary },
-              { category: 'Entretenimento', value: 450, max: 600, color: colors.brand.accent },
-              { category: 'Saúde', value: 320, max: 500, color: colors.semantic.positive },
-            ].map((item, index) => {
-              const percentage = (item.value / item.max) * 100;
-              return (
-                <div key={index}>
-                  <div className="flex items-center justify-between mb-2">
-                    <span
-                      className="text-sm font-medium"
-                      style={{ color: getThemeColor(colors.text.primary) }}
-                    >
-                      {item.category}
-                    </span>
-                    <span
-                      className="text-sm"
-                      style={{ color: getThemeColor(colors.text.secondary) }}
-                    >
-                      R$ {item.value} / R$ {item.max}
-                    </span>
-                  </div>
-                  <div
-                    className="h-2 rounded-full overflow-hidden"
-                    style={{ backgroundColor: getThemeColor(colors.background.elevated) }}
-                  >
+            {spending.length === 0 ? (
+              <p style={{ color: getThemeColor(colors.text.secondary) }}>
+                Nenhum gasto registrado
+              </p>
+            ) : (
+              spending.slice(0, 4).map((item, index) => {
+                const percentage = item.limit ? (item.value / item.limit) * 100 : 0;
+                return (
+                  <div key={index}>
+                    <div className="flex items-center justify-between mb-2">
+                      <span
+                        className="text-sm font-medium"
+                        style={{ color: getThemeColor(colors.text.primary) }}
+                      >
+                        {item.category}
+                      </span>
+                      <span
+                        className="text-sm"
+                        style={{ color: getThemeColor(colors.text.secondary) }}
+                      >
+                        {formatCurrency(item.value)}
+                        {item.limit && ` / ${formatCurrency(item.limit)}`}
+                      </span>
+                    </div>
                     <div
-                      className="h-full rounded-full transition-all duration-300"
-                      style={{
-                        width: `${percentage}%`,
-                        backgroundColor: getThemeColor(item.color),
-                      }}
-                    />
+                      className="h-2 rounded-full overflow-hidden"
+                      style={{ backgroundColor: getThemeColor(colors.background.elevated) }}
+                    >
+                      <div
+                        className="h-full rounded-full transition-all duration-300"
+                        style={{
+                          width: `${item.limit ? Math.min(percentage, 100) : item.percentage}%`,
+                          backgroundColor: item.color || getThemeColor(colors.brand.primary),
+                        }}
+                      />
+                    </div>
                   </div>
-                </div>
-              );
-            })}
+                );
+              })
+            )}
           </div>
         </Card>
       </div>

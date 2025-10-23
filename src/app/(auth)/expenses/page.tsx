@@ -10,9 +10,26 @@ import {
   ArrowPathIcon,
   PlusCircleIcon,
 } from '@heroicons/react/24/outline';
+import { useExpenseStats } from '@/hooks/api/useExpenses';
+import { useRecurringExpenses } from '@/hooks/api/useRecurringExpenses';
+import { usePaymentMethods } from '@/hooks/api/usePaymentMethods';
 
 export default function ExpensesPage() {
   const { getThemeColor } = useTheme();
+  
+  // Fetch data from API
+  const { stats, loading: statsLoading } = useExpenseStats();
+  const { recurringExpenses, loading: recurringLoading } = useRecurringExpenses();
+  const { paymentMethods, loading: paymentMethodsLoading } = usePaymentMethods();
+
+  const formatCurrency = (value: number) => {
+    return new Intl.NumberFormat('pt-BR', {
+      style: 'currency',
+      currency: 'BRL',
+    }).format(value);
+  };
+
+  const activeRecurringCount = recurringExpenses.filter(re => re.isActive).length;
 
   const sections = [
     {
@@ -44,6 +61,21 @@ export default function ExpensesPage() {
       color: colors.semantic.negative,
     },
   ];
+
+  if (statsLoading || recurringLoading || paymentMethodsLoading) {
+    return (
+      <div className="flex items-center justify-center min-h-screen">
+        <div className="text-center">
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 mx-auto mb-4"
+            style={{ borderColor: getThemeColor(colors.brand.primary) }}
+          />
+          <p style={{ color: getThemeColor(colors.text.secondary) }}>
+            Carregando dados...
+          </p>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="space-y-6">
@@ -121,13 +153,13 @@ export default function ExpensesPage() {
             className="text-sm font-medium mb-1"
             style={{ color: getThemeColor(colors.text.secondary) }}
           >
-            Total do Mês
+            Total do Período
           </p>
           <p
             className="text-3xl font-bold"
             style={{ color: getThemeColor(colors.semantic.negative) }}
           >
-            R$ 1.859,90
+            {formatCurrency(stats?.total || 0)}
           </p>
         </Card>
 
@@ -142,7 +174,7 @@ export default function ExpensesPage() {
             className="text-3xl font-bold"
             style={{ color: getThemeColor(colors.text.primary) }}
           >
-            5 ativos
+            {activeRecurringCount} {activeRecurringCount === 1 ? 'ativo' : 'ativos'}
           </p>
         </Card>
 
@@ -157,7 +189,7 @@ export default function ExpensesPage() {
             className="text-3xl font-bold"
             style={{ color: getThemeColor(colors.text.primary) }}
           >
-            3
+            {paymentMethods.length}
           </p>
         </Card>
       </div>

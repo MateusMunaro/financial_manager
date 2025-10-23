@@ -3,7 +3,7 @@
 import { useTheme } from '@/context/ThemeContext';
 import { colors } from '@/lib/styles/colors';
 import Link from 'next/link';
-import { usePathname } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
 import { 
   HomeIcon, 
   CreditCardIcon, 
@@ -14,6 +14,7 @@ import {
   XMarkIcon
 } from '@heroicons/react/24/outline';
 import { useState } from 'react';
+import { useAuthContext } from '@/context/AuthContext';
 
 interface MenuItem {
   name: string;
@@ -31,10 +32,35 @@ const menuItems: MenuItem[] = [
 export function Sidebar() {
   const { getThemeColor, theme } = useTheme();
   const pathname = usePathname();
+  const router = useRouter();
+  const { user, logout } = useAuthContext();
   const [isOpen, setIsOpen] = useState(false); // Mobile menu state
   const [isExpanded, setIsExpanded] = useState(true); // Desktop collapse state
+  const [isLoggingOut, setIsLoggingOut] = useState(false);
 
   const isActive = (href: string) => pathname === href;
+
+  const handleLogout = async () => {
+    setIsLoggingOut(true);
+    try {
+      await logout();
+      router.push('/login');
+    } catch (error) {
+      console.error('Error logging out:', error);
+    } finally {
+      setIsLoggingOut(false);
+    }
+  };
+
+  const getUserInitials = () => {
+    if (!user?.name) return 'U';
+    return user.name
+      .split(' ')
+      .map(n => n[0])
+      .join('')
+      .toUpperCase()
+      .substring(0, 2);
+  };
 
   return (
     <>
@@ -204,33 +230,37 @@ export function Sidebar() {
                     color: '#FFFFFF',
                   }}
                 >
-                  U
+                  {getUserInitials()}
                 </div>
                 <div className="flex-1 min-w-0">
                   <p
                     className="text-sm font-medium truncate"
                     style={{ color: getThemeColor(colors.text.primary) }}
                   >
-                    Usuário
+                    {user?.name || 'Usuário'}
                   </p>
                   <p
                     className="text-xs truncate"
                     style={{ color: getThemeColor(colors.text.secondary) }}
                   >
-                    usuario@email.com
+                    {user?.email || 'usuario@email.com'}
                   </p>
                 </div>
               </div>
 
               <button
-                className="flex items-center gap-3 px-4 py-3 rounded-lg w-full transition-all duration-200 hover:scale-105"
+                onClick={handleLogout}
+                disabled={isLoggingOut}
+                className="flex items-center gap-3 px-4 py-3 rounded-lg w-full transition-all duration-200 hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed"
                 style={{
                   backgroundColor: getThemeColor(colors.semantic.negative),
                   color: '#FFFFFF',
                 }}
               >
                 <ArrowRightOnRectangleIcon className="h-5 w-5" />
-                <span className="font-medium">Sair</span>
+                <span className="font-medium">
+                  {isLoggingOut ? 'Saindo...' : 'Sair'}
+                </span>
               </button>
             </>
           ) : (
@@ -242,15 +272,17 @@ export function Sidebar() {
                   color: '#FFFFFF',
                 }}
               >
-                U
+                {getUserInitials()}
               </div>
               <button
-                className="flex items-center justify-center p-3 rounded-lg w-full transition-all duration-200 hover:scale-105"
+                onClick={handleLogout}
+                disabled={isLoggingOut}
+                className="flex items-center justify-center p-3 rounded-lg w-full transition-all duration-200 hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed"
                 style={{
                   backgroundColor: getThemeColor(colors.semantic.negative),
                   color: '#FFFFFF',
                 }}
-                title="Sair"
+                title={isLoggingOut ? 'Saindo...' : 'Sair'}
               >
                 <ArrowRightOnRectangleIcon className="h-5 w-5" />
               </button>
