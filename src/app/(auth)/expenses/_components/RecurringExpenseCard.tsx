@@ -11,12 +11,12 @@ import {
   PlayIcon,
   CalendarIcon,
 } from '@heroicons/react/24/outline';
-import type { RecurringExpense } from './types';
+import type { RecurringExpense } from '@/lib/schemas/expense.schema';
 
 interface RecurringExpenseCardProps {
   expense: RecurringExpense;
-  onDelete: (id: string) => void;
-  onToggleActive: (id: string) => void;
+  onDelete: (id: string) => void | Promise<void>;
+  onToggleActive: (id: string) => void | Promise<void>;
 }
 
 export function RecurringExpenseCard({ expense, onDelete, onToggleActive }: RecurringExpenseCardProps) {
@@ -141,7 +141,11 @@ export function RecurringExpenseCard({ expense, onDelete, onToggleActive }: Recu
               style={{ color: getThemeColor(colors.text.secondary) }}
             >
               {expense.frequency === 'monthly' && expense.dayOfMonth && `Dia ${expense.dayOfMonth} de cada mês`}
-              {expense.frequency === 'yearly' && 'Uma vez por ano'}
+              {expense.frequency === 'yearly' && expense.dayOfMonth && `Dia ${expense.dayOfMonth} de cada ano`}
+              {expense.frequency === 'weekly' && expense.dayOfWeek !== undefined && (() => {
+                const days = ['Domingo', 'Segunda', 'Terça', 'Quarta', 'Quinta', 'Sexta', 'Sábado'];
+                return `Toda ${days[expense.dayOfWeek]}`;
+              })()}
             </span>
           </div>
           

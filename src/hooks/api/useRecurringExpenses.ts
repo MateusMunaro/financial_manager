@@ -34,12 +34,17 @@ export function useRecurringExpenses(activeOnly?: boolean) {
   ): Promise<RecurringExpense | null> => {
     try {
       setError(null);
+      console.log('🔄 Criando despesa recorrente:', data);
       const newExpense = await recurringExpensesApi.create(data);
+      console.log('✅ Despesa criada com sucesso:', newExpense);
       setRecurringExpenses((prev) => [newExpense, ...prev]);
       return newExpense;
-    } catch (err) {
-      setError(err instanceof Error ? err.message : 'Erro ao criar despesa recorrente');
-      console.error('Error creating recurring expense:', err);
+    } catch (err: any) {
+      const errorMessage = err.response?.data?.detail 
+        || err.message 
+        || 'Erro ao criar despesa recorrente';
+      console.error('❌ Erro no hook:', errorMessage, err);
+      setError(errorMessage);
       return null;
     }
   };
@@ -92,22 +97,44 @@ export function useRecurringExpenses(activeOnly?: boolean) {
 
   const generateExpenses = async (
     id: string,
-    startDate?: string,
-    endDate?: string
-  ): Promise<boolean> => {
+    params?: { startDate?: string; endDate?: string }
+  ): Promise<{ success: boolean; message?: string }> => {
     try {
       setError(null);
-      await recurringExpensesApi.generateExpenses(id, startDate, endDate);
-      return true;
+      const result = await recurringExpensesApi.generateExpenses(id, params);
+      return { success: true, message: result.message };
     } catch (err) {
-      setError(err instanceof Error ? err.message : 'Erro ao gerar despesas');
+      const errorMessage = err instanceof Error ? err.message : 'Erro ao gerar despesas';
+      setError(errorMessage);
       console.error('Error generating expenses:', err);
-      return false;
+      return { success: false, message: errorMessage };
     }
   };
 
+  // Computed values
+  const activeExpenses = recurringExpenses.filter((exp) => exp.isActive);
+  const inactiveExpenses = recurringExpenses.filter((exp) => !exp.isActive);
+
+  const totalMonthly = activeExpenses.reduce((sum, exp) => {
+    if (exp.frequency === 'monthly') return sum + exp.value;
+    if (exp.frequency === 'yearly') return sum + exp.value / 12;
+    if (exp.frequency === 'weekly') return sum + (exp.value * 52) / 12;
+    return sum;
+  }, 0);
+
+  const totalYearly = activeExpenses.reduce((sum, exp) => {
+    if (exp.frequency === 'monthly') return sum + exp.value * 12;
+    if (exp.frequency === 'yearly') return sum + exp.value;
+    if (exp.frequency === 'weekly') return sum + exp.value * 52;
+    return sum;
+  }, 0);
+
   return {
     recurringExpenses,
+    activeExpenses,
+    inactiveExpenses,
+    totalMonthly,
+    totalYearly,
     loading,
     error,
     createRecurringExpense,
