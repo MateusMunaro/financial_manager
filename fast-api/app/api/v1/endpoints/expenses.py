@@ -2,6 +2,9 @@ from typing import List, Optional
 from fastapi import APIRouter, Depends, HTTPException, status, Query
 from sqlalchemy.orm import Session
 from sqlalchemy import and_, or_, func
+import time
+import hashlib
+from functools import wraps
 from datetime import datetime
 from app.database import get_db
 from app.dependencies import get_current_user
@@ -16,8 +19,46 @@ from app.schemas.expense import (
     Period,
 )
 
+
+
 router = APIRouter(prefix="/expenses", tags=["Expenses"])
 
+
+# Cache para rate limiting (armazena: {chave: timestamp_da_última_chamada})
+_request_cache = {}
+_RATE_LIMIT_SECONDS = 1  # Tempo mínimo entre requisições idênticas
+
+
+def _generate_cache_key(user_id: str, endpoint: str, **kwargs) -> str:
+    """Gera uma chave única para o cache baseada no usuário e parâmetros."""
+    params_str = str(sorted(kwargs.items()))
+    cache_string = f"{user_id}:{endpoint}:{params_str}"
+    return hashlib.md5(cache_string.encode()).hexdigest()
+
+
+def _is_rate_limited(cache_key: str) -> bool:
+    """Verifica se a requisição deve ser bloqueada por rate limiting."""
+    current_time = time.time()
+    
+    if cache_key in _request_cache:
+        last_request_time = _request_cache[cache_key]
+        time_diff = current_time - last_request_time
+        
+        if time_diff < _RATE_LIMIT_SECONDS:
+            return True
+    
+    # Atualizar o cache com o tempo atual
+    _request_cache[cache_key] = current_time
+    
+    # Limpar entradas antigas do cache (mais de 60 segundos)
+    keys_to_remove = [
+        key for key, timestamp in _request_cache.items()
+        if current_time - timestamp > 60
+    ]
+    for key in keys_to_remove:
+        del _request_cache[key]
+    
+    return False
 
 @router.get("", response_model=List[ExpenseResponse])
 async def get_expenses(
@@ -32,34 +73,64 @@ async def get_expenses(
     current_user: User = Depends(get_current_user),
     db: Session = Depends(get_db),
 ):
-    """Listar todas as despesas do usuário com filtros opcionais."""
-    query = db.query(Expense).filter(Expense.user_id == current_user.id)
-    
-    # Aplicar filtros
-    if start_date:
-        query = query.filter(Expense.date >= start_date)
-    if end_date:
-        query = query.filter(Expense.date <= end_date)
-    if category:
-        query = query.filter(Expense.category == category)
-    if payment_method:
-        query = query.filter(Expense.payment_method == payment_method)
-    if min_value is not None:
-        query = query.filter(Expense.value >= min_value)
-    if max_value is not None:
-        query = query.filter(Expense.value <= max_value)
-    if is_recurring is not None:
-        query = query.filter(Expense.is_recurring == is_recurring)
-    if search:
-        query = query.filter(
-            or_(
-                Expense.name.ilike(f"%{search}%"),
-                Expense.description.ilike(f"%{search}%")
-            )
+    try:
+        cache_key = _generate_cache_key(
+            user_id=str(current_user.id),
+            endpoint="get_expenses",
+            start_date=start_date,
+            end_date=end_date,
+            category=category,
+            payment_method=payment_method,
+            min_value=min_value,
+            max_value=max_value,
+            is_recurring=is_recurring,
+            search=search,
         )
+        
+        # Verificar rate limiting
+        if _is_rate_limited(cache_key):
+            raise HTTPException(
+                status_code=status.HTTP_429_TOO_MANY_REQUESTS,
+                detail="Muitas requisições. Aguarde um momento antes de tentar novamente.",
+            )
+        
+        query = db.query(Expense).filter(Expense.user_id == current_user.id)
+        
+        # Aplicar filtros
+        if start_date:
+            query = query.filter(Expense.date >= start_date)
+        if end_date:
+            query = query.filter(Expense.date <= end_date)
+        if category:
+            query = query.filter(Expense.category == category)
+        if payment_method:
+            query = query.filter(Expense.payment_method == payment_method)
+        if min_value is not None:
+            query = query.filter(Expense.value >= min_value)
+        if max_value is not None:
+            query = query.filter(Expense.value <= max_value)
+        if is_recurring is not None:
+            query = query.filter(Expense.is_recurring == is_recurring)
+        if search:
+            query = query.filter(
+                or_(
+                    Expense.name.ilike(f"%{search}%"),
+                    Expense.description.ilike(f"%{search}%")
+                )
+            )
+        
+        expenses = query.order_by(Expense.date.desc()).all()
+        return [ExpenseResponse.model_validate(expense) for expense in expenses]
     
-    expenses = query.order_by(Expense.date.desc()).all()
-    return [ExpenseResponse.model_validate(expense) for expense in expenses]
+    except HTTPException:
+        # Re-lançar HTTPException (rate limit)
+        raise
+    except Exception as e:
+        # Capturar qualquer outro erro inesperado
+        raise HTTPException(
+            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            detail=f"Erro ao buscar despesas: {str(e)}",
+        )
 
 
 @router.get("/stats", response_model=ExpenseStats)

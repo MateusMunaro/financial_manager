@@ -5,10 +5,14 @@ import { colors } from '@/lib/styles/colors';
 import { Input } from '@/components/Input';
 import { Button } from '@/components/Button';
 import { useState } from 'react';
-import type { RecurringExpense, RecurringFrequency, PaymentMethodType } from './types';
+import type {
+  CreateRecurringExpenseInput,
+  RecurringFrequency,
+  PaymentMethodType,
+} from '@/lib/schemas/expense.schema';
 
 interface RecurringExpenseFormProps {
-  onSubmit: (expense: Omit<RecurringExpense, 'id'>) => void;
+  onSubmit: (expense: CreateRecurringExpenseInput) => void | Promise<void>;
   onCancel: () => void;
 }
 
@@ -20,6 +24,7 @@ export function RecurringExpenseForm({ onSubmit, onCancel }: RecurringExpenseFor
     category: '',
     frequency: 'monthly' as RecurringFrequency,
     dayOfMonth: '1',
+    dayOfWeek: '',
     paymentMethod: 'bank-slip' as PaymentMethodType,
     startDate: new Date().toISOString().split('T')[0],
     description: '',
@@ -39,6 +44,7 @@ export function RecurringExpenseForm({ onSubmit, onCancel }: RecurringExpenseFor
   const frequencies: { value: RecurringFrequency; label: string }[] = [
     { value: 'monthly', label: 'Mensal' },
     { value: 'yearly', label: 'Anual' },
+    { value: 'weekly', label: 'Semanal' },
   ];
 
   const paymentMethods: { value: PaymentMethodType; label: string }[] = [
@@ -46,7 +52,18 @@ export function RecurringExpenseForm({ onSubmit, onCancel }: RecurringExpenseFor
     { value: 'credit-card', label: 'Cartão de Crédito' },
     { value: 'debit-card', label: 'Cartão de Débito' },
     { value: 'pix', label: 'PIX' },
+    { value: 'cash', label: 'Dinheiro' },
     { value: 'other', label: 'Outro' },
+  ];
+
+  const daysOfWeek = [
+    { value: 0, label: 'Domingo' },
+    { value: 1, label: 'Segunda-feira' },
+    { value: 2, label: 'Terça-feira' },
+    { value: 3, label: 'Quarta-feira' },
+    { value: 4, label: 'Quinta-feira' },
+    { value: 5, label: 'Sexta-feira' },
+    { value: 6, label: 'Sábado' },
   ];
 
   const handleSubmit = (e: React.FormEvent) => {
@@ -57,17 +74,27 @@ export function RecurringExpenseForm({ onSubmit, onCancel }: RecurringExpenseFor
       return;
     }
 
-    onSubmit({
+    // Converter data para formato ISO completo
+    const startDateISO = new Date(formData.startDate + 'T00:00:00').toISOString();
+
+    const expenseData: CreateRecurringExpenseInput = {
       name: formData.name,
       value: parseFloat(formData.value),
       category: formData.category,
       frequency: formData.frequency,
-      dayOfMonth: formData.frequency === 'monthly' ? parseInt(formData.dayOfMonth) : undefined,
-      paymentMethod: formData.paymentMethod,
-      startDate: formData.startDate,
+      dayOfMonth: formData.frequency === 'monthly' || formData.frequency === 'yearly' 
+        ? parseInt(formData.dayOfMonth) 
+        : undefined,
+      dayOfWeek: formData.frequency === 'weekly' && formData.dayOfWeek
+        ? parseInt(formData.dayOfWeek)
+        : undefined,
+      paymentMethod: formData.paymentMethod || undefined,
+      startDate: startDateISO,
       isActive: true,
       description: formData.description || undefined,
-    });
+    };
+
+    onSubmit(expenseData);
   };
 
   return (
@@ -147,7 +174,7 @@ export function RecurringExpenseForm({ onSubmit, onCancel }: RecurringExpenseFor
           </select>
         </div>
 
-        {formData.frequency === 'monthly' && (
+        {(formData.frequency === 'monthly' || formData.frequency === 'yearly') && (
           <Input
             label="Dia do Vencimento *"
             type="number"
@@ -159,6 +186,35 @@ export function RecurringExpenseForm({ onSubmit, onCancel }: RecurringExpenseFor
             required
             fullWidth
           />
+        )}
+
+        {formData.frequency === 'weekly' && (
+          <div className="w-full">
+            <label
+              className="block text-sm font-medium mb-1"
+              style={{ color: getThemeColor(colors.text.primary) }}
+            >
+              Dia da Semana *
+            </label>
+            <select
+              value={formData.dayOfWeek}
+              onChange={(e) => setFormData({ ...formData, dayOfWeek: e.target.value })}
+              required
+              className="w-full px-4 py-2 rounded-lg transition-all duration-200 focus:outline-none focus:ring-2"
+              style={{
+                backgroundColor: getThemeColor(colors.background.default),
+                color: getThemeColor(colors.text.primary),
+                border: `1px solid ${getThemeColor(colors.border.default)}`,
+              }}
+            >
+              <option value="">Selecione um dia</option>
+              {daysOfWeek.map((day) => (
+                <option key={day.value} value={day.value}>
+                  {day.label}
+                </option>
+              ))}
+            </select>
+          </div>
         )}
 
         <div className="w-full">
@@ -208,6 +264,7 @@ export function RecurringExpenseForm({ onSubmit, onCancel }: RecurringExpenseFor
           onChange={(e) => setFormData({ ...formData, description: e.target.value })}
           placeholder="Adicione mais detalhes..."
           rows={3}
+          maxLength={500}
           className="w-full px-4 py-2 rounded-lg transition-all duration-200 focus:outline-none focus:ring-2"
           style={{
             backgroundColor: getThemeColor(colors.background.default),
@@ -228,3 +285,4 @@ export function RecurringExpenseForm({ onSubmit, onCancel }: RecurringExpenseFor
     </form>
   );
 }
+

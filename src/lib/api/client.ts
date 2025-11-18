@@ -28,7 +28,7 @@ function convertKeysToCamelCase(obj: any): any {
 
 // Configuração do cliente HTTP
 export const apiClient = axios.create({
-  baseURL: process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000/api/v1',
+  baseURL: process.env.NEXT_PUBLIC_API_URL,
   headers: {
     'Content-Type': 'application/json',
   },
