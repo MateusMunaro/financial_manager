@@ -1,0 +1,22 @@
+# Vercel Configuration for Backend (Python/FastAPI)
+
+# Build settings
+[build]
+  # Vercel will detect Python automatically
+
+# Environment variables (set these in Vercel dashboard)
+[build.env]
+  # PYTHON_VERSION = "3.11"
+
+# Routes configuration for FastAPI
+[[redirects]]
+  source = "/(.*)"
+  destination = "/api/index"
+  status = 200
+
+[functions]
+  # Directory where serverless functions are located
+  directory = "api"
+  
+  # Python runtime
+  runtime = "python3.9"
