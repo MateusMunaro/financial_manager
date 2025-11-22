@@ -1,13 +1,19 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from app.config import settings
-from app.database import engine, Base
 from app.api.v1.router import api_router
 import os
 
-# Criar tabelas do banco de dados sempre (necessário para SQLite na Vercel)
-# Como o filesystem é efêmero, precisamos recriar as tabelas a cada execução
-Base.metadata.create_all(bind=engine)
+# Importar modelos e database
+try:
+    from app.database import engine, Base
+    
+    # Criar tabelas do banco de dados sempre (necessário para SQLite na Vercel)
+    # Como o filesystem é efêmero, precisamos recriar as tabelas a cada execução
+    Base.metadata.create_all(bind=engine)
+except Exception as e:
+    print(f"Warning: Could not create database tables: {e}")
+    # Não falhar se o banco não puder ser criado, apenas avisar
 
 # Criar aplicação FastAPI
 app = FastAPI(

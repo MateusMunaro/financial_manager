@@ -10,7 +10,7 @@ class Settings(BaseSettings):
     API_VERSION: str = "v1"
     
     # Segurança
-    SECRET_KEY: str = os.getenv("SECRET_KEY", "your-secret-key-change-in-production")
+    SECRET_KEY: str = os.getenv("SECRET_KEY", "default-secret-key-change-in-production-very-secret-key-here")
     ALGORITHM: str = "HS256"
     ACCESS_TOKEN_EXPIRE_MINUTES: int = 30
     
@@ -27,6 +27,7 @@ class Settings(BaseSettings):
     class Config:
         env_file = ".env"
         case_sensitive = True
+        extra = "allow"  # Permitir variáveis extras
 
 
 settings = Settings()
