@@ -5,7 +5,7 @@ import os
 
 def get_database_url() -> str:
     """Obtém a URL do banco de dados da integração Supabase"""
-    url = os.getenv("STORAGE_POSTGRES_URL")
+    url = os.getenv("STORAGE_POSTGRES_URL_NON_POOLING")
     
     if not url:
         raise ValueError("❌ STORAGE_POSTGRES_URL não encontrada! Certifique-se que a integração Supabase está configurada na Vercel.")
