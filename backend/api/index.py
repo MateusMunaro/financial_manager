@@ -6,10 +6,9 @@ sys.path.insert(0, os.path.dirname(os.path.dirname(__file__)))
 
 try:
     from app.main import app
-    from mangum import Mangum
     
-    # Handler para Vercel (compatível com ASGI)
-    handler = Mangum(app, lifespan="off")
+    # Vercel detecta automaticamente aplicações ASGI/FastAPI
+    # Basta exportar a instância 'app'
 except Exception as e:
     print(f"Error initializing app: {e}")
     import traceback

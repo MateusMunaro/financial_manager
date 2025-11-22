@@ -15,7 +15,13 @@ class Settings(BaseSettings):
     ACCESS_TOKEN_EXPIRE_MINUTES: int = 30
     
     # Banco de Dados
-    DATABASE_URL: str = os.getenv("DATABASE_URL", "sqlite:///./financial_manager.db")
+    # Vercel não suporta SQLite (filesystem read-only)
+    # Use PostgreSQL: Vercel Postgres, Neon, Supabase, etc.
+    # Formato: postgresql://user:password@host:port/database
+    DATABASE_URL: str = os.getenv(
+        "DATABASE_URL", 
+        os.getenv("POSTGRES_URL", "sqlite:///./financial_manager.db")  # fallback para dev local
+    )
     
     # CORS
     CORS_ORIGINS: List[str] = [
