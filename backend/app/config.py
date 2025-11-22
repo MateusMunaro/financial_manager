@@ -4,13 +4,13 @@ import os
 
 
 def get_database_url() -> str:
-    """Obtém a URL do banco de dados com conversão automática postgres:// -> postgresql://"""
-    url = os.getenv("POSTGRES_URL") or os.getenv("DATABASE_URL")
+    """Obtém a URL do banco de dados da integração Supabase"""
+    url = os.getenv("STORAGE_POSTGRES_URL")
     
     if not url:
-        raise ValueError("❌ POSTGRES_URL ou DATABASE_URL não configurada! Configure no painel da Vercel.")
+        raise ValueError("❌ STORAGE_POSTGRES_URL não encontrada! Certifique-se que a integração Supabase está configurada na Vercel.")
     
-    # Supabase e algumas plataformas usam postgres://, mas SQLAlchemy precisa de postgresql://
+    # Supabase usa postgres://, mas SQLAlchemy precisa de postgresql://
     if url.startswith("postgres://"):
         url = url.replace("postgres://", "postgresql://", 1)
     
@@ -23,8 +23,8 @@ class Settings(BaseSettings):
     DEBUG: bool = False  # Produção
     API_VERSION: str = "v1"
     
-    # Segurança
-    SECRET_KEY: str = os.getenv("SECRET_KEY", "default-secret-key-change-in-production-very-secret-key-here")
+    # Segurança - Usando JWT Secret do Supabase
+    SECRET_KEY: str = os.getenv("STORAGE_SUPABASE_JWT_SECRET", "fallback-secret-key-please-configure-supabase")
     ALGORITHM: str = "HS256"
     ACCESS_TOKEN_EXPIRE_MINUTES: int = 30
     
