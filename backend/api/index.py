@@ -1,5 +1,5 @@
 from app.main import app
+from mangum import Mangum
 
-# Vercel serverless function handler
-def handler(request):
-    return app(request.environ, request.start_response)
+# Handler para Vercel (compatível com ASGI)
+handler = Mangum(app)
