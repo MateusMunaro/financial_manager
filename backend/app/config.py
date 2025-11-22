@@ -18,9 +18,10 @@ class Settings(BaseSettings):
     # Vercel não suporta SQLite (filesystem read-only)
     # Use PostgreSQL: Vercel Postgres, Neon, Supabase, etc.
     # Formato: postgresql://user:password@host:port/database
+    # Prioriza POSTGRES_URL (Vercel Storage) sobre DATABASE_URL
     DATABASE_URL: str = os.getenv(
-        "DATABASE_URL", 
-        os.getenv("POSTGRES_URL", "sqlite:///./financial_manager.db")  # fallback para dev local
+        "POSTGRES_URL",  # Primeiro tenta POSTGRES_URL (Vercel Storage padrão)
+        os.getenv("DATABASE_URL", "sqlite:///./financial_manager.db")  # Fallback
     )
     
     # CORS
