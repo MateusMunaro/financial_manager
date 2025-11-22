@@ -61,7 +61,16 @@ async def root():
 @app.get("/health")
 async def health_check():
     """Verificar saúde da API."""
+    # Verificar se está usando PostgreSQL
+    db_type = "unknown"
+    if "postgresql" in settings.DATABASE_URL or "postgres" in settings.DATABASE_URL:
+        db_type = "PostgreSQL"
+    elif "sqlite" in settings.DATABASE_URL:
+        db_type = "SQLite"
+    
     return {
         "status": "healthy",
         "version": settings.API_VERSION,
+        "database": db_type,
+        "database_url_prefix": settings.DATABASE_URL[:20] + "..." if settings.DATABASE_URL else "NOT_SET",
     }
