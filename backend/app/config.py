@@ -3,6 +3,20 @@ from typing import List
 import os
 
 
+def get_database_url() -> str:
+    """Obtém a URL do banco de dados com conversão automática postgres:// -> postgresql://"""
+    url = os.getenv("POSTGRES_URL") or os.getenv("DATABASE_URL")
+    
+    if not url:
+        raise ValueError("❌ POSTGRES_URL ou DATABASE_URL não configurada! Configure no painel da Vercel.")
+    
+    # Supabase e algumas plataformas usam postgres://, mas SQLAlchemy precisa de postgresql://
+    if url.startswith("postgres://"):
+        url = url.replace("postgres://", "postgresql://", 1)
+    
+    return url
+
+
 class Settings(BaseSettings):
     # Aplicação
     APP_NAME: str = "Financial Manager API"
@@ -15,14 +29,9 @@ class Settings(BaseSettings):
     ACCESS_TOKEN_EXPIRE_MINUTES: int = 30
     
     # Banco de Dados
-    # Vercel não suporta SQLite (filesystem read-only)
-    # Use PostgreSQL: Vercel Postgres, Neon, Supabase, etc.
+    # OBRIGATÓRIO: PostgreSQL (Vercel Postgres, Neon, Supabase, etc.)
     # Formato: postgresql://user:password@host:port/database
-    # Prioriza POSTGRES_URL (Vercel Storage) sobre DATABASE_URL
-    DATABASE_URL: str = os.getenv(
-        "POSTGRES_URL",  # Primeiro tenta POSTGRES_URL (Vercel Storage padrão)
-        os.getenv("DATABASE_URL", "sqlite:///./financial_manager.db")  # Fallback
-    )
+    DATABASE_URL: str = get_database_url()
     
     # CORS
     CORS_ORIGINS: List[str] = [
