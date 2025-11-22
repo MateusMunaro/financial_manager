@@ -3,7 +3,7 @@
 import { useTheme } from '@/context/ThemeContext';
 import { colors } from '@/lib/styles/colors';
 import { Card } from '@/components/Card';
-import type { Investment } from '../page';
+import type { Investment } from '@/lib/schemas/investment.schema';
 
 interface InvestmentStatsProps {
   investments: Investment[];

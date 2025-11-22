@@ -88,7 +88,7 @@ export function InvestmentForm({ onSubmit, onCancel }: InvestmentFormProps) {
           </label>
           <select
             value={formData.type}
-            onChange={(e) => setFormData({ ...formData, type: e.target.value })}
+            onChange={(e) => setFormData({ ...formData, type: e.target.value as InvestmentType | '' })}
             required
             className="w-full px-4 py-2 rounded-lg transition-all duration-200 focus:outline-none focus:ring-2"
             style={{

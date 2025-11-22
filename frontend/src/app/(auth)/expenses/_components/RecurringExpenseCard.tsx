@@ -142,9 +142,9 @@ export function RecurringExpenseCard({ expense, onDelete, onToggleActive }: Recu
             >
               {expense.frequency === 'monthly' && expense.dayOfMonth && `Dia ${expense.dayOfMonth} de cada mês`}
               {expense.frequency === 'yearly' && expense.dayOfMonth && `Dia ${expense.dayOfMonth} de cada ano`}
-              {expense.frequency === 'weekly' && expense.dayOfWeek !== undefined && (() => {
+              {expense.frequency === 'weekly' && expense.dayOfWeek !== undefined && expense.dayOfWeek !== null && (() => {
                 const days = ['Domingo', 'Segunda', 'Terça', 'Quarta', 'Quinta', 'Sexta', 'Sábado'];
-                return `Toda ${days[expense.dayOfWeek]}`;
+                return `Toda ${days[expense.dayOfWeek as number]}`;
               })()}
             </span>
           </div>

@@ -2,6 +2,8 @@
 // EXEMPLOS DE USO - API e Hooks
 // ============================================
 
+import { useEffect } from 'react';
+
 // ============================================
 // 1. AUTENTICAÇÃO
 // ============================================
@@ -206,13 +208,16 @@ function RecurringExpensesExample() {
     await toggleActive(id);
   };
 
-  const handleGenerate = async (id: string) => {
+  const handleGenerateNext3Months = async (id: string) => {
     // Gerar despesas dos próximos 3 meses
     const startDate = new Date().toISOString();
     const endDate = new Date();
     endDate.setMonth(endDate.getMonth() + 3);
     
-    await generateExpenses(id, startDate, endDate.toISOString());
+    await generateExpenses(id, {
+      startDate,
+      endDate: endDate.toISOString()
+    });
   };
 }
 
@@ -326,7 +331,7 @@ function ValidationExample() {
     } catch (error) {
       if (error instanceof z.ZodError) {
         // Tratar erros de validação
-        error.errors.forEach((err) => {
+        error.issues.forEach((err) => {
           console.log(`${err.path}: ${err.message}`);
         });
       }
@@ -389,10 +394,10 @@ function ErrorHandlingExample() {
     }
   }, [error, refetch]);
 
-  if (loading) return <LoadingSpinner />;
-  if (error) return <ErrorMessage message={error} onRetry={refetch} />;
+  if (loading) return null; // return <LoadingSpinner />;
+  if (error) return null; // return <ErrorMessage message={error} onRetry={refetch} />;
 
-  return <ExpensesList expenses={expenses} />;
+  return null; // return <ExpensesList expenses={expenses} />;
 }
 
 // ============================================
