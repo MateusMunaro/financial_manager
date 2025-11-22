@@ -7,13 +7,24 @@ import os
 # Importar modelos e database
 try:
     from app.database import engine, Base
+    from app.models import (
+        User, 
+        Expense, 
+        PaymentMethod, 
+        RecurringExpense, 
+        Investment, 
+        InvestmentHistory
+    )
     
-    # Criar tabelas do banco de dados sempre (necessário para SQLite na Vercel)
-    # Como o filesystem é efêmero, precisamos recriar as tabelas a cada execução
+    # Criar tabelas do banco de dados no PostgreSQL
+    print("🔄 Criando tabelas no banco de dados...")
     Base.metadata.create_all(bind=engine)
+    print("✅ Tabelas criadas com sucesso!")
 except Exception as e:
-    print(f"Warning: Could not create database tables: {e}")
-    # Não falhar se o banco não puder ser criado, apenas avisar
+    print(f"❌ Erro ao criar tabelas: {e}")
+    import traceback
+    traceback.print_exc()
+    # Não falhar a aplicação, mas logar o erro
 
 # Criar aplicação FastAPI
 app = FastAPI(
