@@ -36,6 +36,7 @@ class Settings(BaseSettings):
     # CORS
     CORS_ORIGINS: List[str] = [
         "https://financial-manager-nine.vercel.app",
+        "https://financial-manager-rbafx3324-mateusmunaros-projects.vercel.app",  # Preview/Dev deployments
         "http://localhost:3000",
         "http://localhost:5173",
     ]
