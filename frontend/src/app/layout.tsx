@@ -3,6 +3,7 @@ import { Inter } from 'next/font/google'
 import './globals.css'
 import { ThemeProvider } from '@/context/ThemeContext'
 import { AuthProvider } from '@/context/AuthContext'
+import { ViewportProvider } from '@/context/ViewportContext'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -20,9 +21,11 @@ export default function RootLayout({
     <html lang="pt-BR" suppressHydrationWarning>
       <body className={inter.className}>
         <ThemeProvider defaultTheme="light" storageKey="gerenciador-financeiro-theme">
-          <AuthProvider>
-            {children}
-          </AuthProvider>
+          <ViewportProvider>
+            <AuthProvider>
+              {children}
+            </AuthProvider>
+          </ViewportProvider>
         </ThemeProvider>
       </body>
     </html>
