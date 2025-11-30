@@ -1,6 +1,7 @@
 'use client';
 
 import React from 'react';
+import Image from 'next/image';
 import { Bell, Eye, EyeOff, Plus } from 'lucide-react';
 
 interface MobileHeaderProps {
@@ -168,13 +169,15 @@ export function MobileHeader({
             text-sm font-bold 
             text-[#5483B3] dark:text-[#7DA0CA]
             overflow-hidden
+            relative
           "
         >
           {avatarUrl ? (
-            <img 
+            <Image 
               src={avatarUrl} 
               alt={userName} 
-              className="w-full h-full object-cover"
+              fill
+              className="object-cover"
             />
           ) : (
             initials
