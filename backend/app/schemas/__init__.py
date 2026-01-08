@@ -7,6 +7,7 @@ from app.schemas.auth import (
     ChangePassword,
     Token,
     AuthResponse,
+    MessageResponse,
 )
 from app.schemas.expense import (
     ExpenseCreate,
@@ -56,6 +57,7 @@ __all__ = [
     "ChangePassword",
     "Token",
     "AuthResponse",
+    "MessageResponse",
     # Expense
     "ExpenseCreate",
     "ExpenseUpdate",

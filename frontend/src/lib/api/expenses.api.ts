@@ -1,4 +1,11 @@
+/**
+ * Expenses API
+ * 
+ * Funções para comunicação com os endpoints de despesas.
+ */
+
 import { apiClient } from './client';
+import { safeParseWithFallback, safeParseArrayWithFallback } from './api-utils';
 import {
   Expense,
   CreateExpenseInput,
@@ -16,58 +23,78 @@ const ENDPOINTS = {
 };
 
 export const expensesApi = {
-  // Listar todas as despesas
+  /**
+   * Listar todas as despesas
+   */
   getAll: async (filters?: ExpenseFilters): Promise<Expense[]> => {
     const response = await apiClient.get(ENDPOINTS.EXPENSES, {
       params: filters,
     });
-    return response.data.map((item: unknown) => expenseSchema.parse(item));
+    return safeParseArrayWithFallback(expenseSchema, response.data, {
+      context: 'expensesApi.getAll',
+    });
   },
 
-  // Buscar despesa por ID
+  /**
+   * Buscar despesa por ID
+   */
   getById: async (id: string): Promise<Expense> => {
     const response = await apiClient.get(ENDPOINTS.EXPENSE_BY_ID(id));
-    return expenseSchema.parse(response.data);
+    return safeParseWithFallback(expenseSchema, response.data, {
+      context: 'expensesApi.getById',
+    });
   },
 
-  // Criar nova despesa
+  /**
+   * Criar nova despesa
+   */
   create: async (data: CreateExpenseInput): Promise<Expense> => {
     const response = await apiClient.post(ENDPOINTS.EXPENSES, data);
-    return expenseSchema.parse(response.data);
+    return safeParseWithFallback(expenseSchema, response.data, {
+      context: 'expensesApi.create',
+    });
   },
 
-  // Atualizar despesa
+  /**
+   * Atualizar despesa
+   */
   update: async (id: string, data: UpdateExpenseInput): Promise<Expense> => {
     const response = await apiClient.put(ENDPOINTS.EXPENSE_BY_ID(id), data);
-    return expenseSchema.parse(response.data);
+    return safeParseWithFallback(expenseSchema, response.data, {
+      context: 'expensesApi.update',
+    });
   },
 
-  // Deletar despesa
+  /**
+   * Deletar despesa
+   */
   delete: async (id: string): Promise<void> => {
     await apiClient.delete(ENDPOINTS.EXPENSE_BY_ID(id));
   },
 
-  // Obter estatísticas de despesas
+  /**
+   * Obter estatísticas de despesas
+   */
   getStats: async (filters?: ExpenseFilters): Promise<ExpenseStats> => {
     const response = await apiClient.get(ENDPOINTS.EXPENSE_STATS, {
       params: filters,
     });
-    return expenseStatsSchema.parse(response.data);
+    return safeParseWithFallback(expenseStatsSchema, response.data, {
+      context: 'expensesApi.getStats',
+    });
   },
 
-  // Buscar despesas por categoria
+  /**
+   * Buscar despesas por categoria
+   */
   getByCategory: async (category: string): Promise<Expense[]> => {
-    const response = await apiClient.get(ENDPOINTS.EXPENSES, {
-      params: { category },
-    });
-    return response.data.map((item: unknown) => expenseSchema.parse(item));
+    return expensesApi.getAll({ category });
   },
 
-  // Buscar despesas por período
+  /**
+   * Buscar despesas por período
+   */
   getByPeriod: async (startDate: string, endDate: string): Promise<Expense[]> => {
-    const response = await apiClient.get(ENDPOINTS.EXPENSES, {
-      params: { startDate, endDate },
-    });
-    return response.data.map((item: unknown) => expenseSchema.parse(item));
+    return expensesApi.getAll({ startDate, endDate });
   },
 };

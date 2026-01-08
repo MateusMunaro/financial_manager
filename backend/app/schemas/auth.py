@@ -48,3 +48,24 @@ class AuthResponse(BaseModel):
     user: UserResponse
     token: str
     refresh_token: Optional[str] = None
+
+
+class AppleAuthRequest(BaseModel):
+    """Request para autenticação com Apple"""
+    code: str = Field(..., description="Authorization code da Apple")
+    id_token: Optional[str] = Field(None, description="ID token da Apple")
+    user_data: Optional[dict] = Field(None, description="Dados do usuário (primeira vez)")
+
+
+class AppleCallbackRequest(BaseModel):
+    """Request do callback da Apple"""
+    code: str
+    state: Optional[str] = None
+    id_token: Optional[str] = None
+    user: Optional[str] = None  # JSON string com dados do usuário
+
+
+class MessageResponse(BaseModel):
+    """Resposta genérica de mensagem de sucesso."""
+    message: str
+    success: bool = True

@@ -16,7 +16,13 @@ import {
   TrendingDown, 
   Target,
 } from 'lucide-react';
-import { useDashboard, useRecentTransactions, useCategorySpending } from '@/hooks/api/useDashboard';
+import { 
+  useDashboard, 
+  useRecentTransactions, 
+  useCategorySpending,
+  useMonthlyTrend,
+  dashboardUtils 
+} from '@/hooks/api/useDashboard';
 import { useAuthContext } from '@/context/AuthContext';
 
 // Responsive components
@@ -74,33 +80,20 @@ export default function DashboardPage() {
   const { isMobile } = useViewport();
   const { user } = useAuthContext();
   const { data: dashboardData, loading: dashboardLoading } = useDashboard('month');
-  const { transactions, loading: transactionsLoading } = useRecentTransactions(4);
-  const { spending, loading: spendingLoading } = useCategorySpending('month');
+  const { transactions, mobileTransactions, loading: transactionsLoading } = useRecentTransactions(4);
+  const { spending, aggregated, loading: spendingLoading } = useCategorySpending('month');
+  const { trend, loading: trendLoading } = useMonthlyTrend(6);
 
   // Estados para mobile
   const [hideValues, setHideValues] = useState(false);
 
   const formatCurrency = (value: number) => {
-    return new Intl.NumberFormat('pt-BR', {
-      style: 'currency',
-      currency: 'BRL',
-    }).format(value);
+    return dashboardUtils.formatCurrency(value);
   };
 
   const formatPercentage = (value: number) => {
-    const sign = value >= 0 ? '+' : '';
-    return `${sign}${value.toFixed(1)}%`;
+    return dashboardUtils.formatPercentage(value);
   };
-
-  // Transforma transações para o formato do componente mobile
-  const mobileTransactions: Transaction[] = transactions.map((tx, index) => ({
-    id: tx.id || index,
-    title: tx.name,
-    category: tx.category,
-    amount: tx.type === 'income' ? tx.value : -tx.value,
-    date: new Date(tx.date).toLocaleDateString('pt-BR'),
-    type: tx.type as 'income' | 'expense',
-  }));
 
   // Loading state
   if (dashboardLoading || transactionsLoading || spendingLoading) {

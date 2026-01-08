@@ -3,8 +3,7 @@ from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
 from app.config import settings
 
-# Criar engine do banco de dados PostgreSQL
-# Configurações otimizadas para Vercel/Supabase
+# PostgreSQL - configurações otimizadas para Vercel/Supabase
 engine = create_engine(
     settings.DATABASE_URL,
     connect_args={

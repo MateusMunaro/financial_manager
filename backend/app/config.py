@@ -1,6 +1,10 @@
 from pydantic_settings import BaseSettings
 from typing import List
 import os
+from dotenv import load_dotenv
+
+# Carrega o .env ANTES de qualquer configuração
+load_dotenv()
 
 
 def get_database_url() -> str:
@@ -40,6 +44,16 @@ class Settings(BaseSettings):
         "http://localhost:3000",
         "http://localhost:5173",
     ]
+    
+    # Apple OAuth
+    APPLE_CLIENT_ID: str = os.getenv("APPLE_CLIENT_ID", "")  # Services ID
+    APPLE_TEAM_ID: str = os.getenv("APPLE_TEAM_ID", "")
+    APPLE_KEY_ID: str = os.getenv("APPLE_KEY_ID", "")
+    APPLE_PRIVATE_KEY: str = os.getenv("APPLE_PRIVATE_KEY", "")  # Conteúdo do arquivo .p8
+    APPLE_REDIRECT_URI: str = os.getenv(
+        "APPLE_REDIRECT_URI", 
+        "https://financial-manager-nine.vercel.app/api/auth/apple/callback"
+    )
     
     class Config:
         env_file = ".env"

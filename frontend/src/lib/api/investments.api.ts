@@ -1,4 +1,11 @@
+/**
+ * Investments API
+ * 
+ * Funções para comunicação com os endpoints de investimentos.
+ */
+
 import { apiClient } from './client';
+import { safeParseWithFallback, safeParseArrayWithFallback } from './api-utils';
 import {
   Investment,
   CreateInvestmentInput,
@@ -20,62 +27,91 @@ const ENDPOINTS = {
 };
 
 export const investmentsApi = {
-  // Listar todos os investimentos
+  /**
+   * Listar todos os investimentos
+   */
   getAll: async (filters?: InvestmentFilters): Promise<Investment[]> => {
     const response = await apiClient.get(ENDPOINTS.INVESTMENTS, {
       params: filters,
     });
-    return response.data.map((item: unknown) => investmentSchema.parse(item));
+    return safeParseArrayWithFallback(investmentSchema, response.data, {
+      context: 'investmentsApi.getAll',
+    });
   },
 
-  // Buscar investimento por ID
+  /**
+   * Buscar investimento por ID
+   */
   getById: async (id: string): Promise<Investment> => {
     const response = await apiClient.get(ENDPOINTS.INVESTMENT_BY_ID(id));
-    return investmentSchema.parse(response.data);
+    return safeParseWithFallback(investmentSchema, response.data, {
+      context: 'investmentsApi.getById',
+    });
   },
 
-  // Criar novo investimento
+  /**
+   * Criar novo investimento
+   */
   create: async (data: CreateInvestmentInput): Promise<Investment> => {
     const response = await apiClient.post(ENDPOINTS.INVESTMENTS, data);
-    return investmentSchema.parse(response.data);
+    return safeParseWithFallback(investmentSchema, response.data, {
+      context: 'investmentsApi.create',
+    });
   },
 
-  // Atualizar investimento
+  /**
+   * Atualizar investimento
+   */
   update: async (id: string, data: UpdateInvestmentInput): Promise<Investment> => {
     const response = await apiClient.put(ENDPOINTS.INVESTMENT_BY_ID(id), data);
-    return investmentSchema.parse(response.data);
+    return safeParseWithFallback(investmentSchema, response.data, {
+      context: 'investmentsApi.update',
+    });
   },
 
-  // Deletar investimento
+  /**
+   * Deletar investimento
+   */
   delete: async (id: string): Promise<void> => {
     await apiClient.delete(ENDPOINTS.INVESTMENT_BY_ID(id));
   },
 
-  // Obter estatísticas de investimentos
+  /**
+   * Obter estatísticas de investimentos
+   */
   getStats: async (): Promise<InvestmentStats> => {
     const response = await apiClient.get(ENDPOINTS.INVESTMENT_STATS);
-    return investmentStatsSchema.parse(response.data);
+    return safeParseWithFallback(investmentStatsSchema, response.data, {
+      context: 'investmentsApi.getStats',
+    });
   },
 
-  // Buscar histórico de valores
+  /**
+   * Buscar histórico de valores
+   */
   getHistory: async (id: string): Promise<InvestmentHistory[]> => {
     const response = await apiClient.get(ENDPOINTS.INVESTMENT_HISTORY(id));
-    return response.data.map((item: unknown) => investmentHistorySchema.parse(item));
+    return safeParseArrayWithFallback(investmentHistorySchema, response.data, {
+      context: 'investmentsApi.getHistory',
+    });
   },
 
-  // Atualizar valor atual do investimento
+  /**
+   * Atualizar valor atual do investimento
+   */
   updateCurrentValue: async (id: string, currentValue: number): Promise<Investment> => {
     const response = await apiClient.patch(ENDPOINTS.UPDATE_VALUE(id), {
       currentValue,
     });
-    return investmentSchema.parse(response.data);
+    return safeParseWithFallback(investmentSchema, response.data, {
+      context: 'investmentsApi.updateCurrentValue',
+    });
   },
 
-  // Buscar investimentos por tipo
+  /**
+   * Buscar investimentos por tipo
+   */
   getByType: async (type: string): Promise<Investment[]> => {
-    const response = await apiClient.get(ENDPOINTS.INVESTMENTS, {
-      params: { type },
-    });
-    return response.data.map((item: unknown) => investmentSchema.parse(item));
+    return investmentsApi.getAll({ type: type as Investment['type'] });
   },
 };

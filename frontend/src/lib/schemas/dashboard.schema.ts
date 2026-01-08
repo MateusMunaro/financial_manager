@@ -35,20 +35,24 @@ export const categorySpendingSchema = z.object({
   color: z.string(),
 });
 
+// Schema para tendência mensal
+export const monthlyTrendSchema = z.object({
+  month: z.string(),
+  income: z.number(),
+  expenses: z.number(),
+});
+
 // Schema para dados do dashboard
 export const dashboardDataSchema = z.object({
   summary: financialSummarySchema,
   recentTransactions: z.array(recentTransactionSchema),
   categorySpending: z.array(categorySpendingSchema),
-  monthlyTrend: z.array(z.object({
-    month: z.string(),
-    income: z.number(),
-    expenses: z.number(),
-  })),
+  monthlyTrend: z.array(monthlyTrendSchema),
 });
 
 // Tipos TypeScript inferidos dos schemas
 export type FinancialSummary = z.infer<typeof financialSummarySchema>;
 export type RecentTransaction = z.infer<typeof recentTransactionSchema>;
 export type CategorySpending = z.infer<typeof categorySpendingSchema>;
+export type MonthlyTrend = z.infer<typeof monthlyTrendSchema>;
 export type DashboardData = z.infer<typeof dashboardDataSchema>;
