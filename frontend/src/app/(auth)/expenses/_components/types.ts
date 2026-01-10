@@ -6,15 +6,15 @@ export interface Expense {
   value: number;
   category: string;
   date: string;
-  description?: string;
-  paymentMethod?: PaymentMethodType;
+  description?: string | null;
+  paymentMethod?: PaymentMethodType | null;
   isRecurring?: boolean;
 }
 
-export type PaymentMethodType = 
-  | 'credit-card' 
-  | 'debit-card' 
-  | 'pix' 
+export type PaymentMethodType =
+  | 'credit-card'
+  | 'debit-card'
+  | 'pix'
   | 'bank-slip'
   | 'cash'
   | 'other';
