@@ -2,7 +2,7 @@ from typing import List
 from pydantic import BaseModel
 from app.schemas.expense import Period
 
-
+#teste
 class FinancialChangePercentage(BaseModel):
     balance: float
     income: float
