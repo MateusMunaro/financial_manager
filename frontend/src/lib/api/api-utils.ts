@@ -132,7 +132,7 @@ export function safeParseWithFallback<T>(
 
     if (logErrors) {
         console.warn(`⚠️ [${context}] Validation failed, using raw data:`, {
-            errors: result.error.errors,
+            errors: result.error,
             data,
         });
     }
