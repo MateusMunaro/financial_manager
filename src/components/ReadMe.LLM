@@ -1,0 +1,192 @@
+# ReadMe.LLM — src/components/
+
+> Machine-readable module documentation for `c78376b9-8226-41cb-81f0-b8965c672ee0`
+> Generated: 2026-03-26
+
+---
+
+## Module Summary
+
+- **Files:** 12
+- **Functions:** 26
+- **Classes:** 0
+- **Language:** TypeScript
+
+### Files
+
+- `ActivityChartCard.tsx`
+- `Button.tsx`
+- `Card.tsx`
+- `GlassCalendar.tsx`
+- `Input.tsx`
+- `LiquidGlassDemo.tsx`
+- `Modal.tsx`
+- `ProtectedRoute.tsx`
+- `PublicRoute.tsx`
+- `Sidebar.tsx`
+- `ThemeDemo.tsx`
+- `ThemeToggle.tsx`
+
+---
+
+## Signatures
+
+### `ActivityChartCard.tsx`
+
+| Function | Params | Returns | Async |
+|----------|--------|---------|-------|
+| `ActivityChartCard` | `{
+  title = "Atividade",
+  subtitle,
+  totalValue,
+  data,
+  className = "",
+  dropdownOptions = ["Semanal", "Mensal", "Anual"],
+  onRangeChange,
+  trend,
+}: ActivityChartCardProps` | `None` |  |
+| `handleClickOutside` | `event: MouseEvent` | `None` |  |
+| `handleRangeChange` | `range: string` | `None` |  |
+
+### `Button.tsx`
+
+| Function | Params | Returns | Async |
+|----------|--------|---------|-------|
+| `Button` | `{
+  children,
+  onClick,
+  variant = 'primary',
+  size = 'md',
+  fullWidth = false,
+  disabled = false,
+  type = 'button',
+  className = '',
+}: ButtonProps` | `None` |  |
+| `getVariantColor` | `` | `ColorDefinition` |  |
+
+### `Card.tsx`
+
+| Function | Params | Returns | Async |
+|----------|--------|---------|-------|
+| `Card` | `{ 
+  children, 
+  className = '', 
+  elevated = false,
+  padding = 'md' 
+}: CardProps` | `None` |  |
+
+### `GlassCalendar.tsx`
+
+| Function | Params | Returns | Async |
+|----------|--------|---------|-------|
+| `ScrollbarHide` | `` | `None` |  |
+| `date` | `` | `None` |  |
+| `handleDateClick` | `date: Date` | `None` |  |
+| `handlePrev` | `` | `None` |  |
+| `handleNext` | `` | `None` |  |
+| `handleAddExpense` | `` | `None` |  |
+
+### `Input.tsx`
+
+| Function | Params | Returns | Async |
+|----------|--------|---------|-------|
+| `Input` | `{
+  label,
+  error,
+  fullWidth = false,
+  className = '',
+  ...props
+}: InputProps` | `None` |  |
+
+### `LiquidGlassDemo.tsx`
+
+| Function | Params | Returns | Async |
+|----------|--------|---------|-------|
+| `uidGlassDemo() ` | `` | `None` |  |
+| `ThemeColor = ` | `orDef: any) =` | `None` |  |
+
+### `Modal.tsx`
+
+| Function | Params | Returns | Async |
+|----------|--------|---------|-------|
+| `Modal` | `{ isOpen, onClose, children, title, size = 'md' }: ModalProps` | `None` |  |
+| `andleEsc ` | `: KeyboardEvent)` | `None` |  |
+
+### `ProtectedRoute.tsx`
+
+| Function | Params | Returns | Async |
+|----------|--------|---------|-------|
+| `ProtectedRoute` | `{ children }: ProtectedRouteProps` | `None` |  |
+
+### `PublicRoute.tsx`
+
+| Function | Params | Returns | Async |
+|----------|--------|---------|-------|
+| `PublicRoute` | `{ children }: PublicRouteProps` | `None` |  |
+
+### `Sidebar.tsx`
+
+| Function | Params | Returns | Async |
+|----------|--------|---------|-------|
+| `debar()` | `` | `None` |  |
+| `Active =` | `ef: string) ` | `None` |  |
+| `ndleLogout =` | `` | `None` | ✓ |
+| `tUserInitials =` | `` | `None` |  |
+| `=` | `` | `None` |  |
+
+### `ThemeDemo.tsx`
+
+| Function | Params | Returns | Async |
+|----------|--------|---------|-------|
+| `emeDemo()` | `` | `None` |  |
+
+### `ThemeToggle.tsx`
+
+| Function | Params | Returns | Async |
+|----------|--------|---------|-------|
+| `ThemeToggle` | `` | `None` |  |
+
+---
+
+## Dependencies
+
+### This module imports from:
+- `ActivityChartCard.tsx` → `src/lib/styles/colors.ts`
+- `Button.tsx` → `src/lib/styles/colors.ts`
+- `Card.tsx` → `src/lib/styles/colors.ts`
+- `GlassCalendar.tsx` → `src/lib/styles/colors.ts`
+- `Input.tsx` → `src/lib/styles/colors.ts`
+- `LiquidGlassDemo.tsx` → `src/lib/styles/colors.ts`
+- `Modal.tsx` → `src/lib/styles/colors.ts`
+- `ProtectedRoute.tsx` → `src/lib/styles/colors.ts`
+- `PublicRoute.tsx` → `src/lib/styles/colors.ts`
+- `Sidebar.tsx` → `src/lib/styles/colors.ts`
+- `ThemeDemo.tsx` → `src/lib/styles/colors.ts`
+- `ThemeToggle.tsx` → `src/lib/styles/colors.ts`
+
+---
+
+## Module Structure
+
+```mermaid
+flowchart TB
+    subgraph src_components["src/components/"]
+        src_components_PublicRoute_tsx["PublicRoute.tsx (1F)"]
+        src_components_ActivityChartCard_ts["ActivityChartCard.tsx (3F)"]
+        src_components_GlassCalendar_tsx["GlassCalendar.tsx (6F)"]
+        src_components_Sidebar_tsx["Sidebar.tsx (5F)"]
+        src_components_Button_tsx["Button.tsx (2F)"]
+        src_components_ProtectedRoute_tsx["ProtectedRoute.tsx (1F)"]
+        src_components_Card_tsx["Card.tsx (1F)"]
+        src_components_Modal_tsx["Modal.tsx (2F)"]
+        src_components_LiquidGlassDemo_tsx["LiquidGlassDemo.tsx (2F)"]
+        src_components_ThemeDemo_tsx["ThemeDemo.tsx (1F)"]
+        src_components_ThemeToggle_tsx["ThemeToggle.tsx (1F)"]
+        src_components_Input_tsx["Input.tsx (1F)"]
+    end
+```
+
+---
+
+
+*Generated by Code-In Agent — 2026-03-26*

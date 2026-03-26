@@ -1,0 +1,63 @@
+# c78376b9-8226-41cb-81f0-b8965c672ee0
+
+> llms.txt — Machine-readable documentation index
+> Generated: 2026-03-26
+
+## Project Summary
+
+- Architecture: Client-Server architecture within a Monorepo, with a FastAPI backend and a Next.js App Router frontend.
+- Language: TypeScript + Next.js
+- Type: web, cli, library
+- Files: 100 | Functions: 182 | Classes: 0
+- Stack: See repomap.txt
+
+## Documentation Map
+
+| Artifact | Path | Purpose |
+|----------|------|---------|
+| Behavioral Contract | [AGENTS.md](AGENTS.md) | Rules, commands, boundaries for AI agents |
+| Repository Map | [repomap.txt](repomap.txt) | AST-compressed symbol map of entire repo |
+| Module Doc | [fast-api/app/ReadMe.LLM](fast-api/app/ReadMe.LLM) | Signatures + I/O for `fast-api/app/` |
+| Module Rules | [fast-api/app/AGENTS.md](fast-api/app/AGENTS.md) | Module-specific overrides |
+| Module Doc | [src/app/ReadMe.LLM](src/app/ReadMe.LLM) | Signatures + I/O for `src/app/` |
+| Module Rules | [src/app/AGENTS.md](src/app/AGENTS.md) | Module-specific overrides |
+| Module Doc | [src/components/ReadMe.LLM](src/components/ReadMe.LLM) | Signatures + I/O for `src/components/` |
+| Module Rules | [src/components/AGENTS.md](src/components/AGENTS.md) | Module-specific overrides |
+| Module Doc | [src/context/ReadMe.LLM](src/context/ReadMe.LLM) | Signatures + I/O for `src/context/` |
+| Module Rules | [src/context/AGENTS.md](src/context/AGENTS.md) | Module-specific overrides |
+| Module Doc | [src/hooks/ReadMe.LLM](src/hooks/ReadMe.LLM) | Signatures + I/O for `src/hooks/` |
+| Module Rules | [src/hooks/AGENTS.md](src/hooks/AGENTS.md) | Module-specific overrides |
+| Module Doc | [src/lib/ReadMe.LLM](src/lib/ReadMe.LLM) | Signatures + I/O for `src/lib/` |
+| Module Rules | [src/lib/AGENTS.md](src/lib/AGENTS.md) | Module-specific overrides |
+| SCIP Index | [_codein/scip_index.scip](_codein/scip_index.scip) | Compiler-precision symbol navigation |
+| TreeFrag | [_codein/treefrag.txt](_codein/treefrag.txt) | Hierarchical LOD representation |
+| Knowledge Graph | [_codein/knowledge_graph.json](_codein/knowledge_graph.json) | Enriched dependency graph |
+
+## Key Modules
+
+- `next.config.js/`
+- `fast-api/`
+- `tailwind.config.ts/`
+- `postcss.config.js/`
+- `EXAMPLES.tsx/`
+- `src/`
+
+## Quick Reference
+
+### Entry Points
+- `postcss.config.js`
+- `EXAMPLES.tsx`
+- `next.config.js`
+- `tailwind.config.ts`
+- `src/lib/utils.ts`
+- `src/app/layout.tsx`
+- `src/app/page.tsx`
+- `src/context/ThemeContext.tsx`
+
+### Build Commands
+```
+npm run dev  # dev
+npm run build  # build
+npm run start  # start
+npm run lint  # lint
+```

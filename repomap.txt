@@ -1,0 +1,438 @@
+# repomap.txt — c78376b9-8226-41cb-81f0-b8965c672ee0
+# AST-compressed repository map (symbols only, no bodies)
+# Generated: 2026-03-26
+# Language: TypeScript
+#
+
+# Stats: 100 files, 178 functions, 0 classes
+#
+
+├── EXAMPLES.tsx  (439L)
+│   def inExample() ()
+│   async def dleLogin = ()
+│   def sterExample() {()
+│   async def leRegister = a()
+│   def sesListExample() {
+()
+│   def eExpenseExample() {
+()
+│   async def eCreate = as()
+│   def dExpensesExample() {
+  ()
+│   def tsExample() {
+  con()
+│   def dsExample() {
+  const()
+│   async def  = async () ()
+│   async def ult = async (id:(> {
+    aw)
+│   def esExample() {
+  const {
+()
+│   async def async () => ()
+│   async def async (id: s({
+    awai)
+│   async def = async (id: s({
+    // G)
+│   def le() {
+  const { i()
+│   async def sync () => {()
+│   async def e = async (id: st(
+    await)
+│   def ) {
+  const { da()
+│   def 
+  const handleSu()
+│   def ata: any) =>(   try {
+    )
+│   async def     // Buscar to()
+│   def t { expenses, loadin()
+│   def ses } = useExpe()
+├── next.config.js  (5L)
+├── postcss.config.js  (7L)
+├── tailwind.config.ts  (21L)
+│   exports: config
+
+fast-api/app/
+  ├── __init__.py  (2L)
+  ├── config.py  (28L)
+  ├── database.py  (27L)
+  ├── dependencies.py  (58L)
+  ├── main.py  (49L)
+
+fast-api/app/api/
+  ├── __init__.py  (2L)
+
+fast-api/app/api/v1/
+  ├── __init__.py  (2L)
+  ├── router.py  (20L)
+
+fast-api/app/api/v1/endpoints/
+  ├── __init__.py  (2L)
+  ├── auth.py  (146L)
+  ├── dashboard.py  (199L)
+  ├── expenses.py  (280L)
+  ├── investments.py  (215L)
+  ├── payment_methods.py  (162L)
+  ├── recurring_expenses.py  (178L)
+
+fast-api/app/core/
+  ├── __init__.py  (2L)
+  ├── security.py  (41L)
+  ├── utils.py  (32L)
+
+fast-api/app/models/
+  ├── __init__.py  (16L)
+  ├── expense.py  (35L)
+  ├── investment.py  (50L)
+  ├── payment_method.py  (25L)
+  ├── recurring_expense.py  (37L)
+  ├── user.py  (28L)
+
+fast-api/app/schemas/
+  ├── __init__.py  (93L)
+  ├── auth.py  (51L)
+  ├── dashboard.py  (50L)
+  ├── expense.py  (75L)
+  ├── investment.py  (86L)
+  ├── payment_method.py  (37L)
+  ├── recurring_expense.py  (59L)
+
+src/app/
+  ├── layout.tsx  (31L)
+  │   def RootLayout({
+  children,
+}: {
+  children: React.ReactNode
+})
+  ├── page.tsx  (6L)
+  │   def Home()
+
+src/app/(auth)/
+  ├── layout.tsx  (46L)
+  │   def AuthLayoutContent({ children }: { children: React.ReactNode })
+  │   def uthLayout((
+  children,
+}: {
+  children: React.ReactNode
+}))
+
+src/app/(auth)/dashboard/
+  ├── page.tsx  (246L)
+  │   def StatCard({ title, value, change, icon: Icon, isPositive = true }: StatCardProps)
+  │   def DashboardPage()
+  │   def formatCurrency(value: number)
+  │   def formatPercentage(value: number)
+
+src/app/(auth)/expenses/
+  ├── page.tsx  (199L)
+  │   def ExpensesPage()
+  │   def formatCurrency(value: number)
+  │   def re()
+
+src/app/(auth)/expenses/_components/
+  ├── CategoryBreakdown.tsx  (106L)
+  │   def CategoryBreakdown({ expenses }: CategoryBreakdownProps)
+  │   def formatCurrency(value: number)
+  ├── ExpenseForm.tsx  (155L)
+  │   def ExpenseForm({ onSubmit, onCancel, defaultDate }: ExpenseFormProps)
+  │   def Submit = (e:(ct.FormEvent) => {)
+  ├── ExpenseList.tsx  (115L)
+  │   def ExpenseList({ expenses, onDelete }: ExpenseListProps)
+  │   def formatCurrency(value: number)
+  │   def formatDate(dateString: string)
+  ├── ExpenseStats.tsx  (133L)
+  │   def ExpenseStats({ expenses }: ExpenseStatsProps)
+  │   def formatCurrency(value: number)
+  │   def day()
+  │   def exp()
+  ├── PaymentMethodCard.tsx  (138L)
+  │   def PaymentMethodCard({ method, onDelete, onSetDefault }: PaymentMethodCardProps)
+  │   def getMethodTypeLabel()
+  ├── PaymentMethodForm.tsx  (152L)
+  │   def PaymentMethodForm({ onSubmit, onCancel }: PaymentMethodFormProps)
+  │   def leSubmit = ((eact.FormEvent) =>)
+  ├── PeriodSelector.tsx  (51L)
+  │   def PeriodSelector({ period, onPeriodChange }: PeriodSelectorProps)
+  ├── RecurringExpenseCard.tsx  (201L)
+  │   def RecurringExpenseCard({ expense, onDelete, onToggleActive }: RecurringExpenseCardProps)
+  │   def getFrequencyLabel()
+  │   def getPaymentMethodLabel()
+  │   def tCurrency = (v(: number) => )
+  │   def tDate = (d(tring: string) => )
+  ├── RecurringExpenseForm.tsx  (289L)
+  │   def RecurringExpenseForm({ onSubmit, onCancel }: RecurringExpenseFormProps)
+  │   def  = (e: React(mEvent) => {
+    e)
+  ├── types.ts  (50L)
+
+src/app/(auth)/expenses/overview/
+  ├── page.tsx  (248L)
+  │   def ExpensesOverviewPage()
+  │   def getDateRange(period: Period)
+  │   def re()
+  │   def formatCurrency(value: number)
+
+src/app/(auth)/expenses/payment-methods/
+  ├── page.tsx  (258L)
+  │   def PaymentMethodsPage()
+  │   def handleAddPaymentMethod(method: Omit<PaymentMethod, 'id'>)
+  │   def handleDeletePaymentMethod(id: string)
+  │   def method()
+  │   def handleSetDefault(id: string)
+  │   def method()
+  │   def m()
+  │   def m()
+  │   def m()
+
+src/app/(auth)/expenses/recurring/
+  ├── page.tsx  (254L)
+  │   def RecurringExpensesPage()
+  │   async def handleAddRecurringExpense(expense: CreateRecurringExpenseInput)
+  │   async def leteRecurringExpense = async(ng) => {
+ )
+  │   async def ggleActive = async(ng) => {
+ )
+
+src/app/(auth)/expenses/transactions/
+  ├── page.tsx  (194L)
+  │   def TransactionsPage()
+  │   async def handleAddExpense(expenseData: CreateExpenseInput)
+  │   async def handleDeleteExpense(id: string)
+  │   def handleDateSelect(date: Date)
+  │   def handleAddExpenseFromCalendar(date: Date)
+  │   def expense()
+
+src/app/(auth)/investments/
+  ├── page.tsx  (105L)
+  │   def InvestmentsPage()
+  │   async def handleAddInvestment(investmentData: CreateInvestmentInput)
+  │   async def handleDeleteInvestment(id: string)
+
+src/app/(auth)/investments/_components/
+  ├── InvestmentForm.tsx  (162L)
+  │   def InvestmentForm({ onSubmit, onCancel }: InvestmentFormProps)
+  │   def ndleSubmit =( React.FormEvent) )
+  ├── InvestmentList.tsx  (193L)
+  │   def InvestmentList({ investments, onDelete }: InvestmentListProps)
+  │   def formatCurrency(value: number)
+  │   def formatDate(dateString: string)
+  │   def calculateProfit(investment: Investment)
+  ├── InvestmentStats.tsx  (180L)
+  │   def InvestmentStats({ investments }: InvestmentStatsProps)
+  │   def formatCurrency(value: number)
+
+src/app/(auth)/settings/
+  ├── page.tsx  (187L)
+  │   def SettingsPage()
+
+src/app/(public)/
+  ├── layout.tsx  (32L)
+  │   def PublicLayout({
+  children,
+}: {
+  children: React.ReactNode
+})
+
+src/app/(public)/about/
+  ├── page.tsx  (68L)
+  │   def AboutPage()
+
+src/app/(public)/contact/
+  ├── page.tsx  (91L)
+  │   def ContactPage()
+
+src/app/(public)/liquid-glass-demo/
+  ├── page.tsx  (6L)
+  │   def LiquidGlassDemoPage()
+
+src/app/(public)/login/
+  ├── page.tsx  (209L)
+  │   def LoginPage()
+  │   async def ubmit = asyn(t.FormEvent) => {
+)
+
+src/app/(public)/register/
+  ├── page.tsx  (250L)
+  │   def RegisterPage()
+  │   async def andleSubmit (: React.FormEvent))
+
+src/components/
+  ├── ActivityChartCard.tsx  (283L)
+  │   def ActivityChartCard({
+  title = "Atividade",
+  subtitle,
+  totalValue,
+  data,
+  className = "",
+  dropdownOptions = ["Semanal", "Mensal", "Anual"],
+  onRangeChange,
+  trend,
+}: ActivityChartCardProps)
+  │   def handleClickOutside(event: MouseEvent)
+  │   def handleRangeChange(range: string)
+  ├── Button.tsx  (78L)
+  │   def Button({
+  children,
+  onClick,
+  variant = 'primary',
+  size = 'md',
+  fullWidth = false,
+  disabled = false,
+  type = 'button',
+  className = '',
+}: ButtonProps)
+  │   def getVariantColor() -> ColorDefinition
+  ├── Card.tsx  (44L)
+  │   def Card({ 
+  children, 
+  className = '', 
+  elevated = false,
+  padding = 'md' 
+}: CardProps)
+  ├── GlassCalendar.tsx  (329L)
+  │   def ScrollbarHide()
+  │   def date()
+  │   def handleDateClick(date: Date)
+  │   def handlePrev()
+  │   def handleNext()
+  │   def handleAddExpense()
+  ├── Input.tsx  (56L)
+  │   def Input({
+  label,
+  error,
+  fullWidth = false,
+  className = '',
+  ...props
+}: InputProps)
+  ├── LiquidGlassDemo.tsx  (350L)
+  │   def uidGlassDemo() ()
+  │   def ThemeColor = (orDef: any) =)
+  ├── Modal.tsx  (108L)
+  │   def Modal({ isOpen, onClose, children, title, size = 'md' }: ModalProps)
+  │   def andleEsc (: KeyboardEvent))
+  ├── ProtectedRoute.tsx  (48L)
+  │   def ProtectedRoute({ children }: ProtectedRouteProps)
+  ├── PublicRoute.tsx  (46L)
+  │   def PublicRoute({ children }: PublicRouteProps)
+  ├── Sidebar.tsx  (296L)
+  │   def debar()()
+  │   def Active =(ef: string) )
+  │   async def ndleLogout =()
+  │   def tUserInitials =()
+  │   def =()
+  ├── ThemeDemo.tsx  (225L)
+  │   def emeDemo()()
+  ├── ThemeToggle.tsx  (96L)
+  │   def ThemeToggle()
+
+src/context/
+  ├── AuthContext.tsx  (35L)
+  │   def AuthProvider({ children }: { children: ReactNode })
+  │   def useAuthContext()
+  ├── ThemeContext.tsx  (207L)
+  │   def ThemeProvider({
+  children,
+  defaultTheme = 'light',
+  storageKey = 'app-theme',
+}: ThemeProviderProps)
+  │   def plyThemeToDocument =(wTheme: ThemeMode) )
+  │   def ggleTheme =()
+  │   def tTheme =(wTheme: ThemeMode) )
+  │   def ThemeColor = (orDef: ColorDefinition): ) -> tring =>
+  │   def eme() {
+()
+  │   def meColor(color(ef: ColorDefinition): str) -> ng {
+  c
+
+src/hooks/api/
+  ├── index.ts  (8L)
+  ├── useAuth.ts  (135L)
+  │   def useAuth()
+  │   async def c (cr( LoginInput): Promise<b) -> olean> => {
+    tr
+  │   async def gisterIn(ise<boolean> => {
+ ) -> try {
+      setE
+  │   async def <void>() -> ry {
+      awai
+  │   async def a: UpdateProf( Promise<boolean> => {
+ ) -> try {
+      setE
+  │   async def ta: ChangePass(: Promise<boolean> => {
+ ) -> try {
+      setE
+  ├── useDashboard.ts  (163L)
+  │   def useDashboard()
+  │   def useFinancialSummary()
+  │   def useRecentTransactions(limit: number = 10)
+  │   def eCategorySpending(p()
+  │   def eMonthlyTrend(m(nths: number = 6) )
+  ├── useExpenses.ts  (149L)
+  │   def useExpenses()
+  │   async def createExpense(data: CreateExpenseInput) -> Promise<Expense | null>
+  │   async def updateExpense(id: string, data: UpdateExpenseInput) -> Promise<Expense | null>
+  │   async def deleteExpense(id: string) -> Promise<boolean>
+  │   def useExpenseStats()
+  │   def seExpense((d: string))
+  ├── useInvestments.ts  (204L)
+  │   def useInvestments()
+  │   async def createInvestment(data: CreateInvestmentInput) -> Promise<Investment | null>
+  │   async def updateInvestment(id: string, data: UpdateInvestmentInput) -> Promise<Investment | null>
+  │   async def deleteInvestment(id: string) -> Promise<boolean>
+  │   async def updateCurrentValue(id: string, currentValue: number) -> Promise<boolean>
+  │   def useInvestmentStats()
+  │   def seInvestment((d: string))
+  │   def seInvestmentHistory((d: string))
+  ├── usePaymentMethods.ts  (140L)
+  │   def usePaymentMethods()
+  │   async def reatePaymentMethod (ata: CreatePaymentMethodInput
+) -> Promise<PaymentMethod | null>
+  │   async def datePaymentMethod =(: string,
+, ta: UpdatePaymentMethodInput
+ ) -> Promise<PaymentMethod | null> =
+  │   async def etePaymentMethod = ( string): ) -> romise<boolean> =>
+  │   async def efaultPaymentMethod = a(string): P) -> omise<boolean> =>
+  │   def mentMethod(id: s(ring) {
+  )
+  ├── useRecurringExpenses.ts  (181L)
+  │   def useRecurringExpenses()
+  │   async def createRecurringExpense(data: CreateRecurringExpenseInput) -> Promise<RecurringExpense | null>
+  │   async def ecurringExpense = asyn(ing,
+    d, pdateRecurringExpenseInput
+  ): P) -> se<RecurringExpense | null> => {
+  │   async def ecurringExpense = asyn(ing): Prom) -> se<boolean> => {
+  │   async def ctive = asyn(ing): Prom) -> se<boolean> => {
+  │   async def eExpenses = asyn(ing,
+    p) -> se<{ success: boolean; message?: string }> => {
+  │   def rringExpense(id: st(ing) {
+  c)
+
+src/lib/
+  ├── utils.ts  (4L)
+  │   def cn(...classes: (string | undefined | null | false)[])
+
+src/lib/api/
+  ├── auth.api.ts  (109L)
+  ├── client.ts  (72L)
+  │   def CamelCase(s(r: string):) -> string {
+  │   def ertKeysToCamelCase(obj( any): a) -> y {
+  ├── dashboard.api.ts  (59L)
+  ├── expenses.api.ts  (74L)
+  ├── index.ts  (9L)
+  ├── investments.api.ts  (82L)
+  ├── payment-methods.api.ts  (60L)
+  ├── recurring-expenses.api.ts  (139L)
+  │   def toSnakeCase(obj: any) -> any
+  │   def letter()
+  │   def amelCase = (: any): ) -> ny =>
+
+src/lib/schemas/
+  ├── auth.schema.ts  (61L)
+  ├── dashboard.schema.ts  (55L)
+  ├── expense.schema.ts  (147L)
+  ├── investment.schema.ts  (78L)
+
+src/lib/styles/
+  ├── colors.ts  (349L)
+  │   def olorDef:(ColorDefinition, theme: T, meMode): string ) -> retur

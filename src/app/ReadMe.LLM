@@ -1,0 +1,345 @@
+# ReadMe.LLM — src/app/
+
+> Machine-readable module documentation for `c78376b9-8226-41cb-81f0-b8965c672ee0`
+> Generated: 2026-03-26
+
+---
+
+## Module Summary
+
+- **Files:** 30
+- **Functions:** 77
+- **Classes:** 0
+- **Language:** TypeScript
+
+### Files
+
+- `CategoryBreakdown.tsx`
+- `ExpenseForm.tsx`
+- `ExpenseList.tsx`
+- `ExpenseStats.tsx`
+- `InvestmentForm.tsx`
+- `InvestmentList.tsx`
+- `InvestmentStats.tsx`
+- `PaymentMethodCard.tsx`
+- `PaymentMethodForm.tsx`
+- `PeriodSelector.tsx`
+- `RecurringExpenseCard.tsx`
+- `RecurringExpenseForm.tsx`
+- `layout.tsx`
+- `layout.tsx`
+- `layout.tsx`
+- `page.tsx`
+- `page.tsx`
+- `page.tsx`
+- `page.tsx`
+- `page.tsx`
+- `page.tsx`
+- `page.tsx`
+- `page.tsx`
+- `page.tsx`
+- `page.tsx`
+- `page.tsx`
+- `page.tsx`
+- `page.tsx`
+- `page.tsx`
+- `types.ts`
+
+---
+
+## Signatures
+
+### `page.tsx`
+
+| Function | Params | Returns | Async |
+|----------|--------|---------|-------|
+| `StatCard` | `{ title, value, change, icon: Icon, isPositive = true }: StatCardProps` | `None` |  |
+| `DashboardPage` | `` | `None` |  |
+| `formatCurrency` | `value: number` | `None` |  |
+| `formatPercentage` | `value: number` | `None` |  |
+
+### `CategoryBreakdown.tsx`
+
+| Function | Params | Returns | Async |
+|----------|--------|---------|-------|
+| `CategoryBreakdown` | `{ expenses }: CategoryBreakdownProps` | `None` |  |
+| `formatCurrency` | `value: number` | `None` |  |
+
+### `ExpenseForm.tsx`
+
+| Function | Params | Returns | Async |
+|----------|--------|---------|-------|
+| `ExpenseForm` | `{ onSubmit, onCancel, defaultDate }: ExpenseFormProps` | `None` |  |
+| `Submit = (e:` | `ct.FormEvent) => {` | `None` |  |
+
+### `ExpenseList.tsx`
+
+| Function | Params | Returns | Async |
+|----------|--------|---------|-------|
+| `ExpenseList` | `{ expenses, onDelete }: ExpenseListProps` | `None` |  |
+| `formatCurrency` | `value: number` | `None` |  |
+| `formatDate` | `dateString: string` | `None` |  |
+
+### `ExpenseStats.tsx`
+
+| Function | Params | Returns | Async |
+|----------|--------|---------|-------|
+| `ExpenseStats` | `{ expenses }: ExpenseStatsProps` | `None` |  |
+| `formatCurrency` | `value: number` | `None` |  |
+| `day` | `` | `None` |  |
+| `exp` | `` | `None` |  |
+
+### `PaymentMethodCard.tsx`
+
+| Function | Params | Returns | Async |
+|----------|--------|---------|-------|
+| `PaymentMethodCard` | `{ method, onDelete, onSetDefault }: PaymentMethodCardProps` | `None` |  |
+| `getMethodTypeLabel` | `` | `None` |  |
+
+### `PaymentMethodForm.tsx`
+
+| Function | Params | Returns | Async |
+|----------|--------|---------|-------|
+| `PaymentMethodForm` | `{ onSubmit, onCancel }: PaymentMethodFormProps` | `None` |  |
+| `leSubmit = (` | `eact.FormEvent) =>` | `None` |  |
+
+### `PeriodSelector.tsx`
+
+| Function | Params | Returns | Async |
+|----------|--------|---------|-------|
+| `PeriodSelector` | `{ period, onPeriodChange }: PeriodSelectorProps` | `None` |  |
+
+### `RecurringExpenseCard.tsx`
+
+| Function | Params | Returns | Async |
+|----------|--------|---------|-------|
+| `RecurringExpenseCard` | `{ expense, onDelete, onToggleActive }: RecurringExpenseCardProps` | `None` |  |
+| `getFrequencyLabel` | `` | `None` |  |
+| `getPaymentMethodLabel` | `` | `None` |  |
+| `tCurrency = (v` | `: number) => ` | `None` |  |
+| `tDate = (d` | `tring: string) => ` | `None` |  |
+
+### `RecurringExpenseForm.tsx`
+
+| Function | Params | Returns | Async |
+|----------|--------|---------|-------|
+| `RecurringExpenseForm` | `{ onSubmit, onCancel }: RecurringExpenseFormProps` | `None` |  |
+| ` = (e: React` | `mEvent) => {
+    e` | `None` |  |
+
+### `page.tsx`
+
+| Function | Params | Returns | Async |
+|----------|--------|---------|-------|
+| `ExpensesOverviewPage` | `` | `None` |  |
+| `getDateRange` | `period: Period` | `None` |  |
+| `re` | `` | `None` |  |
+| `formatCurrency` | `value: number` | `None` |  |
+
+### `page.tsx`
+
+| Function | Params | Returns | Async |
+|----------|--------|---------|-------|
+| `ExpensesPage` | `` | `None` |  |
+| `formatCurrency` | `value: number` | `None` |  |
+| `re` | `` | `None` |  |
+
+### `page.tsx`
+
+| Function | Params | Returns | Async |
+|----------|--------|---------|-------|
+| `PaymentMethodsPage` | `` | `None` |  |
+| `handleAddPaymentMethod` | `method: Omit<PaymentMethod, 'id'>` | `None` |  |
+| `handleDeletePaymentMethod` | `id: string` | `None` |  |
+| `method` | `` | `None` |  |
+| `handleSetDefault` | `id: string` | `None` |  |
+| `method` | `` | `None` |  |
+| `m` | `` | `None` |  |
+| `m` | `` | `None` |  |
+| `m` | `` | `None` |  |
+
+### `page.tsx`
+
+| Function | Params | Returns | Async |
+|----------|--------|---------|-------|
+| `RecurringExpensesPage` | `` | `None` |  |
+| `handleAddRecurringExpense` | `expense: CreateRecurringExpenseInput` | `None` | ✓ |
+| `leteRecurringExpense = async` | `ng) => {
+ ` | `None` | ✓ |
+| `ggleActive = async` | `ng) => {
+ ` | `None` | ✓ |
+
+### `page.tsx`
+
+| Function | Params | Returns | Async |
+|----------|--------|---------|-------|
+| `TransactionsPage` | `` | `None` |  |
+| `handleAddExpense` | `expenseData: CreateExpenseInput` | `None` | ✓ |
+| `handleDeleteExpense` | `id: string` | `None` | ✓ |
+| `handleDateSelect` | `date: Date` | `None` |  |
+| `handleAddExpenseFromCalendar` | `date: Date` | `None` |  |
+| `expense` | `` | `None` |  |
+
+### `InvestmentForm.tsx`
+
+| Function | Params | Returns | Async |
+|----------|--------|---------|-------|
+| `InvestmentForm` | `{ onSubmit, onCancel }: InvestmentFormProps` | `None` |  |
+| `ndleSubmit =` | ` React.FormEvent) ` | `None` |  |
+
+### `InvestmentList.tsx`
+
+| Function | Params | Returns | Async |
+|----------|--------|---------|-------|
+| `InvestmentList` | `{ investments, onDelete }: InvestmentListProps` | `None` |  |
+| `formatCurrency` | `value: number` | `None` |  |
+| `formatDate` | `dateString: string` | `None` |  |
+| `calculateProfit` | `investment: Investment` | `None` |  |
+
+### `InvestmentStats.tsx`
+
+| Function | Params | Returns | Async |
+|----------|--------|---------|-------|
+| `InvestmentStats` | `{ investments }: InvestmentStatsProps` | `None` |  |
+| `formatCurrency` | `value: number` | `None` |  |
+
+### `page.tsx`
+
+| Function | Params | Returns | Async |
+|----------|--------|---------|-------|
+| `InvestmentsPage` | `` | `None` |  |
+| `handleAddInvestment` | `investmentData: CreateInvestmentInput` | `None` | ✓ |
+| `handleDeleteInvestment` | `id: string` | `None` | ✓ |
+
+### `layout.tsx`
+
+| Function | Params | Returns | Async |
+|----------|--------|---------|-------|
+| `AuthLayoutContent` | `{ children }: { children: React.ReactNode }` | `None` |  |
+| `uthLayout(` | `
+  children,
+}: {
+  children: React.ReactNode
+})` | `None` |  |
+
+### `page.tsx`
+
+| Function | Params | Returns | Async |
+|----------|--------|---------|-------|
+| `SettingsPage` | `` | `None` |  |
+
+### `page.tsx`
+
+| Function | Params | Returns | Async |
+|----------|--------|---------|-------|
+| `AboutPage` | `` | `None` |  |
+
+### `page.tsx`
+
+| Function | Params | Returns | Async |
+|----------|--------|---------|-------|
+| `ContactPage` | `` | `None` |  |
+
+### `layout.tsx`
+
+| Function | Params | Returns | Async |
+|----------|--------|---------|-------|
+| `PublicLayout` | `{
+  children,
+}: {
+  children: React.ReactNode
+}` | `None` |  |
+
+### `page.tsx`
+
+| Function | Params | Returns | Async |
+|----------|--------|---------|-------|
+| `LiquidGlassDemoPage` | `` | `None` |  |
+
+### `page.tsx`
+
+| Function | Params | Returns | Async |
+|----------|--------|---------|-------|
+| `LoginPage` | `` | `None` |  |
+| `ubmit = asyn` | `t.FormEvent) => {
+` | `None` | ✓ |
+
+### `page.tsx`
+
+| Function | Params | Returns | Async |
+|----------|--------|---------|-------|
+| `RegisterPage` | `` | `None` |  |
+| `andleSubmit ` | `: React.FormEvent)` | `None` | ✓ |
+
+### `layout.tsx`
+
+| Function | Params | Returns | Async |
+|----------|--------|---------|-------|
+| `RootLayout` | `{
+  children,
+}: {
+  children: React.ReactNode
+}` | `None` |  |
+
+### `page.tsx`
+
+| Function | Params | Returns | Async |
+|----------|--------|---------|-------|
+| `Home` | `` | `None` |  |
+
+---
+
+## Dependencies
+
+### This module imports from:
+- `CategoryBreakdown.tsx` → `src/lib/styles/colors.ts`
+- `ExpenseForm.tsx` → `src/lib/styles/colors.ts`
+- `ExpenseList.tsx` → `src/lib/styles/colors.ts`
+- `ExpenseStats.tsx` → `src/lib/styles/colors.ts`
+- `InvestmentForm.tsx` → `src/lib/schemas/investment.schema.ts`
+- `InvestmentForm.tsx` → `src/lib/styles/colors.ts`
+- `InvestmentList.tsx` → `src/lib/styles/colors.ts`
+- `InvestmentStats.tsx` → `src/lib/styles/colors.ts`
+- `PaymentMethodCard.tsx` → `src/lib/styles/colors.ts`
+- `PaymentMethodForm.tsx` → `src/lib/styles/colors.ts`
+- `PeriodSelector.tsx` → `src/lib/styles/colors.ts`
+- `RecurringExpenseCard.tsx` → `src/lib/schemas/expense.schema.ts`
+- `RecurringExpenseCard.tsx` → `src/lib/styles/colors.ts`
+- `RecurringExpenseForm.tsx` → `src/lib/schemas/expense.schema.ts`
+- `RecurringExpenseForm.tsx` → `src/lib/styles/colors.ts`
+- `layout.tsx` → `src/lib/styles/colors.ts`
+- `page.tsx` → `src/hooks/api/useDashboard.ts`
+- `page.tsx` → `src/hooks/api/useExpenses.ts`
+- `page.tsx` → `src/hooks/api/useInvestments.ts`
+- `page.tsx` → `src/hooks/api/usePaymentMethods.ts`
+- `page.tsx` → `src/hooks/api/useRecurringExpenses.ts`
+- `page.tsx` → `src/lib/schemas/expense.schema.ts`
+- `page.tsx` → `src/lib/schemas/investment.schema.ts`
+- `page.tsx` → `src/lib/styles/colors.ts`
+
+---
+
+## Module Structure
+
+```mermaid
+flowchart TB
+    subgraph src_app["src/app/"]
+        src_app_layout_tsx["layout.tsx (1F)"]
+        src_app_page_tsx["page.tsx (1F)"]
+        src_app_layout_tsx["layout.tsx (2F)"]
+        src_app_layout_tsx["layout.tsx (1F)"]
+        src_app_page_tsx["page.tsx (2F)"]
+        src_app_page_tsx["page.tsx (2F)"]
+        src_app_page_tsx["page.tsx (1F)"]
+        src_app_page_tsx["page.tsx (1F)"]
+        src_app_page_tsx["page.tsx (1F)"]
+        src_app_page_tsx["page.tsx (1F)"]
+        src_app_page_tsx["page.tsx (3F)"]
+        src_app_page_tsx["page.tsx (3F)"]
+    end
+```
+
+---
+
+
+*Generated by Code-In Agent — 2026-03-26*

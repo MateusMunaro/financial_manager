@@ -1,0 +1,157 @@
+# ReadMe.LLM — src/lib/
+
+> Machine-readable module documentation for `c78376b9-8226-41cb-81f0-b8965c672ee0`
+> Generated: 2026-03-26
+
+---
+
+## Module Summary
+
+- **Files:** 14
+- **Functions:** 7
+- **Classes:** 0
+- **Language:** TypeScript
+
+### Files
+
+- `auth.api.ts`
+- `auth.schema.ts`
+- `client.ts`
+- `colors.ts`
+- `dashboard.api.ts`
+- `dashboard.schema.ts`
+- `expense.schema.ts`
+- `expenses.api.ts`
+- `index.ts`
+- `investment.schema.ts`
+- `investments.api.ts`
+- `payment-methods.api.ts`
+- `recurring-expenses.api.ts`
+- `utils.ts`
+
+---
+
+## Signatures
+
+### `client.ts`
+
+| Function | Params | Returns | Async |
+|----------|--------|---------|-------|
+| `CamelCase(s` | `r: string):` | `string {` |  |
+| `ertKeysToCamelCase(obj` | ` any): a` | `y {` |  |
+
+### `recurring-expenses.api.ts`
+
+| Function | Params | Returns | Async |
+|----------|--------|---------|-------|
+| `toSnakeCase` | `obj: any` | `any` |  |
+| `letter` | `` | `None` |  |
+| `amelCase = ` | `: any): ` | `ny =>` |  |
+
+### `colors.ts`
+
+| Function | Params | Returns | Async |
+|----------|--------|---------|-------|
+| `olorDef:` | `ColorDefinition, theme: T, meMode): string ` | `retur` |  |
+
+### `utils.ts`
+
+| Function | Params | Returns | Async |
+|----------|--------|---------|-------|
+| `cn` | `...classes: (string | undefined | null | false)[]` | `None` |  |
+
+---
+
+## Dependencies
+
+### Imported by:
+- `src/hooks/api/useAuth.ts` → `auth.api.ts`
+- `src/context/AuthContext.tsx` → `auth.schema.ts`
+- `src/hooks/api/useAuth.ts` → `auth.schema.ts`
+- `src/app/(auth)/dashboard/page.tsx` → `colors.ts`
+- `src/app/(auth)/expenses/_components/CategoryBreakdown.tsx` → `colors.ts`
+- `src/app/(auth)/expenses/_components/ExpenseForm.tsx` → `colors.ts`
+- `src/app/(auth)/expenses/_components/ExpenseList.tsx` → `colors.ts`
+- `src/app/(auth)/expenses/_components/ExpenseStats.tsx` → `colors.ts`
+- `src/app/(auth)/expenses/_components/PaymentMethodCard.tsx` → `colors.ts`
+- `src/app/(auth)/expenses/_components/PaymentMethodForm.tsx` → `colors.ts`
+- `src/app/(auth)/expenses/_components/PeriodSelector.tsx` → `colors.ts`
+- `src/app/(auth)/expenses/_components/RecurringExpenseCard.tsx` → `colors.ts`
+- `src/app/(auth)/expenses/_components/RecurringExpenseForm.tsx` → `colors.ts`
+- `src/app/(auth)/expenses/overview/page.tsx` → `colors.ts`
+- `src/app/(auth)/expenses/page.tsx` → `colors.ts`
+- `src/app/(auth)/expenses/payment-methods/page.tsx` → `colors.ts`
+- `src/app/(auth)/expenses/recurring/page.tsx` → `colors.ts`
+- `src/app/(auth)/expenses/transactions/page.tsx` → `colors.ts`
+- `src/app/(auth)/investments/_components/InvestmentForm.tsx` → `colors.ts`
+- `src/app/(auth)/investments/_components/InvestmentList.tsx` → `colors.ts`
+- `src/app/(auth)/investments/_components/InvestmentStats.tsx` → `colors.ts`
+- `src/app/(auth)/investments/page.tsx` → `colors.ts`
+- `src/app/(auth)/layout.tsx` → `colors.ts`
+- `src/app/(auth)/settings/page.tsx` → `colors.ts`
+- `src/app/(public)/login/page.tsx` → `colors.ts`
+- `src/app/(public)/register/page.tsx` → `colors.ts`
+- `src/components/ActivityChartCard.tsx` → `colors.ts`
+- `src/components/Button.tsx` → `colors.ts`
+- `src/components/Card.tsx` → `colors.ts`
+- `src/components/GlassCalendar.tsx` → `colors.ts`
+- `src/components/Input.tsx` → `colors.ts`
+- `src/components/LiquidGlassDemo.tsx` → `colors.ts`
+- `src/components/Modal.tsx` → `colors.ts`
+- `src/components/ProtectedRoute.tsx` → `colors.ts`
+- `src/components/PublicRoute.tsx` → `colors.ts`
+- `src/components/Sidebar.tsx` → `colors.ts`
+- `src/components/ThemeDemo.tsx` → `colors.ts`
+- `src/components/ThemeToggle.tsx` → `colors.ts`
+- `src/context/ThemeContext.tsx` → `colors.ts`
+- `src/hooks/api/useDashboard.ts` → `dashboard.api.ts`
+- `src/hooks/api/useDashboard.ts` → `dashboard.schema.ts`
+- `src/app/(auth)/expenses/_components/RecurringExpenseCard.tsx` → `expense.schema.ts`
+- `src/app/(auth)/expenses/_components/RecurringExpenseForm.tsx` → `expense.schema.ts`
+- `src/app/(auth)/expenses/overview/page.tsx` → `expense.schema.ts`
+- `src/app/(auth)/expenses/recurring/page.tsx` → `expense.schema.ts`
+- `src/app/(auth)/expenses/transactions/page.tsx` → `expense.schema.ts`
+- `src/hooks/api/useDashboard.ts` → `expense.schema.ts`
+- `src/hooks/api/useExpenses.ts` → `expense.schema.ts`
+- `src/hooks/api/usePaymentMethods.ts` → `expense.schema.ts`
+- `src/hooks/api/useRecurringExpenses.ts` → `expense.schema.ts`
+- `src/hooks/api/useExpenses.ts` → `expenses.api.ts`
+- `src/app/(auth)/investments/_components/InvestmentForm.tsx` → `investment.schema.ts`
+- `src/app/(auth)/investments/page.tsx` → `investment.schema.ts`
+- `src/hooks/api/useInvestments.ts` → `investment.schema.ts`
+- `src/hooks/api/useInvestments.ts` → `investments.api.ts`
+- `src/hooks/api/usePaymentMethods.ts` → `payment-methods.api.ts`
+- `src/hooks/api/useRecurringExpenses.ts` → `recurring-expenses.api.ts`
+
+---
+
+## Module Structure
+
+```mermaid
+flowchart TB
+    subgraph src_lib["src/lib/"]
+        src_lib_utils_ts["utils.ts (1F)"]
+        src_lib_auth_schema_ts["auth.schema.ts"]
+        src_lib_investment_schema_ts["investment.schema.ts"]
+        src_lib_expense_schema_ts["expense.schema.ts"]
+        src_lib_dashboard_schema_ts["dashboard.schema.ts"]
+        src_lib_colors_ts["colors.ts (1F)"]
+        src_lib_expenses_api_ts["expenses.api.ts"]
+        src_lib_payment_methods_api_["payment-methods.api.ts"]
+        src_lib_investments_api_ts["investments.api.ts"]
+        src_lib_recurring_expenses_a["recurring-expenses.api.ts (3F)"]
+        src_lib_auth_api_ts["auth.api.ts"]
+        src_lib_client_ts["client.ts (2F)"]
+        src_lib_dashboard_schema_ts --> src_lib_expense_schema_ts
+        src_lib_expenses_api_ts --> src_lib_client_ts
+        src_lib_payment_methods_api_ --> src_lib_client_ts
+        src_lib_investments_api_ts --> src_lib_client_ts
+        src_lib_recurring_expenses_a --> src_lib_client_ts
+        src_lib_auth_api_ts --> src_lib_client_ts
+    end
+```
+
+---
+
+
+*Generated by Code-In Agent — 2026-03-26*

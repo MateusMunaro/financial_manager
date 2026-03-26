@@ -1,0 +1,164 @@
+# ReadMe.LLM — src/hooks/
+
+> Machine-readable module documentation for `c78376b9-8226-41cb-81f0-b8965c672ee0`
+> Generated: 2026-03-26
+
+---
+
+## Module Summary
+
+- **Files:** 7
+- **Functions:** 38
+- **Classes:** 0
+- **Language:** TypeScript
+
+### Files
+
+- `index.ts`
+- `useAuth.ts`
+- `useDashboard.ts`
+- `useExpenses.ts`
+- `useInvestments.ts`
+- `usePaymentMethods.ts`
+- `useRecurringExpenses.ts`
+
+---
+
+## Signatures
+
+### `useAuth.ts`
+
+| Function | Params | Returns | Async |
+|----------|--------|---------|-------|
+| `useAuth` | `` | `None` |  |
+| `c (cr` | ` LoginInput): Promise<b` | `olean> => {
+    tr` | ✓ |
+| `gisterIn` | `ise<boolean> => {
+ ` | `try {
+      setE` | ✓ |
+| `<void>` | `` | `ry {
+      awai` | ✓ |
+| `a: UpdateProf` | ` Promise<boolean> => {
+ ` | `try {
+      setE` | ✓ |
+| `ta: ChangePass` | `: Promise<boolean> => {
+ ` | `try {
+      setE` | ✓ |
+
+### `useDashboard.ts`
+
+| Function | Params | Returns | Async |
+|----------|--------|---------|-------|
+| `useDashboard` | `` | `None` |  |
+| `useFinancialSummary` | `` | `None` |  |
+| `useRecentTransactions` | `limit: number = 10` | `None` |  |
+| `eCategorySpending(p` | `` | `None` |  |
+| `eMonthlyTrend(m` | `nths: number = 6) ` | `None` |  |
+
+### `useExpenses.ts`
+
+| Function | Params | Returns | Async |
+|----------|--------|---------|-------|
+| `useExpenses` | `` | `None` |  |
+| `createExpense` | `data: CreateExpenseInput` | `Promise<Expense | null>` | ✓ |
+| `updateExpense` | `id: string, data: UpdateExpenseInput` | `Promise<Expense | null>` | ✓ |
+| `deleteExpense` | `id: string` | `Promise<boolean>` | ✓ |
+| `useExpenseStats` | `` | `None` |  |
+| `seExpense(` | `d: string)` | `None` |  |
+
+### `useInvestments.ts`
+
+| Function | Params | Returns | Async |
+|----------|--------|---------|-------|
+| `useInvestments` | `` | `None` |  |
+| `createInvestment` | `data: CreateInvestmentInput` | `Promise<Investment | null>` | ✓ |
+| `updateInvestment` | `id: string, data: UpdateInvestmentInput` | `Promise<Investment | null>` | ✓ |
+| `deleteInvestment` | `id: string` | `Promise<boolean>` | ✓ |
+| `updateCurrentValue` | `id: string, currentValue: number` | `Promise<boolean>` | ✓ |
+| `useInvestmentStats` | `` | `None` |  |
+| `seInvestment(` | `d: string)` | `None` |  |
+| `seInvestmentHistory(` | `d: string)` | `None` |  |
+
+### `usePaymentMethods.ts`
+
+| Function | Params | Returns | Async |
+|----------|--------|---------|-------|
+| `usePaymentMethods` | `` | `None` |  |
+| `reatePaymentMethod ` | `ata: CreatePaymentMethodInput
+` | `Promise<PaymentMethod | null>` | ✓ |
+| `datePaymentMethod =` | `: string,
+, ta: UpdatePaymentMethodInput
+ ` | `Promise<PaymentMethod | null> =` | ✓ |
+| `etePaymentMethod = ` | ` string): ` | `romise<boolean> =>` | ✓ |
+| `efaultPaymentMethod = a` | `string): P` | `omise<boolean> =>` | ✓ |
+| `mentMethod(id: s` | `ring) {
+  ` | `None` |  |
+
+### `useRecurringExpenses.ts`
+
+| Function | Params | Returns | Async |
+|----------|--------|---------|-------|
+| `useRecurringExpenses` | `` | `None` |  |
+| `createRecurringExpense` | `data: CreateRecurringExpenseInput` | `Promise<RecurringExpense | null>` | ✓ |
+| `ecurringExpense = asyn` | `ing,
+    d, pdateRecurringExpenseInput
+  ): P` | `se<RecurringExpense | null> => {` | ✓ |
+| `ecurringExpense = asyn` | `ing): Prom` | `se<boolean> => {` | ✓ |
+| `ctive = asyn` | `ing): Prom` | `se<boolean> => {` | ✓ |
+| `eExpenses = asyn` | `ing,
+    p` | `se<{ success: boolean; message?: string }> => {` | ✓ |
+| `rringExpense(id: st` | `ing) {
+  c` | `None` |  |
+
+---
+
+## Dependencies
+
+### This module imports from:
+- `useAuth.ts` → `src/lib/api/auth.api.ts`
+- `useAuth.ts` → `src/lib/schemas/auth.schema.ts`
+- `useDashboard.ts` → `src/lib/api/dashboard.api.ts`
+- `useDashboard.ts` → `src/lib/schemas/dashboard.schema.ts`
+- `useDashboard.ts` → `src/lib/schemas/expense.schema.ts`
+- `useExpenses.ts` → `src/lib/api/expenses.api.ts`
+- `useExpenses.ts` → `src/lib/schemas/expense.schema.ts`
+- `useInvestments.ts` → `src/lib/api/investments.api.ts`
+- `useInvestments.ts` → `src/lib/schemas/investment.schema.ts`
+- `usePaymentMethods.ts` → `src/lib/api/payment-methods.api.ts`
+- `usePaymentMethods.ts` → `src/lib/schemas/expense.schema.ts`
+- `useRecurringExpenses.ts` → `src/lib/api/recurring-expenses.api.ts`
+- `useRecurringExpenses.ts` → `src/lib/schemas/expense.schema.ts`
+
+### Imported by:
+- `src/context/AuthContext.tsx` → `useAuth.ts`
+- `src/app/(auth)/dashboard/page.tsx` → `useDashboard.ts`
+- `src/app/(auth)/expenses/overview/page.tsx` → `useExpenses.ts`
+- `src/app/(auth)/expenses/page.tsx` → `useExpenses.ts`
+- `src/app/(auth)/expenses/transactions/page.tsx` → `useExpenses.ts`
+- `src/app/(auth)/investments/page.tsx` → `useInvestments.ts`
+- `src/app/(auth)/expenses/page.tsx` → `usePaymentMethods.ts`
+- `src/app/(auth)/expenses/overview/page.tsx` → `useRecurringExpenses.ts`
+- `src/app/(auth)/expenses/page.tsx` → `useRecurringExpenses.ts`
+- `src/app/(auth)/expenses/recurring/page.tsx` → `useRecurringExpenses.ts`
+
+---
+
+## Module Structure
+
+```mermaid
+flowchart TB
+    subgraph src_hooks["src/hooks/"]
+        src_hooks_useRecurringExpenses["useRecurringExpenses.ts (7F)"]
+        src_hooks_useAuth_ts["useAuth.ts (6F)"]
+        src_hooks_usePaymentMethods_ts["usePaymentMethods.ts (6F)"]
+        src_hooks_useExpenses_ts["useExpenses.ts (6F)"]
+        src_hooks_useDashboard_ts["useDashboard.ts (5F)"]
+        src_hooks_useInvestments_ts["useInvestments.ts (8F)"]
+        src_hooks_index_ts["index.ts"]
+    end
+```
+
+---
+
+
+*Generated by Code-In Agent — 2026-03-26*
